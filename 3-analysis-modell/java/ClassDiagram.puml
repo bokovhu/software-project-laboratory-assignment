@@ -1,7 +1,11 @@
 @startuml
 
 class Tile {
+    +life: int
+    +isFragile: boolean
 }
+
+Tile "0..n" -- Tile : +neighbours
 
 interface Updatable {
     +update (): void
@@ -22,6 +26,9 @@ abstract class Item {
     -placedOn: Tile
     +use (user: Animal): void
 }
+
+Tile <-- Item : -placedOn
+Item "0..1" -- Tile : -placedItem
 
 Updatable <|.. Animal
 Updatable <|.. Item
