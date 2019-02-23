@@ -94,6 +94,8 @@ Egy állat. Az állatok mindig egy csempén állnak, és tudnak mozogni egy szom
 #### Attribútumok
 
 * `Tile standingOn`: Az a csempe, amin az állat éppen áll
+* `Animal leaderAnimal`: Az állatot vezető állat.
+* `Animal guidedAnimal`: Az az állat, amit ez az állat vezet.
 
 #### Metódusok
 
@@ -356,6 +358,31 @@ Egy fotel. A fotel folyamatosan `SLEEPING` típusú hullámokat kelt a csempéj�
 #### Metódusok
 
 * `void update ()`: Minden híváskor `SLEEPING` típusú hullámot kelt a csempéjében, amennyiben még nem alszik panda benne. Ha már alszik egy panda a fotelben, a függvény nem csinál semmit.
+
+### 3.3.13 Panda
+
+#### Felelősség
+
+Egy panda. A pandák véletlenszerűen mozognak az emeleten, egészen addig, amíg egy állat el nem kezdi vezetni őket. Ezután követik a vezetőjüket. A pandák képesek reagálni a csempéjükön érzékelhető hullámokra annak függvényében, hogy milyen tulajdonsággal rendelkeznek. A (fáradékony) pandák le tudnak feküdni egy fotelbe aludni, ezután nem ébreszthetőek fel.
+
+#### Ősosztályok
+
+* `Animal`
+
+#### Interfészek
+
+* `Updatable`
+
+#### Attribútumok
+
+* `PandaTrait trait`: A panda tulajdonsága. Ez határozza meg, hogy az egyes hullámokra miként reagál egy adott panda.
+* `Couch sleepingIn`: Az a fotel, ahol a panda éppen alszik.
+
+#### Metódusok
+
+* `boolean reactToWave (Wave wave)`: Reagál egy adott hullámra. _IGAZ_ értékkel tér vissza, ha a tulajdonságai függvényében az adott panda valóban reagál a hullámra, _HAMIS_ értékkel, ha nem. A reakció okozta állapotváltozás is ebben a függvényben realizálódik (azaz ebben a függvényben ijed meg, ugrik, vagy tér nyugovóra a panda).
+* `void collideWithPanda (Animal panda)`: Egy másik pandával való összeütközést kezel. A függvény semmit sem teszt, hiszen csak az orángutánnal való ütközés generál állapotváltozást.
+* `void collideWithOrangutan (Animal orangutan)`: Egy orángutánnal való összeütközést kezel. Ekkor a `leaderAnimal` az adott orángután lesz, az orángután által előzőleg vezetett állat lesz a `guidedAnimal`, és a `guidedAnimal` `leaderAnimal`-ja lesz ez a panda.
 
 ## 3.4 Szekvencia diagramok
 
