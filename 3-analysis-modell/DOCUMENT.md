@@ -89,7 +89,7 @@ Egy állat. Az állatok mindig egy csempén állnak, és tudnak mozogni egy szom
 
 #### Interfészek
 
-* Updatable
+* `Updatable`
 
 #### Attribútumok
 
@@ -128,6 +128,98 @@ Egy csempe az emeleten. A csempéken egy időben állhat pontosan egy állat, é
 * `spawnWave (Wave wave)`: A paraméterként kapott hullámot közvetíti a szomszédos csempékre
 
 ### 3.3.3 Wave
+
+#### Felelősség
+
+Egy érzékelhető hullám. A hullámokat a pandák tudják érzékelni érzékszerveik segítségével, és attól függően vált ki belőlük bizonyos reakciót, hogy a pandák milyen tulajdonsággal rendelkeznek.
+
+#### Ősosztályok
+
+-
+
+#### Interfészek
+
+* `Updatable`
+
+#### Attribútumok
+
+* `Tile origin`: Az a csempe, ahonnan a hullám ered
+* `WaveType type`: Megadja a hullám típusát (a panda a különböző típusú hullámokra másképp reagál)
+* `int life`: Megadja a hullám “életét”. Egységidőnként csökken eggyel, és ha eléri a nullát, a hullám megszűnik létezni.
+
+#### Metódusok
+
+-
+
+### 3.3.4 Updatable _(interface)_
+
+#### Felelősség
+
+A frissíthető dolgokat egységidőnként frissíti a `Timer`.
+
+#### Ősosztályok
+
+-
+
+#### Interfészek
+
+-
+
+#### Attribútumok
+
+-
+
+#### Metódusok
+
+* `void update()`: Frissíti az adott dolgot
+
+### 3.3.5 WaveType _(enum)_
+
+#### Felelősség
+
+A hullámok lehetséges típusai.
+
+#### Ősosztályok
+
+-
+
+#### Interfészek
+
+-
+
+#### Attribútumok
+
+* `RINGING`: Az adott hullám egy játékgéptől eredő csillingelés
+* `BEEPING`: Az adott hullám egy csokiautomatától eredő sípolás
+* `SLEEPING`: Az adott hullám egy foteltől eredő álmosító hullám
+
+#### Metódusok
+
+-
+
+### 3.3.6 PandaTrait _(enum)_
+
+#### Felelősség
+
+A pandák lehetséges tulajdonságainak felsorolása.
+
+#### Ősosztályok
+
+-
+
+#### Interfészek
+
+-
+
+#### Attribútumok
+
+* `COWARD`: A panda egy _ijedős_ panda, azaz a játékgép csillingelésére megijed.
+* `JUMPY`: A panda egy _ugrálós_ panda, azaz a csokiautomata sípolására ugrik egyet.
+* `SLEEPY`: A panda egy _fáradékony_ panda, azaz ha egy elfoglalatlan fotel közelébe érkezik, ledől oda aludni.
+
+#### Metódusok
+
+-
 
 ## 3.4 Szekvencia diagramok
 
