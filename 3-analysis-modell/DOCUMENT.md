@@ -103,6 +103,8 @@ Egy állat. Az állatok mindig egy csempén állnak, és tudnak mozogni egy szom
 * `void collideWithPanda (Animal panda)`: Egy pandával való ütközést kezel
 * `void collideWithOrangutan (Animal orangutan)`: Egy orángutánnal való ütközést kezel
 * `void kill ()`: Megöli az állatot. Ekkor az állat egyben meg is szűnik létezni.
+* `void startLeading (Animal leader)`: Az adott állatot a paraméterként kapott állat elkezdi vezetni
+* `void stopLeading ()`: Az adott állat elveszti vezetőjét
 
 ### 3.3.2 Tile
 
@@ -383,6 +385,74 @@ Egy panda. A pandák véletlenszerűen mozognak az emeleten, egészen addig, am�
 * `boolean reactToWave (Wave wave)`: Reagál egy adott hullámra. _IGAZ_ értékkel tér vissza, ha a tulajdonságai függvényében az adott panda valóban reagál a hullámra, _HAMIS_ értékkel, ha nem. A reakció okozta állapotváltozás is ebben a függvényben realizálódik (azaz ebben a függvényben ijed meg, ugrik, vagy tér nyugovóra a panda).
 * `void collideWithPanda (Animal panda)`: Egy másik pandával való összeütközést kezel. A függvény semmit sem teszt, hiszen csak az orángutánnal való ütközés generál állapotváltozást.
 * `void collideWithOrangutan (Animal orangutan)`: Egy orángutánnal való összeütközést kezel. Ekkor a `leaderAnimal` az adott orángután lesz, az orángután által előzőleg vezetett állat lesz a `guidedAnimal`, és a `guidedAnimal` `leaderAnimal`-ja lesz ez a panda.
+
+### 3.3.14 Orangutan
+
+#### Felelősség
+
+Egy orángután. Az orángutánt a játékos irányítja. Az orángután egy pandával való összeütközéskor elkezdi vezetni az ütközött pandát.
+
+#### Ősosztályok
+
+* `Animal`
+
+#### Interfészek
+
+* `Updatable`
+
+#### Attribútumok
+
+-
+
+#### Metódusok
+
+TODO: Itt kérdéses, hogy kell-e bármilyen függvényt felülírni.
+
+### 3.3.15 ExitTile
+
+#### Felelősség
+
+Egy kijárati csempe. Ezen a csempén található egy átjáró, és amikor egy állat rálép erre a csempére, az adott állat a bejárati csempén jelenik meg. A rálépő állat által vezetett állatláncért a játékos pontokat szerez, és az orángutánon kívül az összes vezetett állat a láncban megmenekül.
+
+#### Ősosztályok
+
+* `Tile`
+
+#### Interfészek
+
+-
+
+#### Attribútumok
+
+* `Portal portal`: A bejárati csempére vezető átjáró. Az átjáró másik oldala a bejárati csempén van, de a bejárati csempe azt az átjárót nem ismeri, így ez implicit módon egy "egyirányú" átjáró.
+
+#### Metódusok
+
+* `boolean accept (Animal animal)`: Mindig _IGAZ_ értékkel tér vissza. A rálépő állat vezetett láncáért pontokat ad a játékosnak, és a lépett állatot beviszi az átjárójába.
+
+### 3.3.16 Level
+
+#### Felelősség
+
+Az emelet. Az emeleten csempék találhatóak.
+
+#### Ősosztályok
+
+-
+
+#### Interfészek
+
+-
+
+#### Attribútumok
+
+* `Tile [] tiles`: Az emeleten található csempék
+* `Tile startTile`: A bejárat csempe
+* `ExitTile exitTile`: A kijárat csempe
+
+#### Metódusok
+
+-
 
 ## 3.4 Szekvencia diagramok
 
