@@ -77,7 +77,7 @@ Osztályok:
 * Csempe
 * Törékeny csempe: Csempe
 
-### 3.3.1 Animal
+### 3.3.1 Animal _(abstract)_
 
 #### Felelősség
 
@@ -89,17 +89,22 @@ Egy állat. Az állatok mindig egy csempén állnak, és tudnak mozogni egy szom
 
 #### Interfészek
 
-* Updatable
+* `Updatable`
 
 #### Attribútumok
 
 * `Tile standingOn`: Az a csempe, amin az állat éppen áll
+* `Animal leaderAnimal`: Az állatot vezető állat.
+* `Animal guidedAnimal`: Az az állat, amit ez az állat vezet.
 
 #### Metódusok
 
-* `void update()`: Az Updatable interface-ből származó függvény implementációja
+* `void update()`: Az `Updatable` interface-ből származó függvény implementációja
 * `void collideWithPanda (Animal panda)`: Egy pandával való ütközést kezel
 * `void collideWithOrangutan (Animal orangutan)`: Egy orángutánnal való ütközést kezel
+* `void kill ()`: Megöli az állatot. Ekkor az állat egyben meg is szűnik létezni.
+* `void startLeading (Animal leader)`: Az adott állatot a paraméterként kapott állat elkezdi vezetni
+* `void stopLeading ()`: Az adott állat elveszti vezetőjét
 
 ### 3.3.2 Tile
 
@@ -128,6 +133,326 @@ Egy csempe az emeleten. A csempéken egy időben állhat pontosan egy állat, é
 * `spawnWave (Wave wave)`: A paraméterként kapott hullámot közvetíti a szomszédos csempékre
 
 ### 3.3.3 Wave
+
+#### Felelősség
+
+Egy érzékelhető hullám. A hullámokat a pandák tudják érzékelni érzékszerveik segítségével, és attól függően vált ki belőlük bizonyos reakciót, hogy a pandák milyen tulajdonsággal rendelkeznek.
+
+#### Ősosztályok
+
+-
+
+#### Interfészek
+
+* `Updatable`
+
+#### Attribútumok
+
+* `Tile origin`: Az a csempe, ahonnan a hullám ered
+* `WaveType type`: Megadja a hullám típusát (a panda a különböző típusú hullámokra másképp reagál)
+* `int life`: Megadja a hullám “életét”. Egységidőnként csökken eggyel, és ha eléri a nullát, a hullám megszűnik létezni.
+
+#### Metódusok
+
+-
+
+### 3.3.4 Updatable _(interface)_
+
+#### Felelősség
+
+A frissíthető dolgokat egységidőnként frissíti a `Timer`.
+
+#### Ősosztályok
+
+-
+
+#### Interfészek
+
+-
+
+#### Attribútumok
+
+-
+
+#### Metódusok
+
+* `void update()`: Frissíti az adott dolgot
+
+### 3.3.5 WaveType _(enum)_
+
+#### Felelősség
+
+A hullámok lehetséges típusai.
+
+#### Ősosztályok
+
+-
+
+#### Interfészek
+
+-
+
+#### Attribútumok
+
+* `RINGING`: Az adott hullám egy játékgéptől eredő csillingelés
+* `BEEPING`: Az adott hullám egy csokiautomatától eredő sípolás
+* `SLEEPING`: Az adott hullám egy foteltől eredő álmosító hullám
+
+#### Metódusok
+
+-
+
+### 3.3.6 PandaTrait _(enum)_
+
+#### Felelősség
+
+A pandák lehetséges tulajdonságainak felsorolása.
+
+#### Ősosztályok
+
+-
+
+#### Interfészek
+
+-
+
+#### Attribútumok
+
+* `COWARD`: A panda egy _ijedős_ panda, azaz a játékgép csillingelésére megijed.
+* `JUMPY`: A panda egy _ugrálós_ panda, azaz a csokiautomata sípolására ugrik egyet.
+* `SLEEPY`: A panda egy _fáradékony_ panda, azaz ha egy elfoglalatlan fotel közelébe érkezik, ledől oda aludni.
+
+#### Metódusok
+
+-
+
+### 3.3.7 Portal
+
+#### Felelősség
+
+Egy átjáró. Az átjáró össze van kötve egy másik átjáróval, és minden átjáróhoz hozzá van rendelve az a csempe, ahol az átjáró van. Az átjárók segítségével lehet nem feltétlenül szomszédos csempére mozogni. A kijáraton és bejáraton találhatóak átjárók, melyek össze vannak kötve, így amikor egy állat kimegy a kijáraton, a bejáraton jelenik meg. A szekrényekben is van egy-egy átjáró, ezek a szekrény párjában lévő átjáróval vannak összekötve.
+
+#### Ősosztályok
+
+-
+
+#### Interfészek
+
+-
+
+#### Attribútumok
+
+* `Tile place`: Az a csempe, ahol az átjáró van
+* `Portal otherEnd`: Az átjáró másik vége
+
+#### Metódusok
+
+* `void enter (Animal animal)`: Átmozgatja az állatot az átjáró másik végén található csempére
+
+### 3.3.8 Item _(abstract)_
+
+#### Felelősség
+
+Egy, az emeleten elhelyezett _tárgy_. Minden tárgy az emelet valamely csempéjén van. Az állatok képesek a tárgyakat használni. Bizonyos tárgyak maguktól csinálnak dolgokat véletlenszerű időközönként.
+
+#### Ősosztályok
+
+-
+
+#### Interfészek
+
+* `Updatable`
+
+#### Attribútumok
+
+* `Tile placedOn`: Az a csempe, ahová a tárgy el van helyezve
+
+#### Metódusok
+
+* `void update ()`: Az `Updatable` interface-ből származó függvény implementációja. Lévén, hogy a tárgy egy nagyon általános fogalom, az alapértelmezett implementációja a függvénynek nem csinál semmit.
+* `void use (Animal user)`: Arra való, hogy egy állat "használja" (interakcióba lépjen) az adott tárggyal. A függvény egyetlen paramétere a használó állat
+
+### 3.3.9 Wardrobe
+
+#### Felelősség
+
+Egy szekrény. A szekrényeket jellemzi színük, minden színből pontosan kettő szekrény található a pályán. Amikor egy állat interakcióba lép egy szekrénnyel, az állat a szekrény ugyanolyan színű párjánál jelenik meg.
+
+#### Ősosztályok
+
+* `Item`
+
+#### Interfészek
+
+* `Updatable`
+
+#### Attribútumok
+
+* `Portal portal`: A szekrényhez tartozó átjáró. Az átjáró másik oldala az azonos színű szekrényben van.
+* `int color`: A szekrény színe
+
+#### Metódusok
+
+* `void use (Animal user)`: A használó állatot átküldi az átjáróján.
+
+### 3.3.10 GameMachine
+
+#### Felelősség
+
+Egy játékgép. A játékgép véletlenszerű időközönként csillingel, ekkor egy `RINGING` típusú hullámot kelt a csempéjében.
+
+#### Ősosztályok
+
+* `Item`
+
+#### Interfészek
+
+* `Updatable`
+
+#### Attribútumok
+
+-
+
+#### Metódusok
+
+* `void update ()`: Véletlenszerű időközönként `RINGING` típusú hullámot kelt a csempéjében.
+
+### 3.3.11 ChocolateVendingMachine
+
+#### Felelősség
+
+Egy csokiautomata. A csokiautomata véletlenszerű időközönként sípol, ekkor egy `BEEPING` típusú hullámot kelt a csempéjében.
+
+#### Ősosztályok
+
+* `Item`
+
+#### Interfészek
+
+* `Updatable`
+
+#### Attribútumok
+
+-
+
+#### Metódusok
+
+* `void update ()`: Véletlenszerű időközönként `BEEPING` típusú hullámot kelt a csempéjében.
+
+### 3.3.12 Couch
+
+#### Felelősség
+
+Egy fotel. A fotel folyamatosan `SLEEPING` típusú hullámokat kelt a csempéjében, ezzel csalogatva a közelben lévő pandákat. Egy panda akkor tud a fotelbe lefeküdni aludni, ha a fotel nincs még elfoglalva. Ha a fotel már el van foglalva, a fotel nem kelt semmilyen hullámot.
+
+#### Ősosztályok
+
+* `Item`
+
+#### Interfészek
+
+* `Updatable`
+
+#### Attribútumok
+
+* `Panda sleepingPanda`: A jelenleg a fotelben alvó panda.
+
+#### Metódusok
+
+* `void update ()`: Minden híváskor `SLEEPING` típusú hullámot kelt a csempéjében, amennyiben még nem alszik panda benne. Ha már alszik egy panda a fotelben, a függvény nem csinál semmit.
+
+### 3.3.13 Panda
+
+#### Felelősség
+
+Egy panda. A pandák véletlenszerűen mozognak az emeleten, egészen addig, amíg egy állat el nem kezdi vezetni őket. Ezután követik a vezetőjüket. A pandák képesek reagálni a csempéjükön érzékelhető hullámokra annak függvényében, hogy milyen tulajdonsággal rendelkeznek. A (fáradékony) pandák le tudnak feküdni egy fotelbe aludni, ezután nem ébreszthetőek fel.
+
+#### Ősosztályok
+
+* `Animal`
+
+#### Interfészek
+
+* `Updatable`
+
+#### Attribútumok
+
+* `PandaTrait trait`: A panda tulajdonsága. Ez határozza meg, hogy az egyes hullámokra miként reagál egy adott panda.
+* `Couch sleepingIn`: Az a fotel, ahol a panda éppen alszik.
+
+#### Metódusok
+
+* `boolean reactToWave (Wave wave)`: Reagál egy adott hullámra. _IGAZ_ értékkel tér vissza, ha a tulajdonságai függvényében az adott panda valóban reagál a hullámra, _HAMIS_ értékkel, ha nem. A reakció okozta állapotváltozás is ebben a függvényben realizálódik (azaz ebben a függvényben ijed meg, ugrik, vagy tér nyugovóra a panda).
+* `void collideWithPanda (Animal panda)`: Egy másik pandával való összeütközést kezel. A függvény semmit sem teszt, hiszen csak az orángutánnal való ütközés generál állapotváltozást.
+* `void collideWithOrangutan (Animal orangutan)`: Egy orángutánnal való összeütközést kezel. Ekkor a `leaderAnimal` az adott orángután lesz, az orángután által előzőleg vezetett állat lesz a `guidedAnimal`, és a `guidedAnimal` `leaderAnimal`-ja lesz ez a panda.
+
+### 3.3.14 Orangutan
+
+#### Felelősség
+
+Egy orángután. Az orángutánt a játékos irányítja. Az orángután egy pandával való összeütközéskor elkezdi vezetni az ütközött pandát.
+
+#### Ősosztályok
+
+* `Animal`
+
+#### Interfészek
+
+* `Updatable`
+
+#### Attribútumok
+
+-
+
+#### Metódusok
+
+TODO: Itt kérdéses, hogy kell-e bármilyen függvényt felülírni.
+
+### 3.3.15 ExitTile
+
+#### Felelősség
+
+Egy kijárati csempe. Ezen a csempén található egy átjáró, és amikor egy állat rálép erre a csempére, az adott állat a bejárati csempén jelenik meg. A rálépő állat által vezetett állatláncért a játékos pontokat szerez, és az orángutánon kívül az összes vezetett állat a láncban megmenekül.
+
+#### Ősosztályok
+
+* `Tile`
+
+#### Interfészek
+
+-
+
+#### Attribútumok
+
+* `Portal portal`: A bejárati csempére vezető átjáró. Az átjáró másik oldala a bejárati csempén van, de a bejárati csempe azt az átjárót nem ismeri, így ez implicit módon egy "egyirányú" átjáró.
+
+#### Metódusok
+
+* `boolean accept (Animal animal)`: Mindig _IGAZ_ értékkel tér vissza. A rálépő állat vezetett láncáért pontokat ad a játékosnak, és a lépett állatot beviszi az átjárójába.
+
+### 3.3.16 Level
+
+#### Felelősség
+
+Az emelet. Az emeleten csempék találhatóak.
+
+#### Ősosztályok
+
+-
+
+#### Interfészek
+
+-
+
+#### Attribútumok
+
+* `Tile [] tiles`: Az emeleten található csempék
+* `Tile startTile`: A bejárat csempe
+* `ExitTile exitTile`: A kijárat csempe
+
+#### Metódusok
+
+-
 
 ## 3.4 Szekvencia diagramok
 
