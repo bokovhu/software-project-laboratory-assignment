@@ -1,8 +1,13 @@
 @startuml
 
+skinparam classAttributeIconSize 0
+skinparam guillemet false
+
 class Tile {
     +life: int
     +isFragile: boolean
+    +accept (animal: Animal): boolean
+    +damage (): void
 }
 
 Tile "0..n" -- Tile : +neighbours
@@ -33,7 +38,10 @@ Item "0..1" -- Tile : -placedItem
 Updatable <|.. Animal
 Updatable <|.. Item
 
-class Level
+class Level {
+}
+
+Tile "0..n" *-- Level : tiles
 
 class Panda {
 }
@@ -45,7 +53,11 @@ Animal <|-- Panda
 Animal <|-- Orangutan
 
 class Couch {
+
 }
+
+Panda "0..1" -- Couch : -sleepingPanda
+Couch -- "0..1" Panda : -sleepingIn
 
 class GameMachine {
 }
@@ -61,7 +73,11 @@ Item <|-- GameMachine
 Item <|-- ChocolateVendingMachine
 Item <|-- Wardrobe
 
-class Portal
+class Portal {
+    +enter (animal: Animal): void
+}
 
+Portal <-- Portal : +otherEnd
+Tile <-- Portal: +place
 
 @enduml
