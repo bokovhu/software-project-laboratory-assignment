@@ -77,7 +77,7 @@ Osztályok:
 * Csempe
 * Törékeny csempe: Csempe
 
-### 3.3.1 Animal
+### 3.3.1 Animal _(abstract)_
 
 #### Felelősség
 
@@ -97,9 +97,10 @@ Egy állat. Az állatok mindig egy csempén állnak, és tudnak mozogni egy szom
 
 #### Metódusok
 
-* `void update()`: Az Updatable interface-ből származó függvény implementációja
+* `void update()`: Az `Updatable` interface-ből származó függvény implementációja
 * `void collideWithPanda (Animal panda)`: Egy pandával való ütközést kezel
 * `void collideWithOrangutan (Animal orangutan)`: Egy orángutánnal való ütközést kezel
+* `void kill ()`: Megöli az állatot. Ekkor az állat egyben meg is szűnik létezni.
 
 ### 3.3.2 Tile
 
@@ -220,6 +221,141 @@ A pandák lehetséges tulajdonságainak felsorolása.
 #### Metódusok
 
 -
+
+### 3.3.7 Portal
+
+#### Felelősség
+
+Egy átjáró. Az átjáró össze van kötve egy másik átjáróval, és minden átjáróhoz hozzá van rendelve az a csempe, ahol az átjáró van. Az átjárók segítségével lehet nem feltétlenül szomszédos csempére mozogni. A kijáraton és bejáraton találhatóak átjárók, melyek össze vannak kötve, így amikor egy állat kimegy a kijáraton, a bejáraton jelenik meg. A szekrényekben is van egy-egy átjáró, ezek a szekrény párjában lévő átjáróval vannak összekötve.
+
+#### Ősosztályok
+
+-
+
+#### Interfészek
+
+-
+
+#### Attribútumok
+
+* `Tile place`: Az a csempe, ahol az átjáró van
+* `Portal otherEnd`: Az átjáró másik vége
+
+#### Metódusok
+
+* `void enter (Animal animal)`: Átmozgatja az állatot az átjáró másik végén található csempére
+
+### 3.3.8 Item _(abstract)_
+
+#### Felelősség
+
+Egy, az emeleten elhelyezett _tárgy_. Minden tárgy az emelet valamely csempéjén van. Az állatok képesek a tárgyakat használni. Bizonyos tárgyak maguktól csinálnak dolgokat véletlenszerű időközönként.
+
+#### Ősosztályok
+
+-
+
+#### Interfészek
+
+* `Updatable`
+
+#### Attribútumok
+
+* `Tile placedOn`: Az a csempe, ahová a tárgy el van helyezve
+
+#### Metódusok
+
+* `void update ()`: Az `Updatable` interface-ből származó függvény implementációja. Lévén, hogy a tárgy egy nagyon általános fogalom, az alapértelmezett implementációja a függvénynek nem csinál semmit.
+* `void use (Animal user)`: Arra való, hogy egy állat "használja" (interakcióba lépjen) az adott tárggyal. A függvény egyetlen paramétere a használó állat
+
+### 3.3.9 Wardrobe
+
+#### Felelősség
+
+Egy szekrény. A szekrényeket jellemzi színük, minden színből pontosan kettő szekrény található a pályán. Amikor egy állat interakcióba lép egy szekrénnyel, az állat a szekrény ugyanolyan színű párjánál jelenik meg.
+
+#### Ősosztályok
+
+* `Item`
+
+#### Interfészek
+
+* `Updatable`
+
+#### Attribútumok
+
+* `Portal portal`: A szekrényhez tartozó átjáró. Az átjáró másik oldala az azonos színű szekrényben van.
+* `int color`: A szekrény színe
+
+#### Metódusok
+
+* `void use (Animal user)`: A használó állatot átküldi az átjáróján.
+
+### 3.3.10 GameMachine
+
+#### Felelősség
+
+Egy játékgép. A játékgép véletlenszerű időközönként csillingel, ekkor egy `RINGING` típusú hullámot kelt a csempéjében.
+
+#### Ősosztályok
+
+* `Item`
+
+#### Interfészek
+
+* `Updatable`
+
+#### Attribútumok
+
+-
+
+#### Metódusok
+
+* `void update ()`: Véletlenszerű időközönként `RINGING` típusú hullámot kelt a csempéjében.
+
+### 3.3.11 ChocolateVendingMachine
+
+#### Felelősség
+
+Egy csokiautomata. A csokiautomata véletlenszerű időközönként sípol, ekkor egy `BEEPING` típusú hullámot kelt a csempéjében.
+
+#### Ősosztályok
+
+* `Item`
+
+#### Interfészek
+
+* `Updatable`
+
+#### Attribútumok
+
+-
+
+#### Metódusok
+
+* `void update ()`: Véletlenszerű időközönként `BEEPING` típusú hullámot kelt a csempéjében.
+
+### 3.3.12 Couch
+
+#### Felelősség
+
+Egy fotel. A fotel folyamatosan `SLEEPING` típusú hullámokat kelt a csempéjében, ezzel csalogatva a közelben lévő pandákat. Egy panda akkor tud a fotelbe lefeküdni aludni, ha a fotel nincs még elfoglalva. Ha a fotel már el van foglalva, a fotel nem kelt semmilyen hullámot.
+
+#### Ősosztályok
+
+* `Item`
+
+#### Interfészek
+
+* `Updatable`
+
+#### Attribútumok
+
+* `Panda sleepingPanda`: A jelenleg a fotelben alvó panda.
+
+#### Metódusok
+
+* `void update ()`: Minden híváskor `SLEEPING` típusú hullámot kelt a csempéjében, amennyiben még nem alszik panda benne. Ha már alszik egy panda a fotelben, a függvény nem csinál semmit.
 
 ## 3.4 Szekvencia diagramok
 
