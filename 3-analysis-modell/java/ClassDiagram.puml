@@ -1,0 +1,60 @@
+@startuml
+
+class Tile {
+}
+
+interface Updatable {
+    +update (): void
+}
+
+abstract class Animal {
+    +startLeading (leader: Animal): void
+    +stopLeading (): void
+    +kill (): void
+    +moveTo (targetTile: Tile): void
+    +use (item: Item): void
+}
+
+Tile <-- Animal : -standingOn
+Animal "0..1" -- Tile : -currentAnimal
+
+abstract class Item {
+    -placedOn: Tile
+    +use (user: Animal): void
+}
+
+Updatable <|.. Animal
+Updatable <|.. Item
+
+class Level
+
+class Panda {
+}
+
+class Orangutan {
+}
+
+Animal <|-- Panda
+Animal <|-- Orangutan
+
+class Couch {
+}
+
+class GameMachine {
+}
+
+class ChocolateVendingMachine {
+}
+
+class Wardrobe {
+}
+
+Item <|-- Couch
+Item <|-- GameMachine
+Item <|-- ChocolateVendingMachine
+Item <|-- Wardrobe
+
+class Portal
+
+
+@enduml
