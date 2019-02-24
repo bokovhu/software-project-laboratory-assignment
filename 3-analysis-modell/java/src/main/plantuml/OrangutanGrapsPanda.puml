@@ -1,0 +1,21 @@
+@startuml
+participant "o : Orangutan" as o
+participant "p : Panda" as p
+participant "a: Panda" as a
+
+[-> o: collideWith(p)
+o-> p ++ : collideWithOrangutan(o)
+p->p ++ : startLeading(o)
+p->o: getGuidedAnimal()
+o-->p: a
+p->p ++ : setGuidedAnimal(a)
+p--> p -- :
+p->a ++ : setLeaderAnimal(p)
+a-->p --
+p->o: setGuidedAnimal(p)
+o-->p
+p-->p --
+p -->o --
+[<--o
+
+@enduml
