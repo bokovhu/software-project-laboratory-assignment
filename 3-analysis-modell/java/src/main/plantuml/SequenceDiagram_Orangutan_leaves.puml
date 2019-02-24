@@ -1,0 +1,20 @@
+@startuml
+
+skinparam classAttributeIconSize 0
+skinparam guillemet false
+
+participant "et : ExitTile" as et
+participant "o : Orangutan" as o
+participant "p : Portal" as p
+
+[-> et : accept(o)
+activate et
+et -> et ++ : getItem()
+et --> et -- : p
+
+et -> p ++ : enter(o)
+p --> et --
+[<-- et
+deactivate et
+
+@enduml
