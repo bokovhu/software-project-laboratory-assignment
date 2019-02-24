@@ -33,6 +33,8 @@ interface Updatable {
 
 class Timer <<singleton>> {
     +tick (): void
+    +add (updatable: Updatable): void
+    +remove (updatable: Updatable): void
 }
 
 class Game <<singleton>> {
@@ -41,6 +43,7 @@ class Game <<singleton>> {
 }
 
 class Level {
+    +removeAnimal (animal: Animal): void
 }
 
 class Tile {
@@ -49,6 +52,8 @@ class Tile {
     +accept (animal: Animal): boolean
     +damage (): void
     +spawnWave (wave: Wave): void
+    +addWave (wave: Wave): void
+    +removeWave (wave: Wave): void
 }
 
 class ExitTile {
@@ -125,6 +130,7 @@ Item <|-- Wardrobe
 
 Updatable "0..n" *-- Timer : updatables
 Tile "0..n" *-- Level : -tiles
+Animal "0..n" *-- Level : -animals
 Level "1" *-- Game: -level
 WaveType *-- Wave : +type
 PandaTrait *-- Panda : +trait

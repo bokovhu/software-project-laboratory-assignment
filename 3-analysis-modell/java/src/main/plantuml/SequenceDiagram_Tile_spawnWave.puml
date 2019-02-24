@@ -1,0 +1,27 @@
+@startuml
+
+skinparam classAttributeIconSize 0
+skinparam guillemet false
+
+participant "t : Tile" as t
+participant "w : Wave" as w
+participant "neighbour : Tile" as neighbour
+
+[-> t : spawnWave (w)
+activate t
+
+t -> w ++ : setOrigin (t)
+w --> t --
+
+loop for all neighbour : Tile
+
+    t -> neighbour ++ : addWave (w)
+
+    neighbour --> t --
+
+end
+
+[<-- t
+deactivate t
+
+@enduml

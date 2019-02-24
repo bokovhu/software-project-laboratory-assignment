@@ -1,0 +1,56 @@
+@startuml
+
+skinparam classAttributeIconSize 0
+skinparam guillemet false
+
+participant "a : Animal" as a
+participant "t : Tile" as t
+participant "currentAnimal : Animal" as currentAnimal
+participant "standingOn : Tile" as standingOn
+
+[-> a : moveTo (t)
+activate a
+
+a -> t ++ : accept (a)
+
+t -> t ++ : getCurrentAnimal ()
+t --> t -- : currentAnimal
+
+opt currentAnimal != null
+
+    t -> a ++ : collideWithAnimal (currentAnimal)
+    a --> t --
+
+    t --> a : false
+
+else
+
+    opt life == 0
+
+        t -> a ++ : kill ()
+        a --> t --
+
+        t --> a : true
+
+    end
+
+    t -> a ++ : getStandingOn ()
+    a --> t -- : standingOn
+
+    t -> standingOn ++ : setCurrentAnimal (null)
+    standingOn --> t --
+
+    t -> a ++ : setStandingOn (t)
+    a --> t --
+
+    t -> t ++ : setCurrentAnimal (a)
+    t --> t --
+
+    t --> a -- : true
+
+end
+
+[<-- a
+deactivate a
+
+@enduml

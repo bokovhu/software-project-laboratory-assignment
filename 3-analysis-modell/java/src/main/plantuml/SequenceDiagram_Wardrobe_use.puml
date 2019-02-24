@@ -1,0 +1,22 @@
+@startuml
+
+skinparam classAttributeIconSize 0
+skinparam guillemet false
+
+participant "w : Wardrobe" as w
+participant "a : Animal" as a
+participant "p : Portal" as p
+
+[-> w : use (a)
+activate w
+
+w -> w ++ : getPortal ()
+w --> w -- : p
+
+w -> p ++ : enter (a)
+p --> w --
+
+[<-- w
+deactivate w
+
+@enduml
