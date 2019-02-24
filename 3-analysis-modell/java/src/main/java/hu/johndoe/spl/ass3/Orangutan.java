@@ -2,6 +2,7 @@ package hu.johndoe.spl.ass3;
 
 public class Orangutan extends Animal {
 
+
     @Override
     public void collideWithAnimal (Animal animal) {
 
@@ -13,5 +14,7 @@ public class Orangutan extends Animal {
     public void update () {
 
     }
+
+
 
 }

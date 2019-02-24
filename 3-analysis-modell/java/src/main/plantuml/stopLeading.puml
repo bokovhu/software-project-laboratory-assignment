@@ -1,0 +1,24 @@
+@startuml
+participant "p : Panda" as p
+participant "a : Panda" as a
+participant "b: Panda" as b
+
+note left of p #FFAEAB
+a = p.LeaderAnimal
+b = p.GuidedAnimal
+
+endnote
+
+[-> p : stopLeading()
+p->a ++ : setGuidedAnimal(NULL)
+a-->p --
+p->p ++: setLeaderAnimal(NULL)
+p-->p --
+p->b ++ : stopLeading()
+b-->p --
+[<--p
+
+
+
+
+@enduml
