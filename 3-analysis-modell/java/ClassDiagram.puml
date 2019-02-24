@@ -3,17 +3,54 @@
 skinparam classAttributeIconSize 0
 skinparam guillemet false
 
+' =====
+' Enums
+' =====
+
+enum WaveType {
+    RINGING
+    BEEPING
+    SLEEPING
+}
+
+enum PandaTrait {
+    COWARD
+    JUMPY
+    SLEEPY
+}
+
+' ==========
+' Interfaces
+' ==========
+
+interface Updatable {
+    +update (): void
+}
+
+' =======
+' Classes
+' =======
+
+class Timer <<singleton>> {
+    +tick (): void
+}
+
+class Game <<singleton>> {
+    +gameOver (): void
+}
+
+class Level {
+}
+
 class Tile {
     +life: int
     +isFragile: boolean
     +accept (animal: Animal): boolean
     +damage (): void
+    +spawnWave (wave: Wave): void
 }
 
-Tile "0..n" -- Tile : +neighbours
-
-interface Updatable {
-    +update (): void
+class ExitTile {
 }
 
 abstract class Animal {
@@ -22,62 +59,104 @@ abstract class Animal {
     +kill (): void
     +moveTo (targetTile: Tile): void
     +use (item: Item): void
+    +update (): void
 }
-
-Tile <-- Animal : -standingOn
-Animal "0..1" -- Tile : -currentAnimal
 
 abstract class Item {
     -placedOn: Tile
     +use (user: Animal): void
+    +update (): void
 }
 
-Tile <-- Item : -placedOn
-Item "0..1" -- Tile : -placedItem
+class Panda {
+    +collideWithAnimal (animal: Animal): void
+    +collideWithOrangutan (orangutan: Animal): void
+    -reactToWave (wave: Wave): boolean
+}
+
+class Orangutan {
+    +collideWithAnimal (animal: Animal): void
+}
+
+class Couch {
+    +use (user: Animal): void
+    +update (): void
+}
+
+class GameMachine {
+    +update (): void
+}
+
+class ChocolateVendingMachine {
+    +update (): void
+}
+
+class Wardrobe {
+    +use (user: Animal): void
+}
+
+class Portal {
+    +enter (animal: Animal): void
+}
+
+class Wave {
+    +life: int
+}
+
+' ===========
+' Inheritance
+' ===========
 
 Updatable <|.. Animal
 Updatable <|.. Item
 
-class Level {
-}
-
-Tile "0..n" *-- Level : tiles
-
-class Panda {
-}
-
-class Orangutan {
-}
-
 Animal <|-- Panda
 Animal <|-- Orangutan
-
-class Couch {
-
-}
-
-Panda "0..1" -- Couch : -sleepingPanda
-Couch -- "0..1" Panda : -sleepingIn
-
-class GameMachine {
-}
-
-class ChocolateVendingMachine {
-}
-
-class Wardrobe {
-}
 
 Item <|-- Couch
 Item <|-- GameMachine
 Item <|-- ChocolateVendingMachine
 Item <|-- Wardrobe
 
-class Portal {
-    +enter (animal: Animal): void
-}
+' ============
+' Compositions
+' ============
+
+Updatable "0..n" *-- Timer : updatables
+Tile "0..n" *-- Level : -tiles
+Level "1" *-- Game: -level
+WaveType *-- Wave : +type
+PandaTrait *-- Panda : +trait
+
+' ============
+' Associations
+' ============
+
+Tile "0..n" -- Tile : +neighbours
+
+Tile <-- Animal : -standingOn
+Animal "0..1" -- Tile : -currentAnimal
+
+Animal "0..1" <-- Animal : leaderAnimal
+Animal "0..1" <-- Animal : guidedAnimal
+
+Tile <-- Item : -placedOn
+Item "0..1" -- Tile : -placedItem
+
+Panda "0..1" -- Couch : -sleepingPanda
+Couch -- "0..1" Panda : -sleepingIn
+
+Tile <-- Wave : +origin
 
 Portal <-- Portal : +otherEnd
-Tile <-- Portal: +place
+Tile <-- Portal : +place
+
+Portal <-- ExitTile : -portal
+Portal <-- Wardrobe : -portal
+
+Timer <.. Game
+
+Tile <-- Level : +startTile
+ExitTile <-- Level : +exitTile
 
 @enduml
