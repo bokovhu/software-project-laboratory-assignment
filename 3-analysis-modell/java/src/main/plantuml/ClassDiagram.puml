@@ -37,6 +37,7 @@ class Timer <<singleton>> {
 
 class Game <<singleton>> {
     +gameOver (): void
+    +tick (): void
 }
 
 class Level {
