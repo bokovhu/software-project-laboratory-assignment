@@ -1,0 +1,8 @@
+@startuml
+hide empty description
+
+[*] --> Free
+Free --> Taken : sit
+Free --> [*] : end
+Taken --> [*] : end
+@enduml

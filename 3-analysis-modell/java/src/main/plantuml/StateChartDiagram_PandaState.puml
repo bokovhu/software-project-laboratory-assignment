@@ -1,0 +1,11 @@
+@startuml
+hide empty description
+
+[*] --> Free
+Free --> Lead : grab
+Lead --> Free : stopLeading
+Lead --> [*] : exit
+Free --> Sleep  : goSleep
+Sleep --> [*] : end
+Free --> [*] : kill
+@enduml
