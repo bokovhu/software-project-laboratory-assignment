@@ -1,0 +1,50 @@
+@startuml
+
+skinparam classAttributeIconSize 0
+skinparam guillemet false
+
+participant "p: Panda" as p
+participant "w: Wave" as w
+participant "c: Couch" as c
+participant "t: Tile" as t
+
+[-> p: update()
+activate p
+
+opt Panda is coward && Wave is ringing
+p -> p ++ : stopLeading()
+ref over p : stopLeading
+p --> p --
+end
+
+opt Panda is jumpy && Wave is beeping
+p -> p ++ : stopLeading()
+ref over p : stopLeading
+p --> p --
+p -> p ++ : jump()
+p --> p --
+end
+
+opt Panda is sleepy && Wave is sleeping
+p -> w ++ : getOrigin()
+w --> p -- : t
+p -> t ++ : accept(p)
+t --> p -- : accepted
+    opt accepted == true
+    p -> p ++ : stopLeading()
+    ref over p : stopLeading
+    p --> p --
+    p -> t ++ : getCurrentItem()
+    t --> p -- : c
+    p -> c ++ : setSleepingPanda(p)
+    c --> p --
+    p -> p ++ : setSleepingIn(c)
+    p --> p --
+    end
+p --> p --
+end
+
+[<-- p
+deactivate p
+
+@enduml
