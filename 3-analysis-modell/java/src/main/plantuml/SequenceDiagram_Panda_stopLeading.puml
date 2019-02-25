@@ -1,23 +1,28 @@
 @startuml
 participant "p : Panda" as p
-participant "a : Panda" as a
-participant "b: Panda" as b
-
-note left of p #FFAEAB
-a = p.LeaderAnimal
-b = p.GuidedAnimal
-
-endnote
+participant "guided : Panda" as guided
 
 [-> p : stopLeading()
-p->a ++ : setGuidedAnimal(NULL)
-a-->p --
-p->p ++: setLeaderAnimal(NULL)
-p-->p --
-p->b ++ : stopLeading()
-b-->p --
-[<--p
+activate p
 
+p -> p ++ : getGuidedAnimal ()
+p --> p -- : guided
+
+opt guided != NULL
+
+    p -> guided ++ : stopLeading ()
+    guided --> p --
+
+end
+
+p -> p ++ : setLeaderAnimal (NULL)
+p --> p --
+
+p -> p ++ : setGuidedAnimal (NULL)
+p --> p --
+
+[<--p
+deactivate p
 
 
 

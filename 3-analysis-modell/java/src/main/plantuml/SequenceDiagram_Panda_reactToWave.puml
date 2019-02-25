@@ -26,22 +26,21 @@ p --> p --
 end
 
 opt Panda is sleepy && Wave is sleeping
-p -> w ++ : getOrigin()
-w --> p -- : t
-p -> t ++ : accept(p)
-t --> p -- : accepted
-    opt accepted == true
-    p -> p ++ : stopLeading()
-    ref over p : stopLeading
-    p --> p --
-    p -> t ++ : getCurrentItem()
-    t --> p -- : c
-    p -> c ++ : setSleepingPanda(p)
-    c --> p --
-    p -> p ++ : setSleepingIn(c)
-    p --> p --
-    end
-p --> p --
+    p -> w ++ : getOrigin()
+    w --> p -- : t
+    p -> t ++ : accept(p)
+    t --> p -- : accepted
+        opt accepted == true
+        p -> p ++ : stopLeading()
+        ref over p : stopLeading
+        p --> p --
+        p -> t ++ : getCurrentItem()
+        t --> p -- : c
+        p -> c ++ : setSleepingPanda(p)
+        c --> p --
+        p -> p ++ : setSleepingIn(c)
+        p --> p --
+        end
 end
 
 [<-- p

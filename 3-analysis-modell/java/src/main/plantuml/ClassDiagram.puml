@@ -66,6 +66,9 @@ abstract class Animal {
     +moveTo (targetTile: Tile): void
     +use (item: Item): void
     +update (): void
+    +collideWithAnimal (animal: Animal): void
+    +collideWithPanda (panda: Animal): void
+    +collideWithOrangutan (orangutan: Orangutan): void
 }
 
 abstract class Item {

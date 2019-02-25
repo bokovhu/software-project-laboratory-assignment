@@ -3,7 +3,9 @@ participant "o : Orangutan" as o
 participant "p : Panda" as p
 participant "a: Panda" as a
 
-[-> o: collideWith(p)
+[-> o: collideWithAnimal(p)
+activate o
+
 o-> p ++ : collideWithOrangutan(o)
 p->p ++ : startLeading(o)
 p->o: getGuidedAnimal()
@@ -16,6 +18,8 @@ p->o: setGuidedAnimal(p)
 o-->p
 p-->p --
 p -->o --
+
 [<--o
+deactivate o
 
 @enduml
