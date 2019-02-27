@@ -3,22 +3,6 @@
 skinparam classAttributeIconSize 0
 skinparam guillemet false
 
-' =====
-' Enums
-' =====
-
-enum WaveType {
-    RINGING
-    BEEPING
-    SLEEPING
-}
-
-enum PandaTrait {
-    COWARD
-    JUMPY
-    SLEEPY
-}
-
 ' ==========
 ' Interfaces
 ' ==========
@@ -37,11 +21,6 @@ class Timer <<singleton>> {
     +remove (updatable: Updatable): void
 }
 
-class Game <<singleton>> {
-    +gameOver (): void
-    +tick (): void
-}
-
 class Level {
     +removeAnimal (animal: Animal): void
 }
@@ -52,11 +31,7 @@ class Tile {
     +accept (animal: Animal): boolean
     +damage (): void
     +spawnWave (wave: Wave): void
-    +addWave (wave: Wave): void
-    +removeWave (wave: Wave): void
-}
-
-class ExitTile {
+    +pushwave (wave: Wave): void
 }
 
 abstract class Animal {
@@ -69,6 +44,9 @@ abstract class Animal {
     +collideWithAnimal (animal: Animal): void
     +collideWithPanda (panda: Animal): void
     +collideWithOrangutan (orangutan: Orangutan): void
+    +goToSleep(): void
+    +jump(): void
+    +scare(): void
 }
 
 abstract class Item {
@@ -77,10 +55,21 @@ abstract class Item {
     +update (): void
 }
 
-class Panda {
+abstract class Panda {
     +collideWithAnimal (animal: Animal): void
     +collideWithOrangutan (orangutan: Animal): void
-    -reactToWave (wave: Wave): boolean
+}
+
+class SleepyPanda {
+    +goToSleep(): void
+}
+
+class JumpyPanda {
+    +jump(): void
+}
+
+class CowardPanda {
+    +scare(): void
 }
 
 class Orangutan {
@@ -108,10 +97,22 @@ class Portal {
     +enter (animal: Animal): void
 }
 
-class Wave {
-    +life: int
+abstract class Wave {
+    -origin: Type
+    +hit(animal: Animal): void
 }
 
+class SleepyWave{
+    +hit(animal: Animal): void
+}
+
+class BeepWave{
+    +hit(animal: Animal): void
+}
+
+class JumpyWave{
+    +hit(animal: Animal): void
+}
 ' ===========
 ' Inheritance
 ' ===========
@@ -120,12 +121,19 @@ Updatable <|.. Animal
 Updatable <|.. Item
 
 Animal <|-- Panda
+Panda<|-- SleepyPanda
+Panda<|-- JumpyPanda
+Panda<|-- CowardPanda
 Animal <|-- Orangutan
 
 Item <|-- Couch
 Item <|-- GameMachine
 Item <|-- ChocolateVendingMachine
 Item <|-- Wardrobe
+
+Wave<|-- JumpyWave
+Wave<|-- SleepyWave
+Wave<|-- BeepWave
 
 ' ============
 ' Compositions
@@ -134,9 +142,6 @@ Item <|-- Wardrobe
 Updatable "0..n" *-- Timer : updatables
 Tile "0..n" *-- Level : -tiles
 Animal "0..n" *-- Level : -animals
-Level "1" *-- Game: -level
-WaveType *-- Wave : +type
-PandaTrait *-- Panda : +trait
 
 ' ============
 ' Associations
@@ -161,12 +166,10 @@ Tile <-- Wave : +origin
 Portal <-- Portal : +otherEnd
 Tile <-- Portal : +place
 
-Portal <-- ExitTile : -portal
 Portal <-- Wardrobe : -portal
 
-Timer <.. Game
 
 Tile <-- Level : +startTile
-ExitTile <-- Level : +exitTile
+Tile <-- Level : +exitTile
 
 @enduml
