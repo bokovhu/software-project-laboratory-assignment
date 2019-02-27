@@ -32,6 +32,7 @@ class Tile {
     +damage (): void
     +spawnWave (wave: Wave): void
     +pushwave (wave: Wave): void
+    +removeAnimal(): void
 }
 
 abstract class Animal {
@@ -40,22 +41,21 @@ abstract class Animal {
     +kill (): void
     +moveTo (targetTile: Tile): void
     +use (item: Item): void
-    +update (): void
     +collideWithAnimal (animal: Animal): void
     +collideWithPanda (panda: Animal): void
     +collideWithOrangutan (orangutan: Orangutan): void
-    +goToSleep(): void
+    +goToSleep(Tile where): void
     +jump(): void
     +scare(): void
 }
 
 abstract class Item {
-    -placedOn: Tile
     +use (user: Animal): void
     +update (): void
 }
 
 abstract class Panda {
+    +isAsleep: boolean
     +collideWithAnimal (animal: Animal): void
     +collideWithOrangutan (orangutan: Animal): void
 }
@@ -74,9 +74,11 @@ class CowardPanda {
 
 class Orangutan {
     +collideWithAnimal (animal: Animal): void
+    +collideWithPanda (animal: Animal): void
 }
 
 class Couch {
+    +isTaken: boolean
     +use (user: Animal): void
     +update (): void
 }
@@ -90,7 +92,7 @@ class ChocolateVendingMachine {
 }
 
 class Wardrobe {
-    +use (user: Animal): void
+    +send (user: Animal): void
 }
 
 class Portal {
@@ -98,7 +100,6 @@ class Portal {
 }
 
 abstract class Wave {
-    -origin: Type
     +hit(animal: Animal): void
 }
 
@@ -158,10 +159,7 @@ Animal "0..1" <-- Animal : guidedAnimal
 Tile <-- Item : -placedOn
 Item "0..1" -- Tile : -placedItem
 
-Panda "0..1" -- Couch : -sleepingPanda
-Couch -- "0..1" Panda : -sleepingIn
-
-Tile <-- Wave : +origin
+Tile <-- Wave : -origin
 
 Portal <-- Portal : +otherEnd
 Tile <-- Portal : +place
