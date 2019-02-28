@@ -47,6 +47,7 @@ abstract class Animal {
     +goToSleep(Tile where): void
     +jump(): void
     +scare(): void
+    +update(): void
 }
 
 abstract class Item {
@@ -166,7 +167,7 @@ Tile <-- Portal : +place
 
 Portal <-- Wardrobe : -portal
 
-
+Wave <.. Tile
 Tile <-- Level : +startTile
 Tile <-- Level : +exitTile
 
