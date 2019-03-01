@@ -28,6 +28,7 @@ class Level {
 class Tile {
     +life: int
     +isFragile: boolean
+    +isExit: boolean
     +accept (animal: Animal): boolean
     +damage (): void
     +spawnWave (wave: Wave): void
@@ -43,8 +44,8 @@ abstract class Animal {
     +use (item: Item): void
     +collideWithAnimal (animal: Animal): void
     +collideWithPanda (panda: Animal): void
-    +collideWithOrangutan (orangutan: Orangutan): void
-    +goToSleep(Tile where): void
+    +collideWithOrangutan (orangutan: Animal): void
+    +goToSleep(where: Tile): void
     +jump(): void
     +scare(): void
     +update(): void
@@ -62,7 +63,7 @@ abstract class Panda {
 }
 
 class SleepyPanda {
-    +goToSleep(): void
+    +goToSleep(where: Tile): void
 }
 
 class JumpyPanda {
@@ -79,7 +80,7 @@ class Orangutan {
 }
 
 class Couch {
-    +isTaken: boolean
+    -isTaken: boolean
     +use (user: Animal): void
     +update (): void
 }
@@ -93,11 +94,7 @@ class ChocolateVendingMachine {
 }
 
 class Wardrobe {
-    +send (user: Animal): void
-}
-
-class Portal {
-    +enter (animal: Animal): void
+    +use (user: Animal): void
 }
 
 abstract class Wave {
@@ -141,7 +138,7 @@ Wave<|-- BeepWave
 ' Compositions
 ' ============
 
-Updatable "0..n" *-- Timer : updatables
+Updatable "0..n" *-- Timer : -updatables
 Tile "0..n" *-- Level : -tiles
 Animal "0..n" *-- Level : -animals
 
@@ -154,21 +151,23 @@ Tile "0..n" -- Tile : +neighbours
 Tile <-- Animal : -standingOn
 Animal "0..1" -- Tile : -currentAnimal
 
-Animal "0..1" <-- Animal : leaderAnimal
-Animal "0..1" <-- Animal : guidedAnimal
+Animal "0..1" <-- Animal : -leaderAnimal
+Animal "0..1" <-- Animal : -guidedAnimal
 
 Tile <-- Item : -placedOn
 Item "0..1" -- Tile : -placedItem
 
 Tile <-- Wave : -origin
 
-Portal <-- Portal : +otherEnd
-Tile <-- Portal : +place
-
-Portal <-- Wardrobe : -portal
-
 Wave <.. Tile
 Tile <-- Level : +startTile
 Tile <-- Level : +exitTile
+
+Animal <.. Item
+Item <.. Animal
+
+Wardrobe <-- Wardrobe : -otherWardrobe
+
+Level <-- Tile : -level
 
 @enduml
