@@ -10,10 +10,13 @@ o-> p ++ : collideWithOrangutan(o)
 p->p ++ : startLeading(o)
 p->o: getGuidedAnimal()
 o-->p: a
+opt a!=null
+
 p->p ++ : setGuidedAnimal(a)
 p--> p -- :
 p->a ++ : setLeaderAnimal(p)
 a-->p --
+end
 p->o: setGuidedAnimal(p)
 o-->p
 p-->p --
