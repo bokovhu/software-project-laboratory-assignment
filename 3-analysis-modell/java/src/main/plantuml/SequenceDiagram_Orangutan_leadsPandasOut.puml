@@ -1,17 +1,17 @@
 @startuml
 participant "exitTile: Tile" as exit
 participant "startTile: Tile" as entry
-participant "p : Panda" as p
-participant "o: Orangutan" as o
+participant "p : Animal" as p
+participant "o: Animal" as o
 
 [-> exit : accept(o)
 activate exit
-opt exit is the exit tile
+opt exitTile is the exit tile
 exit -> o ++ : getGuidedAnimal()
 o --> exit -- : p
 
 exit -> entry ++ : accept(o)
-entry --> exit -- : accepted
+entry --> exit -- :
 
 exit -> p ++ : leadOut()
 p -> exit --
