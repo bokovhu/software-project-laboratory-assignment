@@ -4,8 +4,8 @@ skinparam classAttributeIconSize 0
 skinparam guillemet false
 
 participant "m : GameMachine" as m
-participant "w : Wave" as w
-participant "t : Tile" as t
+participant "w : BeepWave" as w
+participant "placedOn : Tile" as t
 
 [-> m : update ()
 activate m
@@ -14,12 +14,10 @@ opt random
 
     m -> w ** : new
 
-    m -> w ++ : setType (RINGING)
+
+
+    m -> w ++ : setOrigin (t)
     w --> m --
-
-    m -> m ++ : getPlacedOn ()
-    m --> m -- : t
-
     m -> t ++ : spawnWave (w)
     t --> m --
 
