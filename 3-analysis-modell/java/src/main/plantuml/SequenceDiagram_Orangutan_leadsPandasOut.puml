@@ -1,0 +1,23 @@
+@startuml
+participant "exitTile: Tile" as exit
+participant "startTile: Tile" as entry
+participant "p : Panda" as p
+participant "o: Orangutan" as o
+
+[-> exit : accept(o)
+activate exit
+opt exit is the exit tile
+exit -> o ++ : getGuidedAnimal()
+o --> exit -- : p
+
+exit -> entry ++ : accept(o)
+entry --> exit -- : accepted
+
+exit -> p ++ : leadOut()
+p -> exit --
+end
+
+[<--exit
+deactivate exit
+
+@enduml
