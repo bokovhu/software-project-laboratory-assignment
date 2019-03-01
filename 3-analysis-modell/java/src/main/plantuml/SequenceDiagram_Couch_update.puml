@@ -4,19 +4,16 @@ skinparam classAttributeIconSize 0
 skinparam guillemet false
 
 participant "c : Couch" as c
-participant "w : Wave" as w
-participant "t : Tile" as t
+participant "w : SleepyWave" as w
+participant "placedOn : Tile" as t
 
 [-> c : update ()
 activate c
 
 c -> w ** : new
 
-c -> w ++ : setType (BEEPING)
-w --> c --
 
-c -> c ++ : getPlacedOn ()
-c --> c -- : t
+
 
 c -> t ++ : spawnWave (w)
 t --> c --

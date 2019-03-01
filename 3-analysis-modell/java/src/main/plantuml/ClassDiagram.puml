@@ -44,10 +44,11 @@ abstract class Animal {
     +collideWithAnimal (animal: Animal): void
     +collideWithPanda (panda: Animal): void
     +collideWithOrangutan (orangutan: Animal): void
-    +goToSleep(where: Tile): void
-    +jump(): void
-    +scare(): void
-    +update(): void
+    +goToSleep (where: Tile): void
+    +jump (): void
+    +scare (): void
+    +update (): void
+    +leadOut (): void
 }
 
 abstract class Item {
@@ -60,6 +61,7 @@ abstract class Panda {
     +collideWithAnimal (animal: Animal): void
     +collideWithOrangutan (orangutan: Animal): void
     +update (): void
+    +leadOut (): void
 }
 
 class SleepyPanda {
@@ -170,5 +172,7 @@ Wardrobe <-- Wardrobe : -otherWardrobe
 Level <-- Tile : -level
 
 Animal <.. Wave
+
+Animal <.. Timer
 
 @enduml

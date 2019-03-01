@@ -13,12 +13,9 @@ activate a
 
 a -> t ++ : accept (a)
 
-t -> t ++ : getCurrentAnimal ()
-t --> t -- : currentAnimal
-
 opt currentAnimal != null
 
-    t -> a ++ : collideWithAnimal (currentAnimal)
+    t -> a ++ : collideWithAnimal (t.currentAnimal)
     a --> t --
 
     t --> a : false

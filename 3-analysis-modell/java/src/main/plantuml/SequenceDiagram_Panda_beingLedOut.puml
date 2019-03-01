@@ -1,0 +1,24 @@
+@startuml
+participant "leadingPanda: Panda" as leading
+participant "guidedAnimal: Animal " as lead
+participant "t: Tile" as t
+participant ": Timer" as timer
+
+[-> leading : leadOut()
+activate leading
+
+opt guidedAnimal != null
+leading -> lead ++ : leadOut()
+lead --> leading --
+end
+
+leading -> t ++ : setCurrentAnimal(null)
+t --> leading --
+
+leading -> timer ++ : remove(leadingPanda)
+timer --> leading --
+
+[<--leading
+deactivate leading
+
+@enduml
