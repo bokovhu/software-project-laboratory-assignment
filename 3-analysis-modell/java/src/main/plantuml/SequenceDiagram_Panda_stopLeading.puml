@@ -1,14 +1,12 @@
 @startuml
 participant "p : Panda" as p
-participant "guided : Panda" as guided
+participant "guidedAnimal : Panda" as guided
 
 [-> p : stopLeading()
 activate p
 
-p -> p ++ : getGuidedAnimal ()
-p --> p -- : guided
 
-opt guided != NULL
+opt guidedAnimal != null
 
     p -> guided ++ : stopLeading ()
     guided --> p --

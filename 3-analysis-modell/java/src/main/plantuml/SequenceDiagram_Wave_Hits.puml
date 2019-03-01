@@ -1,0 +1,37 @@
+@startuml
+
+skinparam classAttributeIconSize 0
+skinparam guillemet false
+
+
+participant "w : Wave" as w
+
+participant "a: Animal" as a
+[->w: hit(a)
+
+opt w is SleepyWave
+w->a ++: goToSleep(w.origin)
+opt a is SleepyPanda
+a->a++: moveTo(w.origin)
+
+a-->a --
+
+a->a ++: isAsleep = true;
+a-->a --
+end
+a-->w --
+end
+
+opt w is JumpyWave
+w->a ++: jump()
+a-->w --
+end
+
+opt w is BeepWave
+w->a ++: scare()
+a-->w --
+end
+
+[<-- w
+
+@enduml
