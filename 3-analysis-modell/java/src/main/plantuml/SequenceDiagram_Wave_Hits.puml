@@ -19,7 +19,7 @@ a-->a --
 opt origin accepts panda
 a->a ++: isAsleep = true;
 a-->a --
-a->a ++: stopLeading();
+a->a ++: stopLeading()
 a-->a --
 end
 end
