@@ -5,6 +5,7 @@ skinparam guillemet false
 
 participant "t : Tile" as t
 participant "a : Animal" as a
+participant ": Timer" as T
 
 [-> t : accept(a)
 activate t
@@ -12,6 +13,10 @@ activate t
 opt Tile is broken
 
 t -> a ++ : kill()
+a -> a++  :stopLeading()
+        a--> a--
+        a -> T++ :remove(a)
+        T-->a--
 a --> t --
 
 end
