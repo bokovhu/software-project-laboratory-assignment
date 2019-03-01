@@ -10,13 +10,12 @@ opt guidedAnimal != null
 
     p -> guided ++ : stopLeading ()
     guided --> p --
+    p -> p ++ : setGuidedAnimal (NULL)
+    p --> p --
 
 end
 
 p -> p ++ : setLeaderAnimal (NULL)
-p --> p --
-
-p -> p ++ : setGuidedAnimal (NULL)
 p --> p --
 
 [<--p

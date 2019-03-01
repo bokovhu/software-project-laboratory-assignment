@@ -4,17 +4,18 @@ skinparam classAttributeIconSize 0
 skinparam guillemet false
 
 participant "w : Wardrobe" as w
+participant "o : Wardrobe" as o
 participant "a : Animal" as a
-participant "p : Portal" as p
+participant "t : Tile" as t
 
 [-> w : use (a)
 activate w
 
-w -> w ++ : getPortal ()
-w --> w -- : p
+w -> o ++ : getPlacedOn()
+o -> w -- : t
 
-w -> p ++ : enter (a)
-p --> w --
+w -> a ++ : moveTo (t)
+a --> w --
 
 [<-- w
 deactivate w

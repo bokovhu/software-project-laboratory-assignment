@@ -175,4 +175,6 @@ Animal <.. Wave
 
 Animal <.. Timer
 
+Wave <.. Item
+
 @enduml
