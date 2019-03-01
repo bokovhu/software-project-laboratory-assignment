@@ -33,7 +33,6 @@ class Tile {
     +damage (): void
     +spawnWave (wave: Wave): void
     +pushwave (wave: Wave): void
-    +removeAnimal(): void
 }
 
 abstract class Animal {
@@ -60,6 +59,7 @@ abstract class Panda {
     +isAsleep: boolean
     +collideWithAnimal (animal: Animal): void
     +collideWithOrangutan (orangutan: Animal): void
+    +update (): void
 }
 
 class SleepyPanda {
@@ -76,7 +76,6 @@ class CowardPanda {
 
 class Orangutan {
     +collideWithAnimal (animal: Animal): void
-    +collideWithPanda (animal: Animal): void
 }
 
 class Couch {
@@ -169,5 +168,7 @@ Item <.. Animal
 Wardrobe <-- Wardrobe : -otherWardrobe
 
 Level <-- Tile : -level
+
+Animal <.. Wave
 
 @enduml
