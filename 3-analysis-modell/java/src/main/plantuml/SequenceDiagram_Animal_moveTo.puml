@@ -6,7 +6,7 @@ skinparam guillemet false
 participant "a : Animal" as a
 participant "t : Tile" as t
 participant "currentAnimal : Animal" as currentAnimal
-participant "guidedtAnimal : Animal" as guidedAnimal
+participant "guidedAnimal : Animal" as guidedAnimal
 participant "standingOn : Tile" as standingOn
 
 [-> a : moveTo (t)

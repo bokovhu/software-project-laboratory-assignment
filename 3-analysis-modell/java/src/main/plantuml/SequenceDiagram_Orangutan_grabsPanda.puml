@@ -17,8 +17,8 @@ p--> p -- :
 p->a ++ : setLeaderAnimal(p)
 a-->p --
 end
-p->o: setGuidedAnimal(p)
-o-->p
+p->o ++: setGuidedAnimal(p)
+o-->p --
 p-->p --
 p -->o --
 

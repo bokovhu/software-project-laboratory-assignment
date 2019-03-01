@@ -5,19 +5,19 @@ skinparam guillemet false
 
 
 participant "w : Wave" as w
-
 participant "a: Animal" as a
 participant "standingOn: Tile" as standingOn
+participant "waveOrigin: Tile" as origin
 [->w: hit(a)
 
 opt w is SleepyWave
-w->a ++: goToSleep(w.origin)
+w->a ++: goToSleep(waveOrigin)
 opt a is SleepyPanda
-a->a++: moveTo(w.origin)
+a->a++: moveTo(waveOrigin)
 
 a-->a --
 opt origin accepts panda
-a->a ++: isAsleep = true;
+a->a ++: isAsleep = true
 a-->a --
 a->a ++: stopLeading()
 a-->a --
