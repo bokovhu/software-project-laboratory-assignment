@@ -1,0 +1,22 @@
+@startuml
+
+skinparam classAttributeIconSize 0
+skinparam guillemet false
+
+participant ": Timer" as timer
+participant "updatable : Updatable" as updatable
+
+[-> timer : tick()
+activate timer
+
+loop for all updatable : Updatable
+
+timer -> updatable ++ : update()
+updatable --> timer --
+
+end loop
+
+[<-- timer
+deactivate timer
+
+@enduml
