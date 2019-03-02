@@ -3,6 +3,7 @@ participant "leadingPanda: Panda" as leading
 participant "guidedAnimal: Animal " as lead
 participant "t: Tile" as t
 participant ": Timer" as timer
+participant "l: Level" as l
 
 [-> leading : leadOut()
 activate leading
@@ -17,6 +18,8 @@ t --> leading --
 
 leading -> timer ++ : remove(leadingPanda)
 timer --> leading --
+leading ->l ++: removeAnimal(leadingPanda)
+l-->leading --
 
 [<--leading
 deactivate leading
