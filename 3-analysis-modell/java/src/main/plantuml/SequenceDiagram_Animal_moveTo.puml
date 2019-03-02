@@ -35,13 +35,13 @@ else
     t -> a ++ : getStandingOn ()
     a --> t -- : standingOn
 
+    t -> standingOn ++ : setCurrentAnimal (null)
+    standingOn --> t --
+
     opt a.guidedAnimal !=null
     a -> guidedAnimal ++: moveTo(standingOn)
     guidedAnimal --> a --
     end
-
-    t -> standingOn ++ : setCurrentAnimal (null)
-    standingOn --> t --
 
     t -> a ++ : setStandingOn (t)
     a --> t --
