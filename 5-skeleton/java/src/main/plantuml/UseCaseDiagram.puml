@@ -1,0 +1,25 @@
+@startuml
+
+skinparam classAttributeIconSize 0
+skinparam guillemet false
+
+(Panda steps)
+(Orangutan steps)
+(Orangutan steps with pandas behind)
+(Orangutan grabs first panda)
+(Orangutan grabs another panda)
+(Panda gets scared in line)
+(Panda gets scared alone)
+(Orangutan leads pandas out)
+(Panda falls down while leading)
+(Panda falls down while not leading)
+(Orangutan falls down)
+(Panda sleeps while leading)
+(Panda sleeps while not leading)
+(Panda gets scared while leading)
+(Panda gets scared while not leading)
+(Panda jumps while leading)
+(Panda jumps while not leading)
+(Panda collides with panda)
+
+@enduml
