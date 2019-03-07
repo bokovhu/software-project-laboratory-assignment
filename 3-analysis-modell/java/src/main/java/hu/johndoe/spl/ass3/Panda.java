@@ -1,9 +1,8 @@
 package hu.johndoe.spl.ass3;
 
-public class Panda extends Animal {
+public abstract class Panda extends Animal {
 
-    public PandaTrait trait;
-    public Couch sleepingIn;
+
 
     @Override
     public void collideWithAnimal (Animal animal) {
