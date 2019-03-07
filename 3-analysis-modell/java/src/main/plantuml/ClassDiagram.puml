@@ -169,7 +169,7 @@ Item <.. Animal
 
 Wardrobe <-- Wardrobe : -otherWardrobe
 
-Level <.. Tile 
+Level <.. Tile
 
 Animal <.. Wave
 
