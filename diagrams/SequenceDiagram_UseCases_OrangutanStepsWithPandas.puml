@@ -1,0 +1,87 @@
+@startuml
+
+title Orangutan steps with pandas
+
+participant "orangutan: Orangutan" as orangutan
+participant "target: Tile" as target
+participant "orangutanStandingOn: Tile" as orangutanStandingOn
+participant "firstPanda: Panda" as firstPanda
+participant "firstPandaStandingOn: Tile" as firstPandaStandingOn
+participant "lastPanda: Panda" as lastPanda
+participant "lastPandaStandingOn: Tile" as lastPandaStandingOn
+
+note over orangutan
+    A moveTo () hívások rekurzívak, így van
+    megvalósítva a teljes lánc mozgatása. Jelen
+    esetben a lánc hossza összesen 3, azaz 2
+    panda van.
+end note
+
+[-> orangutan : moveTo (target)
+activate orangutan
+
+orangutan -> target ++ : accept (orangutan)
+
+target -> orangutanStandingOn ++ : setCurrentAnimal (null)
+target <-- orangutanStandingOn --
+
+target -> firstPanda ++ : moveTo (orangutanStandingOn)
+
+
+
+' Begin firstPanda recursion
+
+firstPanda -> orangutanStandingOn ++ : accept (firstPanda)
+
+orangutanStandingOn -> firstPandaStandingOn ++ : setCurrentAnimal (null)
+orangutanStandingOn <-- firstPandaStandingOn --
+
+orangutanStandingOn -> lastPanda ++ : moveTo (firstPandaStandingOn)
+
+
+' Begin lastPanda recursion
+
+
+lastPanda -> firstPandaStandingOn ++ : accept (lastPanda)
+
+firstPandaStandingOn -> lastPandaStandingOn ++ : setCurrentAnimal (null)
+firstPandaStandingOn <-- lastPandaStandingOn --
+
+firstPandaStandingOn -> lastPanda ++ : setStandingOn (firstPandaStandingOn)
+firstPandaStandingOn <-- lastPanda --
+
+firstPandaStandingOn -> firstPandaStandingOn ++ : setCurrentAnimal (lastPanda)
+firstPandaStandingOn <-- firstPandaStandingOn --
+
+lastPanda <-- firstPandaStandingOn -- : true
+
+
+' End of lastPanda recursion
+
+orangutanStandingOn <-- lastPanda --
+
+
+orangutanStandingOn -> firstPanda ++ : setStandingOn (orangutanStandingOn)
+orangutanStandingOn <-- firstPanda --
+
+orangutanStandingOn -> orangutanStandingOn ++ : setCurrentAnimal (firstPanda)
+orangutanStandingOn <-- orangutanStandingOn --
+
+firstPanda <-- orangutanStandingOn -- : true
+
+' End of firstPanda recursion
+target <-- firstPanda --
+
+
+target -> orangutan ++ : setStandingOn (target)
+target <-- orangutan --
+
+target -> target ++ : setCurrentAnimal (orangutan)
+target <-- target --
+
+orangutan <-- target -- : true
+
+[<-- orangutan
+deactivate orangutan
+
+@enduml
