@@ -1,0 +1,33 @@
+@startuml
+
+title Orangutan steps
+
+participant "orangutan: Orangutan" as orangutan
+participant "target: Tile" as target
+participant "orangutanStandingOn: Tile" as orangutanStandingOn
+
+note over orangutan
+    Az orángután ellép egy másik csempére, és
+    ezt a mozgást jelenleg semmi sem akadályozza
+end note
+
+[-> orangutan : moveTo (target)
+activate orangutan
+
+orangutan -> target ++ : accept (orangutan)
+
+target -> orangutanStandingOn ++ : setCurrentAnimal (null)
+target <-- orangutanStandingOn --
+
+target -> orangutan ++ : setStandingOn (target)
+target <-- orangutan --
+
+target -> target ++ : setCurrentAnimal (orangutan)
+target <-- target --
+
+orangutan <-- target -- : true
+
+[<-- orangutan
+deactivate orangutan
+
+@enduml
