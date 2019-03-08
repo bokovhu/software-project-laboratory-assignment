@@ -4,6 +4,13 @@ public abstract class Panda extends Animal {
 
     public boolean isAsleep;
 
+    public Panda () {
+    }
+
+    public Panda (Animal leaderAnimal, Animal guidedAnimal, Tile standingOn) {
+        super (leaderAnimal, guidedAnimal, standingOn);
+    }
+
     @Override
     public void collideWithAnimal (Animal animal) {
 

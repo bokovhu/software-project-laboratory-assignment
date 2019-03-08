@@ -4,6 +4,13 @@ public abstract class Item implements Updatable {
 
     private Tile placedOn;
 
+    public Item () {
+    }
+
+    public Item (Tile placedOn) {
+        this.placedOn = placedOn;
+    }
+
     public void use (Animal user) {
 
     }

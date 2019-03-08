@@ -6,6 +6,15 @@ public abstract class Animal implements Updatable {
     private Animal guidedAnimal;
     private Tile standingOn;
 
+    public Animal () {
+    }
+
+    public Animal (Animal leaderAnimal, Animal guidedAnimal, Tile standingOn) {
+        this.leaderAnimal = leaderAnimal;
+        this.guidedAnimal = guidedAnimal;
+        this.standingOn = standingOn;
+    }
+
     public void startLeading (Animal leader) {
 
     }

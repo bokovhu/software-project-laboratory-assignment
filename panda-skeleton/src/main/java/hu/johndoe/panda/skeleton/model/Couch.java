@@ -4,6 +4,13 @@ public class Couch extends Item {
 
     private boolean isTaken;
 
+    public Couch () {
+    }
+
+    public Couch (Tile placedOn) {
+        super (placedOn);
+    }
+
     @Override
     public void use (Animal user) {
 

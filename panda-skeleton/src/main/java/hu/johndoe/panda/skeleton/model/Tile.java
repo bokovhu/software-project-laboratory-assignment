@@ -12,6 +12,25 @@ public class Tile {
     private Item placedItem;
     private List<Tile> neighbours;
 
+    public Tile (
+            int life,
+            boolean isFragile,
+            boolean isExit,
+            Animal currentAnimal,
+            Item placedItem,
+            List<Tile> neighbours
+    ) {
+        this.life = life;
+        this.isFragile = isFragile;
+        this.isExit = isExit;
+        this.currentAnimal = currentAnimal;
+        this.placedItem = placedItem;
+        this.neighbours = neighbours;
+    }
+
+    public Tile () {
+    }
+
     public boolean accept (Animal animal) {
 
         throw new UnsupportedOperationException ();

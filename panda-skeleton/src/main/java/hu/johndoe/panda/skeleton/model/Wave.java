@@ -4,6 +4,13 @@ public abstract class Wave {
 
     private Tile origin;
 
+    public Wave () {
+    }
+
+    public Wave (Tile origin) {
+        this.origin = origin;
+    }
+
     public abstract void hit (Animal animal);
 
     public Tile getOrigin () {
