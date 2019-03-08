@@ -130,3 +130,7 @@ gradle-app.setting
 *.docx
 .idea/
 /bin/
+
+.vs/
+.classpath
+.project
