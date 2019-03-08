@@ -1,0 +1,21 @@
+@startuml
+
+skinparam classAttributeIconSize 0
+skinparam guillemet false
+
+participant "o: Orangutan" as o
+participant "t: Tile" as t
+
+title Orangutan falls down
+activate o
+[-> o : moveTo(t)
+
+o->t ++: accept(o)
+t ->o ++: kill()
+o --> t --
+t --> o --
+[<--o
+
+
+deactivate o
+@enduml

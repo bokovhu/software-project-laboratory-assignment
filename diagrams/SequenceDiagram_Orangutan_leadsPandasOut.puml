@@ -6,7 +6,7 @@ participant "o: Animal" as o
 
 [-> exit : accept(o)
 activate exit
-opt exitTile is the exit tile
+
 exit -> o ++ : getGuidedAnimal()
 o --> exit -- : p
 
@@ -15,7 +15,7 @@ entry --> exit -- :
 
 exit -> p ++ : leadOut()
 p -> exit --
-end
+
 
 [<--exit
 deactivate exit

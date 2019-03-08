@@ -1,0 +1,38 @@
+@startuml
+
+skinparam classAttributeIconSize 0
+skinparam guillemet false
+
+participant "p1 : Panda" as a
+
+
+participant "t2 : Tile" as t
+
+participant "p2 : Panda" as currentAnimal
+
+title Panda collides with Panda
+[-> a : moveTo (t2)
+activate a
+
+a -> t ++ : accept (p1)
+t->currentAnimal ++: CollideWithPanda(p1)
+currentAnimal--> t--
+
+t -->a -- : false
+
+
+
+
+
+
+
+
+
+
+
+
+
+[<--a
+deactivate a
+
+@enduml

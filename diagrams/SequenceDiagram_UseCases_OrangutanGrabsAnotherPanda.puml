@@ -1,0 +1,28 @@
+@startuml
+participant "o : Orangutan" as o
+participant "newPanda : Panda" as newPanda
+participant "leadPanda: Panda" as leadPanda
+title Orangutan grabs another Panda
+[-> o: collideWithAnimal(p)
+activate o
+
+o-> newPanda ++ : collideWithOrangutan(o)
+newPanda->newPanda ++ : startLeading(o)
+newPanda->o: getGuidedAnimal()
+o-->newPanda: leadPanda
+
+
+newPanda->newPanda ++ : setGuidedAnimal(leadPanda)
+newPanda--> newPanda -- :
+newPanda->leadPanda ++ : setLeaderAnimal(newPanda)
+leadPanda-->newPanda --
+
+newPanda->o ++: setGuidedAnimal(newPanda)
+o-->newPanda --
+newPanda-->newPanda --
+newPanda -->o --
+
+[<--o
+deactivate o
+
+@enduml
