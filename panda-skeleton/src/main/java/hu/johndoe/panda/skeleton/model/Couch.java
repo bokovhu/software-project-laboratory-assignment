@@ -17,10 +17,12 @@ public class Couch extends Item {
     @Override
     public void update () {
 
-        SleepyWave wave = new SleepyWave ();
-        wave.setOrigin (getPlacedOn ());
+        if (!isTaken) {
+            SleepyWave wave = new SleepyWave ();
+            wave.setOrigin (getPlacedOn ());
 
-        getPlacedOn ().spawnWave (wave);
+            getPlacedOn ().spawnWave (wave);
+        }
 
     }
 
