@@ -1,0 +1,48 @@
+@startuml
+
+title Panda steps
+
+'This is a single line comment
+
+participant "panda: JumpyPanda" as panda
+participant "target: Tile" as target
+participant "pandaStandingOn: Tile" as pandaStandingOn
+participant "pandaGuidedAnimal: SleepyPanda" as pandaGuidedAnimal
+
+note over panda
+    Ebben az esetben a panda egy JumpyPanda, 
+    és az általa vezetett állat egy 
+    SleepyPanda. A pandaStandingOn-t a 
+    panda.getStandingOn () függvényhívással,
+    a pandaGuidedAnimal-t a 
+    panda.getGuidedAnimal () függvényhívással
+    kaphatjuk meg
+end note
+
+[-> panda : moveTo (target)
+activate panda
+
+panda -> target ++ : accept (panda)
+
+target -> pandaStandingOn ++ : setCurrentAnimal (null)
+target <-- pandaStandingOn --
+
+opt pandaGuidedAnimal != null
+    
+    target -> pandaGuidedAnimal ++ : moveTo (pandaStandingOn)
+    target <-- pandaGuidedAnimal --
+    
+end
+
+target -> panda ++ : setStandingOn (target)
+target <-- panda --
+
+target -> target ++ : setCurrentAnimal (panda)
+target <-- target --
+
+panda <-- target -- : true
+
+[<-- panda
+deactivate panda
+
+@enduml
