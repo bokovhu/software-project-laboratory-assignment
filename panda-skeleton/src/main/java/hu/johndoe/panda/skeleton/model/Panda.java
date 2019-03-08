@@ -1,5 +1,7 @@
 package hu.johndoe.panda.skeleton.model;
 
+import hu.johndoe.panda.skeleton.model._internal.ActionLogger;
+
 public abstract class Panda extends Animal {
 
     public boolean isAsleep;
@@ -14,6 +16,7 @@ public abstract class Panda extends Animal {
     @Override
     public void collideWithAnimal (Animal animal) {
 
+        ActionLogger.log (this, "Colliding with animal %s", animal.toString ());
         animal.collideWithPanda (this);
 
     }
@@ -21,6 +24,7 @@ public abstract class Panda extends Animal {
     @Override
     public void collideWithOrangutan (Animal orangutan) {
 
+        ActionLogger.log (this, "Colliding with orangutan %s", orangutan.toString ());
         startLeading (orangutan);
 
     }
@@ -28,7 +32,9 @@ public abstract class Panda extends Animal {
     @Override
     public void leadOut () {
 
+        ActionLogger.log (this, "Getting lead out");
         if (getGuidedAnimal () != null) {
+            ActionLogger.log (this, "Leading guided animal out");
             getGuidedAnimal ().leadOut ();
         }
 
@@ -39,6 +45,15 @@ public abstract class Panda extends Animal {
     @Override
     public void update () {
         super.update ();
+
+        ActionLogger.log (this, "Updating");
+    }
+
+    @Override
+    public String toString () {
+        return "Panda{" +
+                "id=" + id +
+                '}';
     }
 
 }

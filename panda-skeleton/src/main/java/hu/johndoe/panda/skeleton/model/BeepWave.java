@@ -1,5 +1,7 @@
 package hu.johndoe.panda.skeleton.model;
 
+import hu.johndoe.panda.skeleton.model._internal.ActionLogger;
+
 public class BeepWave extends Wave {
 
     public BeepWave () {
@@ -12,8 +14,16 @@ public class BeepWave extends Wave {
     @Override
     public void hit (Animal animal) {
 
+        ActionLogger.log (this, "Hitting animal %s", animal.toString ());
         animal.scare ();
 
+    }
+
+    @Override
+    public String toString () {
+        return "BeepWave{" +
+                "id=" + id +
+                '}';
     }
 
 }

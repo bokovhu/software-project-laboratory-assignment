@@ -1,5 +1,7 @@
 package hu.johndoe.panda.skeleton.model;
 
+import hu.johndoe.panda.skeleton.model._internal.ActionLogger;
+
 public class JumpyPanda extends Panda {
 
     public JumpyPanda () {
@@ -12,8 +14,16 @@ public class JumpyPanda extends Panda {
     @Override
     public void jump () {
 
+        ActionLogger.log (this, "Jumping");
         throw new UnsupportedOperationException ();
 
+    }
+
+    @Override
+    public String toString () {
+        return "JumpyPanda{" +
+                "id=" + id +
+                '}';
     }
 
 }

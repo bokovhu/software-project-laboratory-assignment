@@ -1,5 +1,7 @@
 package hu.johndoe.panda.skeleton.model;
 
+import hu.johndoe.panda.skeleton.model._internal.ActionLogger;
+
 import java.util.List;
 
 public class Level {
@@ -20,6 +22,8 @@ public class Level {
     }
 
     public void removeAnimal (Animal animal) {
+
+        ActionLogger.log ("Level", "Removing animal %s", animal.toString ());
 
     }
 

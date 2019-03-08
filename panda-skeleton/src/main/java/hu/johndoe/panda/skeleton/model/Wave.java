@@ -1,6 +1,10 @@
 package hu.johndoe.panda.skeleton.model;
 
+import hu.johndoe.panda.skeleton.model._internal.IdGenerator;
+
 public abstract class Wave {
+
+    protected final int id = IdGenerator.fetch ();
 
     private Tile origin;
 
@@ -19,6 +23,13 @@ public abstract class Wave {
 
     public void setOrigin (Tile origin) {
         this.origin = origin;
+    }
+
+    @Override
+    public String toString () {
+        return "Wave{" +
+                "id=" + id +
+                '}';
     }
 
 }

@@ -1,5 +1,7 @@
 package hu.johndoe.panda.skeleton.model;
 
+import hu.johndoe.panda.skeleton.model._internal.ActionLogger;
+
 public class ChocolateVendingMachine extends Item {
 
     public ChocolateVendingMachine () {
@@ -12,6 +14,8 @@ public class ChocolateVendingMachine extends Item {
     @Override
     public void update () {
 
+        ActionLogger.log (this, "Updating");
+
         // if (random) {
         //     BeepWave wave = new BeepWave ();
         //     wave.setOrigin (getPlacedOn ());
@@ -20,6 +24,13 @@ public class ChocolateVendingMachine extends Item {
 
         throw new UnsupportedOperationException ();
 
+    }
+
+    @Override
+    public String toString () {
+        return "ChocolateVendingMachine{" +
+                "id=" + id +
+                '}';
     }
 
 }

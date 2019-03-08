@@ -1,6 +1,11 @@
 package hu.johndoe.panda.skeleton.model;
 
+import hu.johndoe.panda.skeleton.model._internal.ActionLogger;
+import hu.johndoe.panda.skeleton.model._internal.IdGenerator;
+
 public abstract class Item implements Updatable {
+
+    protected final int id = IdGenerator.fetch ();
 
     private Tile placedOn;
 
@@ -13,6 +18,8 @@ public abstract class Item implements Updatable {
 
     public void use (Animal user) {
 
+        ActionLogger.log (this, "Getting used by %s", user.toString ());
+
     }
 
     public Tile getPlacedOn () {
@@ -21,6 +28,13 @@ public abstract class Item implements Updatable {
 
     public void setPlacedOn (Tile placedOn) {
         this.placedOn = placedOn;
+    }
+
+    @Override
+    public String toString () {
+        return "Item{" +
+                "id=" + id +
+                '}';
     }
 
 }
