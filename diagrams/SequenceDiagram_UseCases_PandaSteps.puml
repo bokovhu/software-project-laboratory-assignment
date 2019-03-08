@@ -7,15 +7,12 @@ title Panda steps
 participant "panda: JumpyPanda" as panda
 participant "target: Tile" as target
 participant "pandaStandingOn: Tile" as pandaStandingOn
-participant "pandaGuidedAnimal: SleepyPanda" as pandaGuidedAnimal
 
 note over panda
     Ebben az esetben a panda egy JumpyPanda, 
-    és az általa vezetett állat egy 
-    SleepyPanda. A pandaStandingOn-t a 
-    panda.getStandingOn () függvényhívással,
-    a pandaGuidedAnimal-t a 
-    panda.getGuidedAnimal () függvényhívással
+    és nincs általa vezetett állata. A 
+    pandaStandingOn-t a 
+    panda.getStandingOn () függvényhívással
     kaphatjuk meg
 end note
 
@@ -26,13 +23,6 @@ panda -> target ++ : accept (panda)
 
 target -> pandaStandingOn ++ : setCurrentAnimal (null)
 target <-- pandaStandingOn --
-
-opt pandaGuidedAnimal != null
-    
-    target -> pandaGuidedAnimal ++ : moveTo (pandaStandingOn)
-    target <-- pandaGuidedAnimal --
-    
-end
 
 target -> panda ++ : setStandingOn (target)
 target <-- panda --
