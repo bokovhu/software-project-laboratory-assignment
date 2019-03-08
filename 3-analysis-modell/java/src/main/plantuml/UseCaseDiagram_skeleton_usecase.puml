@@ -1,0 +1,23 @@
+@startuml
+:Tester: as t
+t -up-> (Panda steps)
+t -up-> (Orangutan steps)
+t -left-> (Orangutan steps with pandas)
+t -left-> (Orangutan grabs first panda)
+t -left-> (Orangutan grabs another panda)
+t -down-> (Panda gets scared alone)
+t -down-> (Panda gets scared in line)
+t -down-> (Panda jump alone)
+t -down-> (Panda jumps in line)
+t -down-> (Panda sleeps alone)
+t -down-> (Panda sleeps in line)
+t -right-> (Orangutan falls down)
+t -right-> (Panda falls down alone)
+t -right-> (Panda falls down in line)
+t -up-> (Panda collides with panda)
+t -up-> (Oangutan leads pandas out)
+
+
+
+
+@enduml
