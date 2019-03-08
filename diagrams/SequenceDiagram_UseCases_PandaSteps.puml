@@ -2,8 +2,6 @@
 
 title Panda steps
 
-'This is a single line comment
-
 participant "panda: JumpyPanda" as panda
 participant "target: Tile" as target
 participant "pandaStandingOn: Tile" as pandaStandingOn
