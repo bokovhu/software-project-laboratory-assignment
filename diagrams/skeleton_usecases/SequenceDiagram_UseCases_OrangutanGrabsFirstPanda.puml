@@ -1,6 +1,6 @@
 @startuml
 participant "o : Orangutan" as o
-participant "p : Panda" as p
+participant "p : SleepyPanda" as p
 
 title Orangutan grabs first Panda
 

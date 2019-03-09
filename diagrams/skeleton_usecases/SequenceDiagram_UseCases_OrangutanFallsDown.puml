@@ -13,7 +13,7 @@ activate o
 o->t ++: accept(o)
 t ->o ++: kill()
 o --> t --
-t --> o --
+t --> o --: true
 [<--o
 
 

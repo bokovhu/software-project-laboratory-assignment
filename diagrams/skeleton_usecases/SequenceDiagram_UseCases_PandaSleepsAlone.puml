@@ -1,0 +1,31 @@
+@startuml
+title Panda sleeps alone
+
+
+participant "w : SleepyWave" as w
+participant "wOrigin: Tile" as wOrigin
+participant "p: SleepyPanda" as p2
+
+
+note over w
+Jelen esetben a hullám egy olyan pandát
+küld aludni (p2), amelyet egy JumpyPanda vezet (p1)
+és amely egy CowardPandát vezet (p3)
+end note
+[->w: hit(p)
+w->p2 ++: goToSleep(wOrigin)
+
+p2->p2 ++: moveTo(wOrigin)
+note over p2
+A panda alvó állapotba kerül,
+nem ébreszthető fel vagy
+mozdítható el többé.
+end note
+p2->wOrigin ++: accept(p)
+wOrigin --> p2 --: true
+p2 --> p2 --
+p2-->w --
+
+
+[<-- w
+@enduml

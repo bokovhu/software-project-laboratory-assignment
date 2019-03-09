@@ -1,0 +1,46 @@
+@startuml
+title Panda jumps in line
+
+participant "w : JumpyWave" as w
+participant "p1: SleepyPanda" as p1
+participant "p2: JumpyPanda" as p2
+participant "standingOn: Tile" as standingOn
+participant "p3: CowardPanda" as p3
+
+note over w
+Jelen esetben a hullám egy olyan pandát
+ugraszt meg (p2), amelyet egy SleepyPanda vezet (p1)
+és amely egy CowardPandát vezet (p3)
+end note
+[->w: hit(p2)
+
+
+
+w->p2 ++: jump()
+
+p2->p2 ++ : stopLeading()
+
+p2 -> p1 ++: setGuidedAnimal(null)
+p1-->p2 --
+
+
+p2 -> p3 ++: stopLeading()
+p3--> p2--
+
+p2->standingOn ++ : damage()
+standingOn-->p2 --
+note over standingOn
+A damage() hatására a
+csempe élete 1-gyel csökken
+end note
+
+
+
+
+p2-->p2 --
+
+p2-->w --
+
+
+[<-- w
+@enduml

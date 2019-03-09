@@ -3,12 +3,12 @@
 skinparam classAttributeIconSize 0
 skinparam guillemet false
 
-participant "p1 : Panda" as a
+participant "p1 : CowardPanda" as a
 
 
 participant "t2 : Tile" as t
 
-participant "p2 : Panda" as currentAnimal
+participant "p2 : JumpyPanda" as currentAnimal
 
 title Panda collides with Panda
 [-> a : moveTo (t2)

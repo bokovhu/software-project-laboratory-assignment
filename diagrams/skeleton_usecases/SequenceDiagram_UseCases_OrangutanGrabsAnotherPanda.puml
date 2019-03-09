@@ -1,7 +1,7 @@
 @startuml
 participant "o : Orangutan" as o
-participant "newPanda : Panda" as newPanda
-participant "leadPanda: Panda" as leadPanda
+participant "newPanda : JumpyPanda" as newPanda
+participant "leadPanda: CowardPanda" as leadPanda
 title Orangutan grabs another Panda
 [-> o: collideWithAnimal(p)
 activate o

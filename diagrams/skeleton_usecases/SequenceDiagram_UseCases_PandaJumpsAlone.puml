@@ -1,0 +1,41 @@
+@startuml
+title Panda jumps alone
+
+participant "w : JumpyWave" as w
+
+participant "p: JumpyPanda" as p2
+participant "standingOn: Tile" as standingOn
+
+
+note over w
+Jelen esetben a panda szabadon áll,
+nem vezet senkit és nincs vezetve.
+end note
+[->w: hit(p)
+
+
+
+w->p2 ++: jump()
+
+
+
+
+
+
+p2->standingOn ++ : damage()
+standingOn-->p2 --
+note over standingOn
+A damage() hatására a
+csempe élete 1-gyel csökken
+end note
+
+
+
+
+p2-->p2 --
+
+p2-->w --
+
+
+[<-- w
+@enduml

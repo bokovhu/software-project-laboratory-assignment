@@ -5,9 +5,9 @@ title Orangutan steps with pandas
 participant "orangutan: Orangutan" as orangutan
 participant "target: Tile" as target
 participant "orangutanStandingOn: Tile" as orangutanStandingOn
-participant "firstPanda: Panda" as firstPanda
+participant "firstPanda: JumpyPanda" as firstPanda
 participant "firstPandaStandingOn: Tile" as firstPandaStandingOn
-participant "lastPanda: Panda" as lastPanda
+participant "lastPanda: SleepyPanda" as lastPanda
 participant "lastPandaStandingOn: Tile" as lastPandaStandingOn
 
 note over orangutan

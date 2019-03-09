@@ -1,0 +1,28 @@
+@startuml
+title Panda gets scared in line
+
+participant "w : BeepWave" as w
+
+participant "p: CowardPanda" as p2
+
+note over w
+Jelen esetben a panda szabadon áll,
+nem vezet senkit és nincs vezetve.
+end note
+
+[->w: hit(p)
+
+
+
+w->p2 ++: scare()
+
+
+
+
+
+
+p2-->w --
+
+
+[<-- w
+@enduml

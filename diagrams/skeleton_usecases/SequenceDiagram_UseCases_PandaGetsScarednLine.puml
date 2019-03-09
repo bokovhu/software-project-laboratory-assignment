@@ -1,0 +1,38 @@
+@startuml
+title Panda gets scared in line
+
+participant "w : BeepWave" as w
+participant "p1: SleepyPanda" as p1
+participant "p2: CowardPanda" as p2
+participant "p3: JumpyPanda" as p3
+
+note over w
+Jelen esetben a hullám egy olyan pandát
+ijeszt meg (p2), amelyet egy SleepyPanda vezet (p1)
+és amely egy JumpyPandát vezet (p3)
+end note
+[->w: hit(p2)
+
+
+
+w->p2 ++: scare()
+
+p2->p2 ++ : stopLeading()
+
+p2 -> p1 ++: setGuidedAnimal(null)
+p1-->p2 --
+
+
+p2 -> p3 ++: stopLeading()
+p3--> p2--
+
+
+
+
+p2-->p2 --
+
+p2-->w --
+
+
+[<-- w
+@enduml

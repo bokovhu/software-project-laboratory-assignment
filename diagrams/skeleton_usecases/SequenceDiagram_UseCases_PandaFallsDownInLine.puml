@@ -1,0 +1,31 @@
+@startuml
+title Panda falls down in line
+
+
+participant "p1: CowardPanda" as p1
+participant "p2: JumpyPanda" as p2
+participant "t: Tile" as t
+participant "p3: SleepyPanda" as p3
+
+
+
+[->p2 : moveTo(t)
+activate p2
+p2->t ++: accept(p2)
+t->p2 ++: kill()
+
+p2->p2 ++ : stopLeading()
+
+p2 -> p1 ++: setGuidedAnimal(null)
+p1-->p2 --
+
+
+p2 -> p3 ++: stopLeading()
+p3--> p2--
+p2-->p2 --
+p2-->t --
+t-->p2 --: true
+[<--p2
+deactivate p2
+
+@enduml
