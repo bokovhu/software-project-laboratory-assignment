@@ -1,0 +1,21 @@
+@startuml
+
+
+skinparam linestyle ortho
+
+rectangle "o : Orangutan" as o
+rectangle "p : SleepyPanda" as p
+
+title Orangutan grabs first Panda
+
+
+
+
+o-down-> p : collideWithOrangutan(o)
+p->p  : startLeading(o)
+p->o: getGuidedAnimal()
+
+p->o : setGuidedAnimal(p)
+
+
+@enduml

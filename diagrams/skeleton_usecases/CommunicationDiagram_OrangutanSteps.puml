@@ -1,0 +1,15 @@
+@startuml
+
+title Orangutan steps
+
+skinparam linestyle ortho
+rectangle "o: Orangutan" as p
+rectangle "target: Tile" as t1
+rectangle "orangutanStandingOn: Tile" as t2
+
+p -right-> t2: accept(o)
+t2-down->t1: setCurrentAnimal(null)
+t2-left->p: setStandingOn(target)
+t2->t2: setCurrentAnimal(o)
+
+@enduml

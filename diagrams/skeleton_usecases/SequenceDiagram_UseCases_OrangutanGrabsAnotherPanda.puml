@@ -8,8 +8,8 @@ activate o
 
 o-> newPanda ++ : collideWithOrangutan(o)
 newPanda->newPanda ++ : startLeading(o)
-newPanda->o: getGuidedAnimal()
-o-->newPanda: leadPanda
+newPanda->o++: getGuidedAnimal()
+o-->newPanda--: leadPanda
 
 
 newPanda->newPanda ++ : setGuidedAnimal(leadPanda)

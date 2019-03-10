@@ -1,0 +1,27 @@
+@startuml
+title Orangutan grabs another Panda
+
+skinparam linestyle ortho
+
+rectangle "o : Orangutan" as o
+rectangle "newPanda : JumpyPanda" as newPanda
+rectangle "leadPanda: CowardPanda" as leadPanda
+title Orangutan grabs another Panda
+
+
+o-> newPanda : collideWithOrangutan(o)
+newPanda->newPanda  : startLeading(o)
+newPanda->o: getGuidedAnimal()
+
+
+
+newPanda->newPanda  : setGuidedAnimal(leadPanda)
+
+newPanda-down->leadPanda  : setLeaderAnimal(newPanda)
+
+
+newPanda->o: setGuidedAnimal(newPanda)
+
+
+
+@enduml

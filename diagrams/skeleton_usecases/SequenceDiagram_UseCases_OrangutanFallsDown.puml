@@ -4,7 +4,9 @@ skinparam classAttributeIconSize 0
 skinparam guillemet false
 
 participant "o: Orangutan" as o
+participant ":Level" as l
 participant "t: Tile" as t
+
 
 title Orangutan falls down
 activate o
@@ -12,6 +14,8 @@ activate o
 
 o->t ++: accept(o)
 t ->o ++: kill()
+o->l ++: removeAnimal(o)
+l-->o --
 o --> t --
 t --> o --: true
 [<--o

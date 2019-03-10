@@ -1,0 +1,56 @@
+@startuml
+
+title Orangutan steps with Pandas
+
+skinparam linestyle ortho
+rectangle "o: Orangutan" as orangutan
+rectangle "target: Tile" as target
+rectangle "orangutanStandingOn: Tile" as orangutanStandingOn
+rectangle "firstPanda: JumpyPanda" as firstPanda
+rectangle "firstPandaStandingOn: Tile" as firstPandaStandingOn
+rectangle "lastPanda: SleepyPanda" as lastPanda
+rectangle "lastPandaStandingOn: Tile" as lastPandaStandingOn
+
+orangutan -> target : accept (orangutan)
+
+target -> orangutanStandingOn : setCurrentAnimal (null)
+target --> firstPanda : moveTo (orangutanStandingOn)
+firstPanda -> orangutanStandingOn  : accept (firstPanda)
+
+orangutanStandingOn --> firstPandaStandingOn  : setCurrentAnimal (null)
+
+
+orangutanStandingOn -> lastPanda  : moveTo (firstPandaStandingOn)
+
+lastPanda -> firstPandaStandingOn  : accept (lastPanda)
+
+firstPandaStandingOn -down-> lastPandaStandingOn  : setCurrentAnimal (null)
+
+
+firstPandaStandingOn -> lastPanda : setStandingOn (firstPandaStandingOn)
+
+
+firstPandaStandingOn -> firstPandaStandingOn  : setCurrentAnimal (lastPanda)
+
+
+
+
+orangutanStandingOn -down-> firstPanda  : setStandingOn (orangutanStandingOn)
+
+
+orangutanStandingOn -> orangutanStandingOn  : setCurrentAnimal (firstPanda)
+
+
+
+
+
+target -> orangutan  : setStandingOn (target)
+
+
+target -> target  : setCurrentAnimal (orangutan)
+
+
+
+
+
+@enduml
