@@ -1,3 +1,32 @@
 @startuml
+
 title Panda falls down alone
+
+participant "panda: JumpyPanda" as panda
+participant ": Level" as level
+participant "target: Tile" as target
+
+note over panda
+    A target csempe isFragile változójának
+    értéke true, a life mezeje pedig 0.
+    Amikor a panda odamozog, akkor meghal.
+end note
+
+[-> panda : moveTo (target)
+activate panda
+
+panda -> target ++ : accept (panda)
+
+target -> panda ++ : kill ()
+
+panda -> level ++ : removeAnimal (panda)
+panda <-- level --
+
+target <-- panda --
+
+panda <-- target -- : true
+
+[<-- panda
+deactivate panda
+
 @enduml
