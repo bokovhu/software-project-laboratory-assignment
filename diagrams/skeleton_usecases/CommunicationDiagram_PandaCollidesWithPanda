@@ -1,0 +1,15 @@
+@startuml
+skinparam linestyle ortho
+
+rectangle "p1 : CowardPanda" as a
+
+rectangle "t2 : Tile" as t
+
+rectangle "p2 : JumpyPanda" as currentAnimal
+
+title Panda collides with Panda
+
+a -> t : accept (p1)
+t->currentAnimal: CollideWithPanda(p1)
+
+@enduml

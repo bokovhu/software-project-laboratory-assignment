@@ -1,0 +1,12 @@
+@startuml
+title Panda jumps alone
+
+rectangle "w : JumpyWave" as w
+rectangle "p: JumpyPanda" as p2
+rectangle "standingOn: Tile" as standingOn
+
+w->p2: jump()
+
+p2->standingOn : damage()
+
+@enduml
