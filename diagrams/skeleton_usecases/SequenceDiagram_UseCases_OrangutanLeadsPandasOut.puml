@@ -1,3 +1,69 @@
 @startuml
-title Orangutan leads Pandas out
+
+title Orangutan leads pandas out
+
+participant "orangutan: Orangutan" as orangutan
+participant "exitTile: Tile" as exitTile
+participant "firstPanda: SleepyPanda" as firstPanda
+participant "lastPanda: CowardPanda" as lastPanda
+participant ": Level" as Level
+participant "startTile: Tile" as startTile
+participant "orangutanStandingOn: Tile" as orangutanStandingOn
+
+note over orangutan
+    Az orangutan most két pandából álló
+    láncot vezet ki a pályáról. Az exitTile
+    isExit boolean változója true értékű,
+    az orangutan vezeti a firstPanda-t,
+    a firstPanda vezeti a lastPanda-t. A
+    Level egy singleton, belőle érhető el
+    a megfelelő getter függvény hívásával
+    a startTile, ami a bejárat csempe
+end note
+
+[-> orangutan : moveTo (exitTile)
+activate orangutan
+
+orangutan -> exitTile ++ : accept (orangutan)
+
+exitTile -> orangutan ++ : leadOut ()
+
+orangutan -> firstPanda ++ : leadOut ()
+
+firstPanda -> lastPanda ++ : leadOut ()
+
+lastPanda -> Level ++ : removeAnimal (lastPanda)
+lastPanda <-- Level --
+
+firstPanda <-- lastPanda --
+
+firstPanda -> Level ++ : removeAnimal (firstPanda)
+firstPanda <-- Level --
+
+orangutan <-- firstPanda --
+
+exitTile <-- orangutan --
+
+exitTile -> orangutan ++ : moveTo (startTile)
+
+orangutan -> startTile ++ : accept (orangutan)
+
+startTile -> orangutanStandingOn ++ : setCurrentAnimal (null)
+startTile <-- orangutanStandingOn --
+
+startTile -> orangutan ++ : setStandingOn (startTile)
+startTile <-- orangutan --
+
+startTile -> startTile ++ : setCurrentAnimal (orangutan)
+startTile <-- startTile --
+
+orangutan <-- startTile -- : true
+
+exitTile <-- orangutan --
+
+orangutan <-- exitTile -- : true
+
+[<-- orangutan
+deactivate orangutan
+
 @enduml
