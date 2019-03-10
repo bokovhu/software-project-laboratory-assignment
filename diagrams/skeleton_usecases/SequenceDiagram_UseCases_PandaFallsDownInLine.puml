@@ -1,31 +1,69 @@
 @startuml
+
 title Panda falls down in line
 
+participant "panda: JumpyPanda" as panda
+participant ": Level" as level
+participant "target: Tile" as target
+participant "orangutan: Orangutan" as orangutan
+participant "secondPanda: CowardPanda" as secondPanda
+participant "lastPanda: SleepyPanda" as lastPanda
 
-participant "p1: CowardPanda" as p1
-participant "p2: JumpyPanda" as p2
-participant "t: Tile" as t
-participant "p3: SleepyPanda" as p3
+note over panda
+    A target csempe isFragile változójának
+    értéke true, a life mezeje pedig 0.
+    Amikor a panda odamozog, akkor meghal.
+    Ebben az esetben a panda mögött található
+    még egy 2 pandából álló lánc, ez a panda
+    halála előtt felbomlik. A panda-t vezető
+    állat jelen esetben az orángután.
+end note
 
+[-> panda : moveTo (target)
+activate panda
 
+panda -> target ++ : accept (panda)
 
-[->p2 : moveTo(t)
-activate p2
-p2->t ++: accept(p2)
-t->p2 ++: kill()
+target -> panda ++ : kill ()
 
-p2->p2 ++ : stopLeading()
+panda -> panda ++ : stopLeading ()
 
-p2 -> p1 ++: setGuidedAnimal(null)
-p1-->p2 --
+panda -> orangutan ++ : setGuidedAnimal (null)
+panda <-- orangutan --
 
+panda -> secondPanda ++ : stopLeading ()
 
-p2 -> p3 ++: stopLeading()
-p3--> p2--
-p2-->p2 --
-p2-->t --
-t-->p2 --: true
-[<--p2
-deactivate p2
+secondPanda -> panda ++ : setGuidedAnimal (null)
+secondPanda <-- panda --
+
+secondPanda -> lastPanda ++ : stopLeading ()
+
+lastPanda -> secondPanda ++ : setGuidedAnimal (null)
+lastPanda <-- secondPanda --
+
+lastPanda -> lastPanda ++ : setLeaderAnimal (null)
+lastPanda <-- lastPanda --
+
+secondPanda <-- lastPanda --
+
+secondPanda -> secondPanda ++ : setLeaderAnimal (null)
+secondPanda <-- secondPanda --
+
+panda <-- secondPanda --
+
+panda -> panda ++ : setLeaderAnimal (null)
+panda <-- panda --
+
+panda <-- panda --
+
+panda -> level ++ : removeAnimal (panda)
+panda <-- level --
+
+target <-- panda --
+
+panda <-- target -- : true
+
+[<-- panda
+deactivate panda
 
 @enduml
