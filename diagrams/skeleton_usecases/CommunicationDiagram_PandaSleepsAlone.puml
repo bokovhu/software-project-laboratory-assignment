@@ -1,0 +1,18 @@
+@startuml
+title Panda sleeps alone
+
+
+rectangle "w : SleepyWave" as w
+rectangle "wOrigin: Tile" as wOrigin
+rectangle "p: SleepyPanda" as p2
+
+
+
+w->p2 : goToSleep(wOrigin)
+
+p2->p2 : moveTo(wOrigin)
+
+p2-down->wOrigin : accept(p)
+
+
+@enduml

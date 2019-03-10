@@ -1,0 +1,11 @@
+@startuml
+skinparam linestyle ortho
+
+title Panda gets scared alone
+
+rectangle "w : BeepWave" as w
+
+rectangle "p: CowardPanda" as p2
+w->p2 : scare()
+
+@enduml

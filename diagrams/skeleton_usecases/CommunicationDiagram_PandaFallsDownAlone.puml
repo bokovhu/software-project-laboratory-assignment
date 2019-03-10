@@ -1,0 +1,15 @@
+@startuml
+title Panda falls down alone
+
+rectangle "panda: JumpyPanda" as panda
+rectangle ": Level" as level
+rectangle "target: Tile" as target
+
+
+panda -> target  : accept (panda)
+
+target -> panda  : kill ()
+
+panda -up-> level  : removeAnimal (panda)
+
+@enduml

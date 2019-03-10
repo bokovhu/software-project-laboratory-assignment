@@ -1,0 +1,21 @@
+@startuml
+
+skinparam classAttributeIconSize 0
+skinparam guillemet false
+
+rectangle "o: Orangutan" as o
+rectangle ":Level" as l
+rectangle "t: Tile" as t
+
+
+title Orangutan falls down
+
+
+o->t: accept(o)
+t -down->o : kill()
+o->l : removeAnimal(o)
+
+
+
+
+@enduml

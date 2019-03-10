@@ -1,0 +1,40 @@
+@startuml
+
+title Orangutan leads pandas out
+
+rectangle "orangutan: Orangutan" as orangutan
+rectangle "exitTile: Tile" as exitTile
+rectangle "firstPanda: SleepyPanda" as firstPanda
+rectangle "lastPanda: CowardPanda" as lastPanda
+rectangle ": Level" as Level
+rectangle "startTile: Tile" as startTile
+rectangle "orangutanStandingOn: Tile" as orangutanStandingOn
+
+
+orangutan -left-> exitTile  : accept (orangutan)
+
+exitTile -> orangutan  : leadOut ()
+
+orangutan -> firstPanda : leadOut ()
+
+firstPanda -> lastPanda : leadOut ()
+
+lastPanda -> Level  : removeAnimal (lastPanda)
+
+firstPanda -up-> Level : removeAnimal (firstPanda)
+
+
+exitTile -> orangutan : moveTo (startTile)
+
+orangutan -down-> startTile  : accept (orangutan)
+
+startTile -down-> orangutanStandingOn : setCurrentAnimal (null)
+
+
+startTile -> orangutan  : setStandingOn (startTile)
+
+
+startTile -> startTile  : setCurrentAnimal (orangutan)
+
+
+@enduml

@@ -1,0 +1,30 @@
+@startuml
+skinparam linestyle ortho
+
+title Panda gets scared in line
+
+rectangle "w : BeepWave" as w
+rectangle "p1: SleepyPanda" as p1
+rectangle "p2: CowardPanda" as p2
+rectangle "p3: JumpyPanda" as p3
+
+
+
+
+
+w->p2 : scare()
+
+p2->p2 : stopLeading()
+
+p2 -up-> p1 : setGuidedAnimal(null)
+
+
+
+p2 -down-> p3 : stopLeading()
+
+
+
+
+
+
+@enduml

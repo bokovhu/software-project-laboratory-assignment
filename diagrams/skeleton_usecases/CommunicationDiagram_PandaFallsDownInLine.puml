@@ -1,0 +1,49 @@
+@startuml
+title Panda falls down in line
+
+rectangle "panda: JumpyPanda" as panda
+rectangle ": Level" as level
+rectangle "target: Tile" as target
+rectangle "orangutan: Orangutan" as orangutan
+rectangle "secondPanda: CowardPanda" as secondPanda
+rectangle "lastPanda: SleepyPanda" as lastPanda
+
+
+
+panda -> target  : accept (panda)
+
+target -> panda  : kill ()
+
+panda -> panda  : stopLeading () / setLeaderAnimal(null)
+
+panda -up-> orangutan  : setGuidedAnimal (null)
+
+
+panda -down-> secondPanda  : stopLeading ()
+
+secondPanda -> panda  : setGuidedAnimal (null)
+
+
+secondPanda -> lastPanda  : stopLeading ()
+
+lastPanda -> secondPanda : setGuidedAnimal (null)
+
+
+lastPanda -> lastPanda  : setLeaderAnimal (null)
+
+
+
+
+secondPanda -> secondPanda  : setLeaderAnimal (null)
+
+
+
+
+
+
+
+
+panda -left-> level : removeAnimal (panda)
+
+
+@enduml
