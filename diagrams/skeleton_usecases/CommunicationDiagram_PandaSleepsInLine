@@ -1,0 +1,18 @@
+@startuml
+title Panda sleeps in line
+
+rectangle "w : SleepyWave" as w
+rectangle "wOrigin: Tile" as wOrigin
+rectangle "p1: JumpyPanda" as p1
+rectangle "p2: SleepyPanda" as p2
+rectangle "p3: CowardPanda" as p3
+
+w->p2: goToSleep(wOrigin)
+
+p2->p2: stopLeading(), moveTo(wOrigin)
+p2 -down-> p1: setGuidedAnimal(null)
+p2 -up-> p3: stopLeading()
+
+p2->wOrigin: accept(p2)
+
+@enduml
