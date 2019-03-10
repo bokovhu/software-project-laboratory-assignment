@@ -1,0 +1,11 @@
+@startuml
+skinparam linestyle ortho
+rectangle "panda: JumpyPanda" as p
+rectangle "target: Tile" as t1
+rectangle "pandaStangingOn: Tile" as t2
+
+p -right-> t2: accept(panda)
+t2-right->t1: setCurrentAnimal(null)
+
+
+@enduml

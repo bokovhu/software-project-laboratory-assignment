@@ -12,7 +12,7 @@ ijeszt meg (p2), amelyet egy SleepyPanda vezet (p1)
 és amely egy JumpyPandát vezet (p3)
 end note
 [->w: hit(p2)
-
+activate w
 
 
 w->p2 ++: scare()
@@ -35,4 +35,5 @@ p2-->w --
 
 
 [<-- w
+deactivate w
 @enduml
