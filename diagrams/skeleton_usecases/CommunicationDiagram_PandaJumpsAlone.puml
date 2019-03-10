@@ -7,6 +7,6 @@ rectangle "standingOn: Tile" as standingOn
 
 w->p2: jump()
 
-p2->standingOn : damage()
+p2-down->standingOn : damage()
 
 @enduml
