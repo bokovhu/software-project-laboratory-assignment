@@ -1,5 +1,5 @@
 @startuml
-title Panda gets scared in line
+title Panda gets scared alone
 
 participant "w : BeepWave" as w
 
@@ -11,6 +11,7 @@ nem vezet senkit és nincs vezetve.
 end note
 
 [->w: hit(p)
+activate w
 
 
 
@@ -18,11 +19,9 @@ w->p2 ++: scare()
 
 
 
-
-
-
 p2-->w --
 
-
 [<-- w
+deactivate w
+
 @enduml

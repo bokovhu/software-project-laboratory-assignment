@@ -13,6 +13,7 @@ küld aludni (p2), amelyet egy JumpyPanda vezet (p1)
 és amely egy CowardPandát vezet (p3)
 end note
 [->w: hit(p2)
+activate w
 w->p2 ++: goToSleep(wOrigin)
 
 p2->p2 ++ : stopLeading()
@@ -35,4 +36,5 @@ p2-->w --
 
 
 [<-- w
+deactivate w
 @enduml
