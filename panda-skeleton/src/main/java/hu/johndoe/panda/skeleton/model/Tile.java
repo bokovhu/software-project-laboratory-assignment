@@ -60,16 +60,22 @@ public class Tile {
             return true;
         }
 
-        animal.getStandingOn ().setCurrentAnimal (null);
-        if (animal.getGuidedAnimal () != null) {
-            animal.getGuidedAnimal ().moveTo (animal.getStandingOn ());
+        if(isExit){
+            animal.leadOut();
+            return true;
+
+        }else {
+            animal.getStandingOn().setCurrentAnimal(null);
+            if (animal.getGuidedAnimal() != null) {
+                animal.getGuidedAnimal().moveTo(animal.getStandingOn());
+            }
+            animal.setStandingOn(this);
+            setCurrentAnimal(animal);
+
+            ActionLogger.pop();
+
+            return true;
         }
-        animal.setStandingOn (this);
-        setCurrentAnimal (animal);
-
-        ActionLogger.pop ();
-
-        return true;
 
     }
 

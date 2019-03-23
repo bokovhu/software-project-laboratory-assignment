@@ -17,10 +17,10 @@ public class TestScenario {
             new OrangutanGrabsAnotherPandaScenario(), //done
             new PandaGetsScaredInLineScenario(), //done
             new PandaGetsScaredAloneScenario(), //done
-            new OrangutanLeadsPandasOutScenario(),
-            new PandaFallsDownAloneScenario(),
-            new PandaFallsDownInLineScenario(),
-            new OrangutanFallsDownScenario(),
+            new OrangutanLeadsPandasOutScenario(), //done
+            new PandaFallsDownAloneScenario(), //done
+            new PandaFallsDownInLineScenario(), //done
+            new OrangutanFallsDownScenario(), //done
             new PandaSleepsAloneScenario(), //done
             new PandaJumpsAloneScenario(), //done
             new PandaSleepsInLineScenario(), //done

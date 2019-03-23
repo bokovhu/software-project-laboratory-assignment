@@ -1,9 +1,6 @@
 package hu.johndoe.panda.skeleton.scenario;
 
-import hu.johndoe.panda.skeleton.model.Game;
-import hu.johndoe.panda.skeleton.model.Level;
-import hu.johndoe.panda.skeleton.model.Orangutan;
-import hu.johndoe.panda.skeleton.model.Tile;
+import hu.johndoe.panda.skeleton.model.*;
 import hu.johndoe.panda.skeleton.model._internal.ActionLogger;
 import hu.johndoe.panda.skeleton.model._internal.IdGenerator;
 
@@ -31,12 +28,11 @@ public class OrangutanFallsDownScenario extends TestScenario{
 
                         tile0._addNeighbour(tile1);
 
-                        Game.getInstance().level = new Level (
-                                Arrays.asList (o),
-                                Arrays.asList (startTile, tile1, exitTile),
-                                startTile,
-                                exitTile
-                        );
+                        Game.getInstance().level = new Level();
+
+                        Game.getInstance().level.setAnimals((new ArrayList(Arrays.asList(o))));
+                        Game.getInstance().level.setTiles((new ArrayList(Arrays.asList(startTile,exitTile,tile0,tile1))));
+
 
 
                         ActionLogger.enable();

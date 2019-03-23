@@ -35,7 +35,7 @@ public abstract class Animal implements Updatable {
 
     public void stopLeading () {
 
-        ActionLogger.log (this, "Stopping to be lead");
+        ActionLogger.log (this, "Stopping being lead");
         ActionLogger.push ();
 
         if(getLeaderAnimal() != null){
@@ -54,6 +54,8 @@ public abstract class Animal implements Updatable {
 
         ActionLogger.log (this, "Getting killed");
         ActionLogger.push ();
+
+        stopLeading();
 
         Game.getInstance ().level.removeAnimal (this);
 
