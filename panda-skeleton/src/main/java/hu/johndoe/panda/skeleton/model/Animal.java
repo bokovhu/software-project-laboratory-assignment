@@ -88,7 +88,6 @@ public abstract class Animal implements Updatable {
     }
 
     public void leadOut () {
-
         ActionLogger.log (this, "Being lead out");
 
     }
@@ -103,6 +102,7 @@ public abstract class Animal implements Updatable {
     }
 
     public void setLeaderAnimal (Animal leaderAnimal) {
+        ActionLogger.log (this, "setLeaderAnimal (%s)", leaderAnimal.toString ());
         this.leaderAnimal = leaderAnimal;
     }
 
@@ -111,6 +111,7 @@ public abstract class Animal implements Updatable {
     }
 
     public void setGuidedAnimal (Animal guidedAnimal) {
+        ActionLogger.log (this, "setGuidedAnimal (%s)", guidedAnimal.toString ());
         this.guidedAnimal = guidedAnimal;
     }
 

@@ -1,5 +1,6 @@
 package hu.johndoe.panda.skeleton.model;
 
+import hu.johndoe.panda.skeleton.model._internal.ActionLogger;
 import hu.johndoe.panda.skeleton.model._internal.IdGenerator;
 
 public abstract class Wave {
@@ -22,6 +23,7 @@ public abstract class Wave {
     }
 
     public void setOrigin (Tile origin) {
+        ActionLogger.log (this, "setOrigin (%s)", origin.toString ());
         this.origin = origin;
     }
 
