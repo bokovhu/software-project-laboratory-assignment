@@ -6,6 +6,9 @@ public class IdGenerator {
 
     private static final AtomicInteger GENERATOR = new AtomicInteger (1);
 
+    public static void reset () {
+        GENERATOR.set (1);
+    }
     public static int fetch () {
         return GENERATOR.getAndIncrement ();
     }

@@ -2,6 +2,7 @@ package hu.johndoe.panda.skeleton.scenario;
 
 import hu.johndoe.panda.skeleton.model.*;
 import hu.johndoe.panda.skeleton.model._internal.ActionLogger;
+import hu.johndoe.panda.skeleton.model._internal.IdGenerator;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -14,6 +15,7 @@ public class PandaStepsScenario extends TestScenario {
                 () -> {
 
                     ActionLogger.disable ();
+                    IdGenerator.reset ();
 
                     Orangutan orangutan = new Orangutan ();
                     Panda panda = new SleepyPanda ();

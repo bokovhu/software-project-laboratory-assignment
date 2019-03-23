@@ -4,6 +4,7 @@ import hu.johndoe.panda.skeleton.model.Level;
 import hu.johndoe.panda.skeleton.model.Orangutan;
 import hu.johndoe.panda.skeleton.model.Tile;
 import hu.johndoe.panda.skeleton.model._internal.ActionLogger;
+import hu.johndoe.panda.skeleton.model._internal.IdGenerator;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -16,6 +17,7 @@ public class OrangutanStepsScenario extends TestScenario {
                 () -> {
 
                     ActionLogger.disable ();
+                    IdGenerator.reset ();
 
                     Orangutan orangutan = new Orangutan ();
 
