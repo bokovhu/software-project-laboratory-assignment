@@ -63,6 +63,10 @@ public abstract class Animal implements Updatable {
 
         targetTile.accept (this);
 
+            if (this.getGuidedAnimal() != null) {
+                this.getGuidedAnimal().moveTo(this.getStandingOn());
+            }
+
         ActionLogger.pop ();
 
     }
@@ -138,7 +142,7 @@ public abstract class Animal implements Updatable {
     }
 
     public Tile getStandingOn () {
-        ActionLogger.log (this, "getStandingOn ()");
+        ActionLogger.log (this, "getStandingOn () returns " + standingOn.toString());
         return standingOn;
     }
 
