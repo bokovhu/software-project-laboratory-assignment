@@ -10,11 +10,11 @@ import java.util.List;
 public class TestScenario {
 
     public static final List<TestScenario> SCENARIOS = Arrays.asList (
-            new PandaStepsScenario (),
-            new OrangutanStepsScenario (),
-            new OrangutanStepsWithPandasScenario(),
-            new OrangutanGrabsFirstPandaScenario(),
-            new OrangutanGrabsAnotherPandaScenario(),
+            new PandaStepsScenario (), //done
+            new OrangutanStepsScenario (), //done
+            new OrangutanStepsWithPandasScenario(), //done
+            new OrangutanGrabsFirstPandaScenario(), //done
+            new OrangutanGrabsAnotherPandaScenario(), //done
             new PandaGetsScaredInLineScenario(),
             new PandaGetsScaredAloneScenario(),
             new OrangutanLeadsPandasOutScenario(),
@@ -25,7 +25,7 @@ public class TestScenario {
             new PandaJumpsAloneScenario(),
             new PandaSleepsInLineScenario(),
             new PandaJumpsInLineScenario(),
-            new PandaCollidesWithPandaScenario()
+            new PandaCollidesWithPandaScenario() //done
     );
 
     private final String name;

@@ -12,9 +12,7 @@ public class OrangutanStepsWithPandasScenario extends TestScenario {
         super("Orangutan Steps with Pandas",
 
                 () -> {
-
                     {
-
                         ActionLogger.disable();
                         IdGenerator.reset();
                         Orangutan orangutan = new Orangutan();
@@ -22,18 +20,17 @@ public class OrangutanStepsWithPandasScenario extends TestScenario {
                         SleepyPanda lastPanda = new SleepyPanda();
 
 
-                        lastPanda.setLeaderAnimal(firstPanda);
-                        firstPanda.setLeaderAnimal(orangutan);
-                        firstPanda.setGuidedAnimal(lastPanda);
+                        firstPanda.startLeading(orangutan);
+                        lastPanda.startLeading(firstPanda);
 
 
                         Tile startTile = new Tile(20, false, false, orangutan, null, new ArrayList<>());
 
                         Tile exitTile = new Tile(20, false, true, null, null, new ArrayList<>());
 
-                        Tile tile1 = new Tile(20, false, false, null, null, new ArrayList<>());
-                        Tile tile2 = new Tile(20, false, false, null, null, new ArrayList<>());
-                        Tile tile3 = new Tile(20, false, false, null, null, new ArrayList<>());
+                        Tile tile1 = new Tile(20, false, false, orangutan, null, new ArrayList<>());
+                        Tile tile2 = new Tile(20, false, false, firstPanda, null, new ArrayList<>());
+                        Tile tile3 = new Tile(20, false, false, lastPanda, null, new ArrayList<>());
                         Tile tile4 = new Tile(20, false, false, null, null, new ArrayList<>());
 
                         tile1._addNeighbour(tile2);
@@ -46,7 +43,7 @@ public class OrangutanStepsWithPandasScenario extends TestScenario {
 
 
                         Level level = new Level(
-                                Arrays.asList(orangutan),
+                                Arrays.asList(orangutan, firstPanda, lastPanda),
                                 Arrays.asList(tile1, tile2, tile3, tile4, startTile, exitTile),
                                 startTile,
                                 exitTile

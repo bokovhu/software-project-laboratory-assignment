@@ -62,11 +62,6 @@ public abstract class Animal implements Updatable {
         ActionLogger.push ();
 
         targetTile.accept (this);
-
-            if (this.getGuidedAnimal() != null) {
-                this.getGuidedAnimal().moveTo(this.getStandingOn());
-            }
-
         ActionLogger.pop ();
 
     }

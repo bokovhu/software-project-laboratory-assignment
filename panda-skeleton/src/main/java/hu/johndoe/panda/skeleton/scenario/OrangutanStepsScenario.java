@@ -33,7 +33,7 @@ public class OrangutanStepsScenario extends TestScenario {
                     tile1._addNeighbour (tile2);
                     tile2._addNeighbour (exitTile);
 
-                    orangutan.setStandingOn (startTile);
+                    orangutan.setStandingOn(startTile);
 
 
                     Level level = new Level (
