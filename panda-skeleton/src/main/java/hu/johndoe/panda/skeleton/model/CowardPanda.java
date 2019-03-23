@@ -10,7 +10,7 @@ public class CowardPanda extends Panda {
         ActionLogger.log (this, "Getting scared");
         ActionLogger.push ();
 
-        stopLeading ();
+        if(this.getLeaderAnimal() != null) stopLeading ();
 
         ActionLogger.pop ();
 

@@ -15,8 +15,8 @@ public class TestScenario {
             new OrangutanStepsWithPandasScenario(), //done
             new OrangutanGrabsFirstPandaScenario(), //done
             new OrangutanGrabsAnotherPandaScenario(), //done
-            new PandaGetsScaredInLineScenario(),
-            new PandaGetsScaredAloneScenario(),
+            new PandaGetsScaredInLineScenario(), //done
+            new PandaGetsScaredAloneScenario(), //done
             new OrangutanLeadsPandasOutScenario(),
             new PandaFallsDownAloneScenario(),
             new PandaFallsDownInLineScenario(),

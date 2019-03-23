@@ -3,6 +3,8 @@ package hu.johndoe.panda.skeleton.model;
 import hu.johndoe.panda.skeleton.model._internal.ActionLogger;
 import hu.johndoe.panda.skeleton.model._internal.IdGenerator;
 
+import java.util.Objects;
+
 public abstract class Animal implements Updatable {
 
     protected final int id = IdGenerator.fetch ();
@@ -123,7 +125,7 @@ public abstract class Animal implements Updatable {
     }
 
     public void setLeaderAnimal (Animal leaderAnimal) {
-        ActionLogger.log (this, "setLeaderAnimal (%s)", leaderAnimal.toString ());
+        ActionLogger.log (this, "setLeaderAnimal (%s)", Objects.toString (leaderAnimal));
         this.leaderAnimal = leaderAnimal;
     }
 
