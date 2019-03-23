@@ -63,7 +63,7 @@ public class Main {
 
             }
 
-            TestScenario scenarioToRun = TestScenario.SCENARIOS.get (scenarioIndex);
+            TestScenario scenarioToRun = TestScenario.SCENARIOS.get (scenarioIndex - 1);
             System.out.println (
                     String.format ("===== %s =====", scenarioToRun.getName ())
             );
