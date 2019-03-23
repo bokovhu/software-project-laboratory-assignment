@@ -15,7 +15,12 @@ public class JumpyPanda extends Panda {
     public void jump () {
 
         ActionLogger.log (this, "Jumping");
-        throw new UnsupportedOperationException ();
+        ActionLogger.push ();
+
+        getStandingOn ().damage ();
+        stopLeading ();
+
+        ActionLogger.pop ();
 
     }
 

@@ -23,7 +23,11 @@ public class Wardrobe extends Item {
                 user.toString (),
                 otherWardrobe.getPlacedOn ().toString ()
         );
+        ActionLogger.push ();
+
         user.moveTo (otherWardrobe.getPlacedOn ());
+
+        ActionLogger.pop ();
 
     }
 

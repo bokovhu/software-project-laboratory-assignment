@@ -17,12 +17,15 @@ public class Couch extends Item {
     public void use (Animal user) {
 
         ActionLogger.log (this, "Getting used by %s", user.toString ());
+        ActionLogger.push ();
 
         if (!isTaken) {
             ActionLogger.log (this, "I am not yet taken, making user go to sleep");
             user.goToSleep (getPlacedOn ());
             isTaken = true;
         }
+
+        ActionLogger.pop ();
 
     }
 

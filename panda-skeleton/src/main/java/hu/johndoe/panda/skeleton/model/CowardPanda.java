@@ -8,7 +8,11 @@ public class CowardPanda extends Panda {
     public void scare () {
 
         ActionLogger.log (this, "Getting scared");
-        throw new UnsupportedOperationException ();
+        ActionLogger.push ();
+
+        stopLeading ();
+
+        ActionLogger.pop ();
 
     }
 

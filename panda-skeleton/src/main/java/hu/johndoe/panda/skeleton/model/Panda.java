@@ -17,7 +17,11 @@ public abstract class Panda extends Animal {
     public void collideWithAnimal (Animal animal) {
 
         ActionLogger.log (this, "Colliding with animal %s", animal.toString ());
+        ActionLogger.push ();
+
         animal.collideWithPanda (this);
+
+        ActionLogger.pop ();
 
     }
 
@@ -25,7 +29,11 @@ public abstract class Panda extends Animal {
     public void collideWithOrangutan (Animal orangutan) {
 
         ActionLogger.log (this, "Colliding with orangutan %s", orangutan.toString ());
+        ActionLogger.push ();
+
         startLeading (orangutan);
+
+        ActionLogger.pop ();
 
     }
 
@@ -33,21 +41,34 @@ public abstract class Panda extends Animal {
     public void leadOut () {
 
         ActionLogger.log (this, "Getting lead out");
+        ActionLogger.push ();
+
         if (getGuidedAnimal () != null) {
             ActionLogger.log (this, "Leading guided animal out");
             getGuidedAnimal ().leadOut ();
         }
 
-        // TODO: Add points
+        Game.getInstance ().level.removeAnimal (this);
+        Game.getInstance ().addPoint ();
+
+        ActionLogger.pop ();
 
     }
 
     @Override
     public void startLeading (Animal leader) {
+
         ActionLogger.log (this, "Starting to be lead by %s", leader.toString ());
-        if (getLeaderAnimal () == null) {
-            this.setLeaderAnimal (leader);
+        ActionLogger.push ();
+
+        setLeaderAnimal (leader);
+        if (leader.getGuidedAnimal () != null) {
+            setGuidedAnimal (leader.getGuidedAnimal ());
+            leader.getGuidedAnimal ().setLeaderAnimal (this);
         }
+        leader.setGuidedAnimal (this);
+
+        ActionLogger.pop ();
 
     }
 

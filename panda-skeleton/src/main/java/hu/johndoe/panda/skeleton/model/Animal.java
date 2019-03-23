@@ -23,25 +23,47 @@ public abstract class Animal implements Updatable {
     public void startLeading (Animal leader) {
 
         ActionLogger.log (this, "Starting to be lead by %s", leader.toString ());
+        if (leader.getGuidedAnimal () != null) {
+            setGuidedAnimal (leader.getGuidedAnimal ());
+            leader.getGuidedAnimal ().setLeaderAnimal (this);
+        }
+        leader.setGuidedAnimal (this);
 
     }
 
     public void stopLeading () {
 
         ActionLogger.log (this, "Stopping to be lead");
+        ActionLogger.push ();
+
+        setLeaderAnimal (null);
+        if (getGuidedAnimal () != null) {
+            getGuidedAnimal ().stopLeading ();
+        }
+
+        ActionLogger.pop ();
 
     }
 
     public void kill () {
 
         ActionLogger.log (this, "Getting killed");
+        ActionLogger.push ();
+
+        Game.getInstance ().level.removeAnimal (this);
+
+        ActionLogger.pop ();
 
     }
 
     public void moveTo (Tile targetTile) {
 
         ActionLogger.log (this, "Moving to tile %s", targetTile.toString ());
+        ActionLogger.push ();
+
         targetTile.accept (this);
+
+        ActionLogger.pop ();
 
     }
 

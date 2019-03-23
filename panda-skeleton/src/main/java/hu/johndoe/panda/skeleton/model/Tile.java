@@ -41,6 +41,7 @@ public class Tile {
     public boolean accept (Animal animal) {
 
         ActionLogger.log (this, "Accepting animal %s", animal.toString ());
+        ActionLogger.push ();
 
         if (currentAnimal != null) {
             ActionLogger.log (
@@ -66,17 +67,26 @@ public class Tile {
         animal.setStandingOn (this);
         setCurrentAnimal (animal);
 
+        ActionLogger.pop ();
+
         return true;
 
     }
 
     public void damage () {
 
+        if (isFragile) {
+            life -= 1;
+            ActionLogger.log (this, "Getting damaged, new life value: %d", life);
+        }
+
     }
 
     public void spawnWave (Wave wave) {
 
         ActionLogger.log (this, "Spawning wave %s", wave.toString ());
+        ActionLogger.push ();
+
         pushWave (wave);
 
         if (neighbours != null) {
@@ -88,15 +98,21 @@ public class Tile {
 
         }
 
+        ActionLogger.pop ();
+
     }
 
     public void pushWave (Wave wave) {
 
         ActionLogger.log (this, "Pushing wave %s", wave.toString ());
+        ActionLogger.push ();
+
         if (currentAnimal != null) {
             ActionLogger.log (this, "Making wave %s hit animal %s", wave.toString (), currentAnimal.toString ());
             wave.hit (currentAnimal);
         }
+
+        ActionLogger.pop ();
 
     }
 

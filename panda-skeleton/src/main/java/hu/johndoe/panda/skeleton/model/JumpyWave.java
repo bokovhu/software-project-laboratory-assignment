@@ -15,7 +15,11 @@ public class JumpyWave extends Wave {
     public void hit (Animal animal) {
 
         ActionLogger.log (this, "Hitting animal %s, making it jump", animal.toString ());
+        ActionLogger.push ();
+
         animal.jump ();
+
+        ActionLogger.pop ();
 
     }
 

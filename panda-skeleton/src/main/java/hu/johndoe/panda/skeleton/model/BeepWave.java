@@ -15,7 +15,11 @@ public class BeepWave extends Wave {
     public void hit (Animal animal) {
 
         ActionLogger.log (this, "Hitting animal %s", animal.toString ());
+        ActionLogger.push ();
+
         animal.scare ();
+
+        ActionLogger.pop ();
 
     }
 

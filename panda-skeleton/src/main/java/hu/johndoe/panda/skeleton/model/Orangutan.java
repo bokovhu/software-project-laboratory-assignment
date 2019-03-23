@@ -15,7 +15,11 @@ public class Orangutan extends Animal {
     public void collideWithAnimal (Animal animal) {
 
         ActionLogger.log (this, "Colliding with animal %s", animal.toString ());
+        ActionLogger.push ();
+
         animal.collideWithOrangutan (this);
+
+        ActionLogger.pop ();
 
     }
 

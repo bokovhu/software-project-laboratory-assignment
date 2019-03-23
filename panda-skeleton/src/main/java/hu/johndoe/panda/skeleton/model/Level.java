@@ -24,6 +24,7 @@ public class Level {
     public void removeAnimal (Animal animal) {
 
         ActionLogger.log ("Level", "Removing animal %s", animal.toString ());
+        animals.remove (animal);
 
     }
 
