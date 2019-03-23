@@ -7,8 +7,6 @@ import java.util.Scanner;
 
 public class Main {
 
-
-
     public static void main (String[] args) {
 
         System.out.println ("Welcome to John Doe's skeleton!");
@@ -19,7 +17,7 @@ public class Main {
 
         while (true) {
 
-            System.out.println ("~~~ Available scenarios ~~~");
+            System.out.println ("===== Available scenarios =====");
 
             for (int i = 0; i < TestScenario.SCENARIOS.size (); i++) {
 
@@ -67,7 +65,7 @@ public class Main {
 
             TestScenario scenarioToRun = TestScenario.SCENARIOS.get (scenarioIndex);
             System.out.println (
-                    String.format ("~~~ Running '%s' ~~~", scenarioToRun.getName ())
+                    String.format ("===== %s =====", scenarioToRun.getName ())
             );
 
             ActionLogger.reset ();
