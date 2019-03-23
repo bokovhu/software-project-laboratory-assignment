@@ -19,7 +19,7 @@ public class PandaGetsScaredInLineScenario extends TestScenario {
                         IdGenerator.reset();
 
                         BeepWave w = new BeepWave();
-                        Orangutan o = new Orangutan();
+
                         SleepyPanda p1 = new SleepyPanda();
                         CowardPanda p2 = new CowardPanda();
                         JumpyPanda p3 = new JumpyPanda();
@@ -28,7 +28,7 @@ public class PandaGetsScaredInLineScenario extends TestScenario {
 
                         Tile exitTile = new Tile(20, false, true, null, null, new ArrayList<>());
 
-                        Tile tile0 = new Tile(20, false, false, o, null, new ArrayList<>());
+
                         Tile tile1 = new Tile(20, false, false, p1, null, new ArrayList<>());
                         Tile tile2 = new Tile(20, false, false, p2, null, new ArrayList<>());
                         Tile tile3 = new Tile(20, false, false, p3, null, new ArrayList<>());
@@ -36,7 +36,7 @@ public class PandaGetsScaredInLineScenario extends TestScenario {
                         tile1._addNeighbour(tile2);
                         tile2._addNeighbour(tile3);
 
-                        o.setStandingOn(tile0);
+
                         p1.setStandingOn(tile1);
                         p2.setStandingOn(tile2);
                         p3.setStandingOn(tile3);
@@ -44,14 +44,15 @@ public class PandaGetsScaredInLineScenario extends TestScenario {
 
                         Level level = new Level(
                                 Arrays.asList(p1, p2, p3),
-                                Arrays.asList(tile0, tile1, tile2, tile3, startTile, exitTile),
+                                Arrays.asList(tile1, tile2, tile3, startTile, exitTile),
                                 startTile,
                                 exitTile
                         );
 
-                        p3.startLeading(o);
-                        p2.startLeading(o);
-                        p1.startLeading(o);
+                        p3.setLeaderAnimal(p2);
+                        p2.setGuidedAnimal(p3);
+                        p2.setLeaderAnimal(p1);
+                        p1.setGuidedAnimal(p2);
                         ActionLogger.enable();
 
                         w.hit(p2);
