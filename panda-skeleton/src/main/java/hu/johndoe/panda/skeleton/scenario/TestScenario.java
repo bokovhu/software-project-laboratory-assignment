@@ -10,180 +10,22 @@ import java.util.List;
 public class TestScenario {
 
     public static final List<TestScenario> SCENARIOS = Arrays.asList (
-
             new PandaStepsScenario (),
             new OrangutanStepsScenario (),
-            new TestScenario (
-                    "Orangutan steps with pandas",
-                    () -> {
-
-                        ActionLogger.disable ();
-                        //INIT
-                        ActionLogger.enable ();
-
-                        //actual methods used
-
-                    }
-            ),
-            new TestScenario (
-                    "Orangutan grabs first panda",
-                    () -> {
-
-                        ActionLogger.disable ();
-                        //INIT
-                        ActionLogger.enable ();
-
-                        //actual methods used
-
-                    }
-            ),
-            new TestScenario (
-                    "Orangutan grabs another panda",
-                    () -> {
-
-                        ActionLogger.disable ();
-                        //INIT
-                        ActionLogger.enable ();
-
-                        //actual methods used
-
-                    }
-            ),
-            new TestScenario (
-                    "Panda gets scared in line",
-                    () -> {
-
-                        ActionLogger.disable ();
-                        //INIT
-                        ActionLogger.enable ();
-
-                        //actual methods used
-
-                    }
-            ),
-            new TestScenario (
-                    "Panda gets scared alone",
-                    () -> {
-
-                        ActionLogger.disable ();
-                        //INIT
-                        ActionLogger.enable ();
-
-                        //actual methods used
-
-                    }
-            ),
-            new TestScenario (
-                    "Orangutan leads pandas out",
-                    () -> {
-
-                        ActionLogger.disable ();
-                        //INIT
-                        ActionLogger.enable ();
-
-                        //actual methods used
-
-                    }
-            ),
-            new TestScenario (
-                    "Panda falls down alone",
-                    () -> {
-
-                        ActionLogger.disable ();
-                        //INIT
-                        ActionLogger.enable ();
-
-                        //actual methods used
-
-                    }
-            ),
-            new TestScenario (
-                    "Panda falls down in line",
-                    () -> {
-
-                        ActionLogger.disable ();
-                        //INIT
-                        ActionLogger.enable ();
-
-                        //actual methods used
-
-                    }
-            ),
-            new TestScenario (
-                    "Orangutan falls down",
-                    () -> {
-
-                        ActionLogger.disable ();
-                        //INIT
-                        ActionLogger.enable ();
-
-                        //actual methods used
-
-                    }
-            ),
-            new TestScenario (
-                    "Panda sleeps alone",
-                    () -> {
-
-                        ActionLogger.disable ();
-                        //INIT
-                        ActionLogger.enable ();
-
-                        //actual methods used
-
-
-                    }
-            ),
-            new TestScenario (
-                    "Panda jumps alone",
-                    () -> {
-
-                        ActionLogger.disable ();
-                        //INIT
-                        ActionLogger.enable ();
-
-                        //actual methods used
-
-                    }
-            ),
-            new TestScenario (
-                    "Panda sleeps in line",
-                    () -> {
-
-                        ActionLogger.disable ();
-                        //INIT
-                        ActionLogger.enable ();
-
-                        //actual methods used
-
-                    }
-            ),
-            new TestScenario (
-                    "Panda jumps in line",
-                    () -> {
-
-                        ActionLogger.disable ();
-                        //INIT
-                        ActionLogger.enable ();
-
-                        //actual methods used
-
-                    }
-            ),
-            new TestScenario (
-                    "Panda collides with panda",
-                    () -> {
-
-                        ActionLogger.disable ();
-                        //INIT
-                        ActionLogger.enable ();
-
-                        //actual methods used
-
-                    }
-            )
-
-
+            new OrangutanStepsWithPandasScenario(),
+            new OrangutanGrabsFirstPandaScenario(),
+            new OrangutanGrabsAnotherPandaScenario(),
+            new PandaGetsScaredInLineScenario(),
+            new PandaGetsScaredAloneScenario(),
+            new OrangutanLeadsPandasOutScenario(),
+            new PandaFallsDownAloneScenario(),
+            new PandaFallsDownInLineScenario(),
+            new OrangutanFallsDownScenario(),
+            new PandaSleepsAloneScenario(),
+            new PandaJumpsAloneScenario(),
+            new PandaSleepsInLineScenario(),
+            new PandaJumpsInLineScenario(),
+            new PandaCollidesWithPandaScenario()
     );
 
     private final String name;
