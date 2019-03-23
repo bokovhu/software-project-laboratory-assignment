@@ -42,12 +42,12 @@ public class OrangutanStepsWithPandasScenario extends TestScenario {
                         lastPanda.setStandingOn(tile3);
 
 
-                        Level level = new Level(
-                                Arrays.asList(orangutan, firstPanda, lastPanda),
-                                Arrays.asList(tile1, tile2, tile3, tile4, startTile, exitTile),
-                                startTile,
-                                exitTile
-                        );
+                        Game.getInstance().level = new Level();
+
+                        Game.getInstance().level.setAnimals(new ArrayList(Arrays.asList(orangutan, firstPanda, lastPanda)));
+                        Game.getInstance().level.setTiles(new ArrayList(Arrays.asList(tile1, tile2, tile3, tile4, startTile, exitTile)));
+                        Game.getInstance().level.setStartTile(startTile);
+                        Game.getInstance().level.setExitTile(exitTile);
 
                         //STEPS
 

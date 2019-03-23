@@ -34,12 +34,12 @@ public class OrangutanGrabsFirstPandaScenario extends TestScenario{
                         orangutan.setStandingOn(tile1);
                         firstPanda.setStandingOn(tile2);
 
-                        Level level = new Level(
-                                Arrays.asList(orangutan, firstPanda),
-                                Arrays.asList(tile1, tile2, startTile, exitTile),
-                                startTile,
-                                exitTile
-                        );
+                        Game.getInstance().level = new Level();
+
+                        Game.getInstance().level.setAnimals(new ArrayList(Arrays.asList(orangutan, firstPanda)));
+                        Game.getInstance().level.setTiles(new ArrayList(Arrays.asList(tile1, tile2,startTile, exitTile)));
+                        Game.getInstance().level.setStartTile(startTile);
+                        Game.getInstance().level.setExitTile(exitTile);
 
 
 

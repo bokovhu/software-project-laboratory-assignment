@@ -5,6 +5,7 @@ import hu.johndoe.panda.skeleton.model._internal.ActionLogger;
 import hu.johndoe.panda.skeleton.model._internal.IdGenerator;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 
 public class PandaJumpsAloneScenario extends TestScenario {
     public PandaJumpsAloneScenario () {
@@ -22,9 +23,19 @@ public class PandaJumpsAloneScenario extends TestScenario {
 
                         JumpyPanda panda = new JumpyPanda();
 
+                        Tile startTile = new Tile(20, false, false, null, null, new ArrayList<>());
+
+                        Tile exitTile = new Tile(20, false, true, null, null, new ArrayList<>());
+
                         Tile tile0 = new Tile(20, true, false, panda, null, new ArrayList<>());
 
                         panda.setStandingOn(tile0);
+
+                        Game.getInstance().level = new Level();
+                        Game.getInstance().level.setAnimals((new ArrayList(Arrays.asList(panda))));
+                        Game.getInstance().level.setTiles((new ArrayList(Arrays.asList(tile0))));
+                        Game.getInstance().level.setExitTile(exitTile);
+                        Game.getInstance().level.setStartTile(startTile);
 
                         ActionLogger.enable();
                         w.hit(panda);

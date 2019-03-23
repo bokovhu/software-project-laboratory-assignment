@@ -33,6 +33,12 @@ public class PandaFallsDownAloneScenario extends TestScenario {
                         Game.getInstance().level.setAnimals((new ArrayList(Arrays.asList(panda))));
                         Game.getInstance().level.setTiles((new ArrayList(Arrays.asList(startTile,exitTile,tile0,tile1))));
 
+                        Game.getInstance().level = new Level();
+
+                        Game.getInstance().level.setAnimals(new ArrayList(Arrays.asList(panda)));
+                        Game.getInstance().level.setTiles(new ArrayList(Arrays.asList(tile1, tile0, startTile, exitTile)));
+                        Game.getInstance().level.setStartTile(startTile);
+                        Game.getInstance().level.setExitTile(exitTile);
 
 
                         ActionLogger.enable();

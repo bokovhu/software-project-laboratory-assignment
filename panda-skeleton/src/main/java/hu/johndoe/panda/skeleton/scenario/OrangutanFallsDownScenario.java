@@ -30,9 +30,8 @@ public class OrangutanFallsDownScenario extends TestScenario{
 
                         Game.getInstance().level = new Level();
 
-                        Game.getInstance().level.setAnimals((new ArrayList(Arrays.asList(o))));
+                        Game.getInstance().level.setAnimals(new ArrayList(Arrays.asList(o)));
                         Game.getInstance().level.setTiles((new ArrayList(Arrays.asList(startTile,exitTile,tile0,tile1))));
-
 
 
                         ActionLogger.enable();

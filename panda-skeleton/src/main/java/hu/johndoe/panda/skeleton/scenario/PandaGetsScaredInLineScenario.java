@@ -42,17 +42,18 @@ public class PandaGetsScaredInLineScenario extends TestScenario {
                         p3.setStandingOn(tile3);
 
 
-                        Level level = new Level(
-                                Arrays.asList(p1, p2, p3),
-                                Arrays.asList(tile1, tile2, tile3, startTile, exitTile),
-                                startTile,
-                                exitTile
-                        );
 
                         p3.setLeaderAnimal(p2);
                         p2.setGuidedAnimal(p3);
                         p2.setLeaderAnimal(p1);
                         p1.setGuidedAnimal(p2);
+
+                       Game.getInstance().level = new Level();
+                        Game.getInstance().level.setAnimals((new ArrayList(Arrays.asList(p1, p2, p3))));
+                        Game.getInstance().level.setTiles((new ArrayList(Arrays.asList(startTile,exitTile,tile1, tile2, tile3))));
+                        Game.getInstance().level.setExitTile(exitTile);
+                        Game.getInstance().level.setStartTile(startTile);
+
                         ActionLogger.enable();
 
                         w.hit(p2);

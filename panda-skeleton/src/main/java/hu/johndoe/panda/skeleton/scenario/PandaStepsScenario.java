@@ -33,12 +33,11 @@ public class PandaStepsScenario extends TestScenario {
 
                     panda.setStandingOn(tile1);
 
-                    Level level = new Level (
-                            Arrays.asList (panda),
-                            Arrays.asList (startTile, tile1, tile2, exitTile),
-                            startTile,
-                            exitTile
-                    );
+                    Game.getInstance().level = new Level ();
+                    Game.getInstance().level.setAnimals((new ArrayList(Arrays.asList(panda))));
+                    Game.getInstance().level.setTiles((new ArrayList(Arrays.asList(tile1, tile2, exitTile, startTile))));
+                    Game.getInstance().level.setExitTile(exitTile);
+                    Game.getInstance().level.setStartTile(startTile);
 
                     ActionLogger.enable ();
 

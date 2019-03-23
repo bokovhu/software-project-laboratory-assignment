@@ -45,12 +45,11 @@ public class PandaSleepsInLineScenario extends TestScenario {
                         p3.setStandingOn(tile3);
 
 
-                        Level level = new Level(
-                                Arrays.asList(p1, p2, p3),
-                                Arrays.asList(tile0, tile1, tile2, tile3, startTile, exitTile),
-                                startTile,
-                                exitTile
-                        );
+                        Game.getInstance().level = new Level();
+                        Game.getInstance().level.setAnimals((new ArrayList(Arrays.asList(p1, p2, p3))));
+                        Game.getInstance().level.setTiles((new ArrayList(Arrays.asList(tile0, tile1, tile2, tile3, exitTile,startTile))));
+                        Game.getInstance().level.setExitTile(exitTile);
+                        Game.getInstance().level.setStartTile(startTile);
 
                         p3.setLeaderAnimal(p2);
                         p2.setGuidedAnimal(p3);
