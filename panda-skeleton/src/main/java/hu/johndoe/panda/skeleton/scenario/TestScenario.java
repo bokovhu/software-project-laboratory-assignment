@@ -23,8 +23,8 @@ public class TestScenario {
             new OrangutanFallsDownScenario(),
             new PandaSleepsAloneScenario(),
             new PandaJumpsAloneScenario(),
-            new PandaSleepsInLineScenario(),
-            new PandaJumpsInLineScenario(),
+            new PandaSleepsInLineScenario(), //done
+            new PandaJumpsInLineScenario(), //done
             new PandaCollidesWithPandaScenario() //done
     );
 

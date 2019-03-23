@@ -55,7 +55,7 @@ public class Tile {
         }
 
         if (life == 0 && isFragile) {
-            ActionLogger.log (this, "I am broken, killing %s", animal.toString ());
+            ActionLogger.log (this, "I am broken, killing %s", Objects.toString(animal));
             animal.kill ();
             return true;
         }
