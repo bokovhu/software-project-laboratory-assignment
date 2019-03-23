@@ -43,7 +43,12 @@ public class Tile {
         ActionLogger.log (this, "Accepting animal %s", animal.toString ());
 
         if (currentAnimal != null) {
-            ActionLogger.log (this, "There's already an animal here, colliding %s with %s", animal.toString (), currentAnimal.toString ());
+            ActionLogger.log (
+                    this,
+                    "There's already an animal here, colliding %s with %s",
+                    animal.toString (),
+                    currentAnimal.toString ()
+            );
             animal.collideWithAnimal (currentAnimal);
             return false;
         }

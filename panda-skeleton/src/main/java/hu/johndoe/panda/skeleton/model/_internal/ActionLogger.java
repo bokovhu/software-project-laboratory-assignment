@@ -27,7 +27,7 @@ public class ActionLogger {
     public static void log (
             Object object,
             String event,
-            Object ... args
+            Object... args
     ) {
 
         if (ENABLED.get ()) {

@@ -45,8 +45,8 @@ public abstract class Panda extends Animal {
     @Override
     public void startLeading (Animal leader) {
         ActionLogger.log (this, "Starting to be lead by %s", leader.toString ());
-        if(getLeaderAnimal() == null){
-            this.setLeaderAnimal(leader);
+        if (getLeaderAnimal () == null) {
+            this.setLeaderAnimal (leader);
         }
 
     }

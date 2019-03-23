@@ -17,7 +17,12 @@ public class Wardrobe extends Item {
     @Override
     public void use (Animal user) {
 
-        ActionLogger.log (this, "Getting used by %s, moving it to %s", user.toString (), otherWardrobe.getPlacedOn ().toString ());
+        ActionLogger.log (
+                this,
+                "Getting used by %s, moving it to %s",
+                user.toString (),
+                otherWardrobe.getPlacedOn ().toString ()
+        );
         user.moveTo (otherWardrobe.getPlacedOn ());
 
     }
