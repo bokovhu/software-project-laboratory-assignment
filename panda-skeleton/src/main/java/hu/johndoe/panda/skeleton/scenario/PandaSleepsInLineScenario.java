@@ -18,8 +18,6 @@ public class PandaSleepsInLineScenario extends TestScenario {
                         ActionLogger.disable();
                         IdGenerator.reset();
 
-
-
                         JumpyPanda p1 = new JumpyPanda();
                         SleepyPanda p2 = new SleepyPanda();
                         CowardPanda p3 = new CowardPanda();
