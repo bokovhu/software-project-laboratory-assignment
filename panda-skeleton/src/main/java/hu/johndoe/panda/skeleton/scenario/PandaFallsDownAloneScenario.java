@@ -7,6 +7,11 @@ import hu.johndoe.panda.skeleton.model._internal.IdGenerator;
 import java.util.ArrayList;
 import java.util.Arrays;
 
+/**
+ * In this scenario, a free panda steps on a broken tile
+ * (a fragile tile with 0 remaining health).
+ * The panda falls down and dies, is removed from the level and the game.
+ */
 public class PandaFallsDownAloneScenario extends TestScenario {
     public PandaFallsDownAloneScenario () {
         super("Panda Falls Down Alone",

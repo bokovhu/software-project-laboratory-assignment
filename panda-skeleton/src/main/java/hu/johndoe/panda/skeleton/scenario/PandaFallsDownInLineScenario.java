@@ -7,6 +7,15 @@ import hu.johndoe.panda.skeleton.model._internal.IdGenerator;
 import java.util.ArrayList;
 import java.util.Arrays;
 
+/**
+ * In this scenario, a panda that is lead steps on a broken tile
+ * (a fragile tile with 0 health remaining).
+ * The panda lets go of its leader animal and guided animal and
+ * the guided animal lets go of its guided animal as a result and
+ * this continues recursively down the line.
+ * The panda falls down and dies, is removed from the level and the game.
+ */
+
 public class PandaFallsDownInLineScenario extends TestScenario{
     public PandaFallsDownInLineScenario () {
         super("Panda Falls Down in Line",

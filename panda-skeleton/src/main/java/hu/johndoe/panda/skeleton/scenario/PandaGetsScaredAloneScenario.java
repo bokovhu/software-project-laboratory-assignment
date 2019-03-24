@@ -7,6 +7,10 @@ import hu.johndoe.panda.skeleton.model._internal.IdGenerator;
 import java.util.ArrayList;
 import java.util.Arrays;
 
+/**
+ * In this scenario, a free coward panda is scared.
+ */
+
 public class PandaGetsScaredAloneScenario extends TestScenario {
     public PandaGetsScaredAloneScenario () {
         super("Panda Gets Scared Alone",
