@@ -7,6 +7,13 @@ import hu.johndoe.panda.skeleton.model._internal.IdGenerator;
 import java.util.ArrayList;
 import java.util.Arrays;
 
+/***
+ * In this scenario, the orangutan begins to lead its first panda,
+ * meaning it guided no pandas before.
+ * The orangutan becomes the leader animal of the panda and
+ * the panda becomes the guided animal of the orangutan.
+ */
+
 public class OrangutanGrabsFirstPandaScenario extends TestScenario{
 
     public OrangutanGrabsFirstPandaScenario () {

@@ -7,6 +7,12 @@ import hu.johndoe.panda.skeleton.model._internal.IdGenerator;
 import java.util.ArrayList;
 import java.util.Arrays;
 
+/**
+ * In this scenario, the orangutan steps on the exit tile while leading at least one panda.
+ * After this, the orangutan is moved to the start tile and
+ * the game gives 1 point per each panda lead out.
+ */
+
 public class OrangutanLeadsPandasOutScenario extends TestScenario {
 
     public OrangutanLeadsPandasOutScenario () {

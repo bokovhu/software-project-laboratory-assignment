@@ -7,6 +7,13 @@ import hu.johndoe.panda.skeleton.model._internal.IdGenerator;
 import java.util.ArrayList;
 import java.util.Arrays;
 
+/***
+ * In this scenario, the orangutan steps on a broken tile
+ * (a fragile tile with 0 remaining health points).
+ * The orangutan falls down and is removed from the level and game.
+ */
+
+
 public class OrangutanFallsDownScenario extends TestScenario{
     public OrangutanFallsDownScenario () {
         super("Orangutan Falls Down",
