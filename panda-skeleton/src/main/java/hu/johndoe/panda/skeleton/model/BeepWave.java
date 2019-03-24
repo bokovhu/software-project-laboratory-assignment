@@ -2,6 +2,10 @@ package hu.johndoe.panda.skeleton.model;
 
 import hu.johndoe.panda.skeleton.model._internal.ActionLogger;
 
+/**
+ * Represents a propagating beep wave. When hitting a coward panda, this wave scares them. The wave has no effects on
+ * other animals.
+ */
 public class BeepWave extends Wave {
 
     public BeepWave () {
@@ -11,6 +15,10 @@ public class BeepWave extends Wave {
         super (origin);
     }
 
+    /**
+     * Hits the parameter animal, and triggers its reaction
+     * @param animal the animal to hit
+     */
     @Override
     public void hit (Animal animal) {
 
@@ -23,6 +31,10 @@ public class BeepWave extends Wave {
 
     }
 
+    /**
+     * Converts this beep wave to a textual representation, that can be used for logging purposes
+     * @return the textural representation of the beep wave
+     */
     @Override
     public String toString () {
         return "BeepWave{" +
