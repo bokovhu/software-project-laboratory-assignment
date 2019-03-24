@@ -7,6 +7,13 @@ import hu.johndoe.panda.skeleton.model._internal.IdGenerator;
 import java.util.ArrayList;
 import java.util.Arrays;
 
+/**
+ * In this scenario, a coward panda that is lead and is leading gets scared.
+ * The panda lets go of its leader animal and guided animal and
+ * the guided animal lets go of its guided animal as a result and
+ * this continues recursively down the line.
+ */
+
 public class PandaGetsScaredInLineScenario extends TestScenario {
     public PandaGetsScaredInLineScenario () {
         super("Panda Gets Scared In Line",

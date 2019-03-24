@@ -7,6 +7,13 @@ import hu.johndoe.panda.skeleton.model._internal.IdGenerator;
 import java.util.ArrayList;
 import java.util.Arrays;
 
+/**
+ * In this scenario, the orangutan steps to a free tile while leading at least one panda.
+ * The pandas follow the orangutan and each other recursively.
+ * The last panda's previous tile becomes empty (its current animal is set to NULL),
+ * in every other case the panda steps on its leader's previous tile.
+ */
+
 public class OrangutanStepsWithPandasScenario extends TestScenario {
     public OrangutanStepsWithPandasScenario () {
         super("Orangutan Steps with Pandas",

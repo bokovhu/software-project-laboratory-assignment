@@ -10,6 +10,12 @@ import hu.johndoe.panda.skeleton.model._internal.IdGenerator;
 import java.util.ArrayList;
 import java.util.Arrays;
 
+/**
+ * In this scenario, the orangutan steps to a free tile.
+ * The current tile of the orangutan becomes the tile stepped on and
+ * the current animal of the orangutan's previous tile is set to NULL.
+ */
+
 public class OrangutanStepsScenario extends TestScenario {
 
     public OrangutanStepsScenario () {

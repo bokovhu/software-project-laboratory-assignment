@@ -7,6 +7,11 @@ import hu.johndoe.panda.skeleton.model._internal.IdGenerator;
 import java.util.ArrayList;
 import java.util.Arrays;
 
+/**
+ * In this scenario, a free panda (not lead by any animal) steps to a free tile
+ * on which another panda is standing already.
+ * The panda cannot move to a tile that is not free and so it's denied.
+ */
 public class PandaCollidesWithPandaScenario extends TestScenario{
     public PandaCollidesWithPandaScenario () {
         super("Panda Collides With Panda",
