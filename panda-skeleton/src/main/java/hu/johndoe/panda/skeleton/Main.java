@@ -8,7 +8,7 @@ import java.util.Scanner;
 public class Main {
 
     public static void main (String[] args) {
-
+        // Greeting the user
         System.out.println ("Welcome to John Doe's skeleton!");
         System.out.println ("Type 'exit' to exit from the application");
         System.out.println ("Type the number of the scenario to run it");
@@ -18,7 +18,7 @@ public class Main {
         while (true) {
 
             System.out.println ("===== Available scenarios =====");
-
+            // Listing the available scenarios
             for (int i = 0; i < TestScenario.SCENARIOS.size (); i++) {
 
                 TestScenario scenario = TestScenario.SCENARIOS.get (i);
@@ -34,12 +34,14 @@ public class Main {
             String command = inputScanner.nextLine ();
 
             if ("exit".equalsIgnoreCase (command)) {
+                // Exiting the application
                 System.out.println ("Thank you for using our application!");
                 System.exit (0);
             }
 
             Integer scenarioIndex = null;
 
+            // Handling user input
             while (true) {
 
                 if (command.matches ("[0-9]+")) {
@@ -63,6 +65,7 @@ public class Main {
 
             }
 
+            // Running selected scenario
             TestScenario scenarioToRun = TestScenario.SCENARIOS.get (scenarioIndex - 1);
             System.out.println (
                     String.format ("===== %s =====", scenarioToRun.getName ())
