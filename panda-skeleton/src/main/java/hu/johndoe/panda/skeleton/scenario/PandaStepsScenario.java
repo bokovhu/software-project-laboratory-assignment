@@ -7,6 +7,12 @@ import hu.johndoe.panda.skeleton.model._internal.IdGenerator;
 import java.util.ArrayList;
 import java.util.Arrays;
 
+/**
+ * In this scenario, we create and set up the tiles (including an exit and a start tile,
+ * on which the panda doesn't step) and also create a panda.
+ * The panda is put on a tile and then moved to another one, simulating a stepping
+ * of a panda in the game.
+ */
 public class PandaStepsScenario extends TestScenario {
 
     public PandaStepsScenario () {
