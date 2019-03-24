@@ -55,21 +55,27 @@ public class Tile {
         }
 
         if (life == 0 && isFragile) {
-            ActionLogger.log (this, "I am broken, killing %s", animal.toString ());
+            ActionLogger.log (this, "I am broken, killing %s", Objects.toString(animal));
             animal.kill ();
             return true;
         }
 
-        animal.getStandingOn ().setCurrentAnimal (null);
-        if (animal.getGuidedAnimal () != null) {
-            animal.getGuidedAnimal ().moveTo (animal.getStandingOn ());
+        if(isExit){
+            animal.leadOut();
+            return true;
+
+        }else {
+            animal.getStandingOn().setCurrentAnimal(null);
+            if (animal.getGuidedAnimal() != null) {
+                animal.getGuidedAnimal().moveTo(animal.getStandingOn());
+            }
+            animal.setStandingOn(this);
+            setCurrentAnimal(animal);
+
+            ActionLogger.pop();
+
+            return true;
         }
-        animal.setStandingOn (this);
-        setCurrentAnimal (animal);
-
-        ActionLogger.pop ();
-
-        return true;
 
     }
 

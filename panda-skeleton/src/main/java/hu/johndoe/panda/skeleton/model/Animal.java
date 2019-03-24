@@ -3,6 +3,8 @@ package hu.johndoe.panda.skeleton.model;
 import hu.johndoe.panda.skeleton.model._internal.ActionLogger;
 import hu.johndoe.panda.skeleton.model._internal.IdGenerator;
 
+import java.util.Objects;
+
 public abstract class Animal implements Updatable {
 
     protected final int id = IdGenerator.fetch ();
@@ -33,10 +35,13 @@ public abstract class Animal implements Updatable {
 
     public void stopLeading () {
 
-        ActionLogger.log (this, "Stopping to be lead");
+        ActionLogger.log (this, "Stopping being lead");
         ActionLogger.push ();
 
-        setLeaderAnimal (null);
+        if(getLeaderAnimal() != null){
+            getLeaderAnimal().setGuidedAnimal(null);
+            setLeaderAnimal (null);
+        }
         if (getGuidedAnimal () != null) {
             getGuidedAnimal ().stopLeading ();
         }
@@ -50,6 +55,8 @@ public abstract class Animal implements Updatable {
         ActionLogger.log (this, "Getting killed");
         ActionLogger.push ();
 
+        stopLeading();
+
         Game.getInstance ().level.removeAnimal (this);
 
         ActionLogger.pop ();
@@ -62,11 +69,6 @@ public abstract class Animal implements Updatable {
         ActionLogger.push ();
 
         targetTile.accept (this);
-
-            if (this.getGuidedAnimal() != null) {
-                this.getGuidedAnimal().moveTo(this.getStandingOn());
-            }
-
         ActionLogger.pop ();
 
     }
@@ -128,7 +130,7 @@ public abstract class Animal implements Updatable {
     }
 
     public void setLeaderAnimal (Animal leaderAnimal) {
-        ActionLogger.log (this, "setLeaderAnimal (%s)", leaderAnimal.toString ());
+        ActionLogger.log (this, "setLeaderAnimal (%s)", Objects.toString (leaderAnimal));
         this.leaderAnimal = leaderAnimal;
     }
 
@@ -137,7 +139,7 @@ public abstract class Animal implements Updatable {
     }
 
     public void setGuidedAnimal (Animal guidedAnimal) {
-        ActionLogger.log (this, "setGuidedAnimal (%s)", guidedAnimal.toString ());
+        ActionLogger.log (this, "setGuidedAnimal (%s)", Objects.toString(guidedAnimal));
         this.guidedAnimal = guidedAnimal;
     }
 

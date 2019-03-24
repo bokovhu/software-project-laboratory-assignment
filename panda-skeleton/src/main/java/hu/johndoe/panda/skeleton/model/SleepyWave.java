@@ -16,7 +16,6 @@ public class SleepyWave extends Wave {
 
         ActionLogger.log (this, "Hitting animal %s, making it use origin's placed item", animal.toString ());
         ActionLogger.push ();
-
         getOrigin ().getPlacedItem ().use (animal);
 
         ActionLogger.pop ();

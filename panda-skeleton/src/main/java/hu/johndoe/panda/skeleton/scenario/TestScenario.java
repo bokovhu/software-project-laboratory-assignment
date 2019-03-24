@@ -10,22 +10,22 @@ import java.util.List;
 public class TestScenario {
 
     public static final List<TestScenario> SCENARIOS = Arrays.asList (
-            new PandaStepsScenario (),
-            new OrangutanStepsScenario (),
-            new OrangutanStepsWithPandasScenario(),
-            new OrangutanGrabsFirstPandaScenario(),
-            new OrangutanGrabsAnotherPandaScenario(),
-            new PandaGetsScaredInLineScenario(),
-            new PandaGetsScaredAloneScenario(),
-            new OrangutanLeadsPandasOutScenario(),
-            new PandaFallsDownAloneScenario(),
-            new PandaFallsDownInLineScenario(),
-            new OrangutanFallsDownScenario(),
-            new PandaSleepsAloneScenario(),
-            new PandaJumpsAloneScenario(),
-            new PandaSleepsInLineScenario(),
-            new PandaJumpsInLineScenario(),
-            new PandaCollidesWithPandaScenario()
+            new PandaStepsScenario (), //done
+            new OrangutanStepsScenario (), //done
+            new OrangutanStepsWithPandasScenario(), //done
+            new OrangutanGrabsFirstPandaScenario(), //done
+            new OrangutanGrabsAnotherPandaScenario(), //done
+            new PandaGetsScaredInLineScenario(), //done
+            new PandaGetsScaredAloneScenario(), //done
+            new OrangutanLeadsPandasOutScenario(), //done
+            new PandaFallsDownAloneScenario(), //done
+            new PandaFallsDownInLineScenario(), //done
+            new OrangutanFallsDownScenario(), //done
+            new PandaSleepsAloneScenario(), //done
+            new PandaJumpsAloneScenario(), //done
+            new PandaSleepsInLineScenario(), //done
+            new PandaJumpsInLineScenario(), //done
+            new PandaCollidesWithPandaScenario() //done
     );
 
     private final String name;

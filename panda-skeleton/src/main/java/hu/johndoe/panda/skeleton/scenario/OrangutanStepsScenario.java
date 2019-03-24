@@ -1,5 +1,6 @@
 package hu.johndoe.panda.skeleton.scenario;
 
+import hu.johndoe.panda.skeleton.model.Game;
 import hu.johndoe.panda.skeleton.model.Level;
 import hu.johndoe.panda.skeleton.model.Orangutan;
 import hu.johndoe.panda.skeleton.model.Tile;
@@ -33,15 +34,15 @@ public class OrangutanStepsScenario extends TestScenario {
                     tile1._addNeighbour (tile2);
                     tile2._addNeighbour (exitTile);
 
-                    orangutan.setStandingOn (startTile);
+                    orangutan.setStandingOn(startTile);
 
 
-                    Level level = new Level (
-                            Arrays.asList (orangutan),
-                            Arrays.asList (startTile, tile1, tile2, exitTile),
-                            startTile,
-                            exitTile
-                    );
+                    Game.getInstance().level = new Level();
+
+                    Game.getInstance().level.setAnimals(new ArrayList(Arrays.asList(orangutan)));
+                    Game.getInstance().level.setTiles(new ArrayList(Arrays.asList(tile1, tile2, startTile, exitTile)));
+                    Game.getInstance().level.setStartTile(startTile);
+                    Game.getInstance().level.setExitTile(exitTile);
 
                     ActionLogger.enable ();
 

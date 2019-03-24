@@ -12,6 +12,15 @@ public class Orangutan extends Animal {
     }
 
     @Override
+    public void leadOut(){
+        ActionLogger.log (this, "Going out and back in");
+        ActionLogger.push ();
+        if(getGuidedAnimal()!=null) getGuidedAnimal().leadOut();
+        setGuidedAnimal(null);
+        moveTo(Game.getInstance().level.getStartTile());
+    }
+
+    @Override
     public void collideWithAnimal (Animal animal) {
 
         ActionLogger.log (this, "Colliding with animal %s", animal.toString ());
