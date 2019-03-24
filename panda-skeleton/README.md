@@ -21,6 +21,7 @@ attribútummal kell, hogy rendelkezzen. Ha ez nem így van, a `chmod +x gradlew`
 a probléma
 * A `PATH` környezeti változó értékében fel kell sorolni a JDK `bin` mappáját
 * A `JAVA_HOME` és `JDK_HOME` környezeti változók a JDK gyökérkönyvtárára kell, hogy mutassanak
+* A fordításhoz szükség lehet működő internetkapcsolatra is
 
 # Futtatás
 
