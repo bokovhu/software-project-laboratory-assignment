@@ -7,6 +7,15 @@ import hu.johndoe.panda.skeleton.model._internal.IdGenerator;
 import java.util.ArrayList;
 import java.util.Arrays;
 
+/**
+ * In this scenario, a free jumpy panda is hit by a jumpy wave.
+ * The panda lets go of its leader animal and guided animal and
+ * the guided animal lets go of its guided animal as a result and
+ * this continues recursively down the line.
+ * The panda jumps, damaging the tile it currently stands on.
+ * As a result, the health of the tile is decremented by one.
+ */
+
 public class PandaJumpsAloneScenario extends TestScenario {
     public PandaJumpsAloneScenario () {
         super("Panda Jumps Alone",
