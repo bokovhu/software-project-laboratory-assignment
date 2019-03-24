@@ -7,6 +7,13 @@ import hu.johndoe.panda.skeleton.model._internal.IdGenerator;
 import java.util.ArrayList;
 import java.util.Arrays;
 
+/**
+ * In this scenario, three pandas from each type and several tiles
+ * (including an entry and exit tile) are created and set up, then
+ * added to the level.
+ * Also a new jumpy wave is created which hits the
+ * jumpy panda, which reacts accordingly (jumps in the line).
+ */
 public class PandaJumpsInLineScenario extends TestScenario {
     public PandaJumpsInLineScenario () {
         super("Panda Jumps In Line",

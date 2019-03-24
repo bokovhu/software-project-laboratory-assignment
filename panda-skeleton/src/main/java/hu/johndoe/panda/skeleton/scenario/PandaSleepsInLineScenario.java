@@ -7,6 +7,15 @@ import hu.johndoe.panda.skeleton.model._internal.IdGenerator;
 import java.util.ArrayList;
 import java.util.Arrays;
 
+/**
+ * In this scenario, the three different types of pandas and
+ * a start, exit and several other tiles are created and set up,
+ * and a couch emitting a sleepy wave is placed on a tile.
+ * The pandas are placed on the tiles behind each other in a row leading
+ * each other, then all of them are added to the map.
+ * In the end, the sleepy wave hits the sleepy panda which reacts to it
+ * accordingly.
+ */
 public class PandaSleepsInLineScenario extends TestScenario {
     public PandaSleepsInLineScenario () {
         super("Panda Sleeps In Line",

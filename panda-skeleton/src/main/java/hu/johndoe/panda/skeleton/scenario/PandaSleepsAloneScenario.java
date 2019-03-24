@@ -7,6 +7,12 @@ import hu.johndoe.panda.skeleton.model._internal.IdGenerator;
 import java.util.ArrayList;
 import java.util.Arrays;
 
+/**
+ * In this scenario, a panda and four tiles (including a start and
+ * and exit tile) are set up and a couch emitting a sleepy wave is
+ * placed on a tile. Then the panda is placed next to the couch
+ * and gets hit by the wave, then reacts accordingly.
+ */
 public class PandaSleepsAloneScenario extends TestScenario{
     public PandaSleepsAloneScenario () {
         super("Panda Sleeps Alone",
