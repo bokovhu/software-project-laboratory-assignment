@@ -22,7 +22,10 @@ public class PandaSleepsAloneScenario extends TestScenario{
                     {
                         ActionLogger.disable();
                         IdGenerator.reset();
-
+/**
+ * Initializing members
+ * The action logger is disabled, the relevant steps come after.
+ */
 
                         SleepyPanda panda = new SleepyPanda();
 
@@ -47,6 +50,13 @@ public class PandaSleepsAloneScenario extends TestScenario{
                         Game.getInstance().level.setStartTile(startTile);
 
                         ActionLogger.enable();
+
+                        /**
+                         * Relevant steps come here.
+                         * The action logger is enabled, the output shows
+                         * the sequence of methods called following this.
+                         */
+
                         w.hit(panda);
 
                     }

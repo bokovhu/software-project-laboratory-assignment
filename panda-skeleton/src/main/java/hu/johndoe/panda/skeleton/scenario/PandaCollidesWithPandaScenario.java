@@ -23,6 +23,11 @@ public class PandaCollidesWithPandaScenario extends TestScenario{
                         ActionLogger.disable();
                         IdGenerator.reset();
 
+                        /**
+                         * Initializing members
+                         * The action logger is disabled, the relevant steps come after.
+                         */
+
 
                         CowardPanda firstPanda = new CowardPanda();
                         JumpyPanda secondPanda = new JumpyPanda();
@@ -47,6 +52,13 @@ public class PandaCollidesWithPandaScenario extends TestScenario{
                         Game.getInstance().level.setExitTile(exitTile);
 
                         ActionLogger.enable();
+
+                        /**
+                         * Relevant steps come here.
+                         * The action logger is enabled, the output shows
+                         * the sequence of methods called following this.
+                         */
+
 
                         firstPanda.moveTo(tile2);
 
