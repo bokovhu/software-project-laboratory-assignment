@@ -27,6 +27,11 @@ public class PandaFallsDownInLineScenario extends TestScenario{
                         ActionLogger.disable();
                         IdGenerator.reset();
 
+                        /**
+                         * Initializing members
+                         * The action logger is disabled, the relevant steps come after.
+                         */
+
                         Orangutan o = new Orangutan();
                         JumpyPanda p1 = new JumpyPanda();
                         CowardPanda p2 = new CowardPanda();
@@ -64,6 +69,13 @@ public class PandaFallsDownInLineScenario extends TestScenario{
                         Game.getInstance().level.setTiles((new ArrayList(Arrays.asList(startTile,exitTile,tile0,tile1, tile2, tile3))));
 
                         ActionLogger.enable();
+
+                        /**
+                         * Relevant steps come here.
+                         * The action logger is enabled, the output shows
+                         * the sequence of methods called following this.
+                         */
+
                         o.moveTo(tile0);
 
 

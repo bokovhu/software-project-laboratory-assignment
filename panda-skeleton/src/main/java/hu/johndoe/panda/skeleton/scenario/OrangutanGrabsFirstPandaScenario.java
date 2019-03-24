@@ -26,6 +26,11 @@ public class OrangutanGrabsFirstPandaScenario extends TestScenario{
                         ActionLogger.disable();
                         IdGenerator.reset();
 
+                        /**
+                         * Initializing members
+                         * The action logger is disabled, the relevant steps come after.
+                         */
+
                         Orangutan orangutan = new Orangutan();
                         SleepyPanda firstPanda = new SleepyPanda();
 
@@ -52,6 +57,13 @@ public class OrangutanGrabsFirstPandaScenario extends TestScenario{
 
 
                         ActionLogger.enable();
+
+                        /**
+                         * Relevant steps come here.
+                         * The action logger is enabled, the output shows
+                         * the sequence of methods called following this.
+                         */
+
                         orangutan.collideWithAnimal(firstPanda);
 
                     }

@@ -23,6 +23,11 @@ public class PandaStepsScenario extends TestScenario {
                     ActionLogger.disable ();
                     IdGenerator.reset ();
 
+                    /**
+                     * Initializing members
+                     * The action logger is disabled, the relevant steps come after.
+                     */
+
 
                     JumpyPanda panda = new JumpyPanda ();
 
@@ -46,6 +51,12 @@ public class PandaStepsScenario extends TestScenario {
                     Game.getInstance().level.setStartTile(startTile);
 
                     ActionLogger.enable ();
+
+                    /**
+                     * Relevant steps come here.
+                     * The action logger is enabled, the output shows
+                     * the sequence of methods called following this.
+                     */
 
                     panda.moveTo (tile2);
 

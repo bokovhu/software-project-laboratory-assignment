@@ -22,6 +22,12 @@ public class OrangutanStepsWithPandasScenario extends TestScenario {
                     {
                         ActionLogger.disable();
                         IdGenerator.reset();
+
+                        /**
+                         * Initializing members
+                         * The action logger is disabled, the relevant steps come after.
+                         */
+
                         Orangutan orangutan = new Orangutan();
                         JumpyPanda firstPanda = new JumpyPanda();
                         SleepyPanda lastPanda = new SleepyPanda();
@@ -59,6 +65,13 @@ public class OrangutanStepsWithPandasScenario extends TestScenario {
                         //STEPS
 
                         ActionLogger.enable();
+
+                        /**
+                         * Relevant steps come here.
+                         * The action logger is enabled, the output shows
+                         * the sequence of methods called following this.
+                         */
+
                         orangutan.moveTo(tile4);
 
                     }

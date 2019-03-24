@@ -22,6 +22,11 @@ public class PandaFallsDownAloneScenario extends TestScenario {
                         ActionLogger.disable();
                         IdGenerator.reset();
 
+                        /**
+                         * Initializing members
+                         * The action logger is disabled, the relevant steps come after.
+                         */
+
                         JumpyPanda panda = new JumpyPanda();
 
                         Tile startTile = new Tile (20, false, false, null, null, new ArrayList<>());
@@ -47,6 +52,13 @@ public class PandaFallsDownAloneScenario extends TestScenario {
 
 
                         ActionLogger.enable();
+
+                        /**
+                         * Relevant steps come here.
+                         * The action logger is enabled, the output shows
+                         * the sequence of methods called following this.
+                         */
+
                         panda.moveTo(tile1);
 
                     }

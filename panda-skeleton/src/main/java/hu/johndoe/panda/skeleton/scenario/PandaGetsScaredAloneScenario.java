@@ -22,6 +22,11 @@ public class PandaGetsScaredAloneScenario extends TestScenario {
                         ActionLogger.disable();
                         IdGenerator.reset();
 
+                        /**
+                         * Initializing members
+                         * The action logger is disabled, the relevant steps come after.
+                         */
+
                         BeepWave w = new BeepWave();
                         CowardPanda panda = new CowardPanda();
 
@@ -40,6 +45,12 @@ public class PandaGetsScaredAloneScenario extends TestScenario {
                         Game.getInstance().level.setExitTile(exitTile);
 
                         ActionLogger.enable();
+                        /**
+                         * Relevant steps come here.
+                         * The action logger is enabled, the output shows
+                         * the sequence of methods called following this.
+                         */
+
                         w.hit(panda);
 
                     }

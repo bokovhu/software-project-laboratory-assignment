@@ -27,6 +27,11 @@ public class PandaSleepsInLineScenario extends TestScenario {
                         ActionLogger.disable();
                         IdGenerator.reset();
 
+                        /**
+                         * Initializing members
+                         * The action logger is disabled, the relevant steps come after.
+                         */
+
                         JumpyPanda p1 = new JumpyPanda();
                         SleepyPanda p2 = new SleepyPanda();
                         CowardPanda p3 = new CowardPanda();
@@ -66,6 +71,13 @@ public class PandaSleepsInLineScenario extends TestScenario {
                         p1.setGuidedAnimal(p2);
 
                         ActionLogger.enable();
+
+                        /**
+                         * Relevant steps come here.
+                         * The action logger is enabled, the output shows
+                         * the sequence of methods called following this.
+                         */
+
                         w.hit(p2);
 
                     }
