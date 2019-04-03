@@ -1,3 +1,5 @@
+A nyelv definíciója [itt] (https://drive.google.com/drive/u/0/folders/1mcYym1SzXJYcjwaNAyH9Y4dG5J-te5zM) van.
+
 A prototipus tesztesetei:
 1. Create Tiles [x]
 2. Create Items [ ]
