@@ -26,9 +26,9 @@ A prototipus tesztesetei:
 25. Orangutan steals from Orangutan
 
 
-**1. Create Tiles
+# 1. Create Tiles
 
-*Bemenet:
+## Bemenet:
 
 ADD FRAGILE TILE WITH ID 1;
 ADD EXIT TILE WITH ID 2;
@@ -40,7 +40,7 @@ CONNECT TILE 1 WITH TILE 3;
 
 /print
 
-*Elvárt kimenet:
+## Elvárt kimenet:
 
 [TILES]
 
