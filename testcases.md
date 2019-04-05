@@ -56,4 +56,257 @@ A prototipus tesztesetei:
 `<TILE 2 CONNECTED WITH TILE 3>`
 `<TILE 1 CONNECTED WITH TILE 3>`
 
+## 2. Create items
+
+#### Bemenet:
+
+`ADD TILE WITH ID 1;`
+`ADD TILE WITH ID 2;`
+`ADD VENDINGMACHINE WITH ID 3 ONTO TILE 1;`
+`ADD WARDROBE WITH ID 4 ONTO TILE 2;`
+
+`/print`
+
+#### Elvárt kimenet:
+
+[TILES]
+
+`TILE ID = 1 CURRENTANIMAL = (NULL) CURRENTITEM = (VENDINGMACHINE 3)`
+`TILE ID = 2 CURRENTANIMAL = (NULL) CURRENTITEM = (WARDROBE 4)`
+
+[ITEMS]
+
+`WARDROBE ID = 4 PLACEDON = (TILE 2)`
+`VENDINGMACHINE ID = 3 PLACEDON = (TILE 1)`
+
+## 3. Create animals
+
+#### Bemenet:
+
+`ADD TILE WITH ID 1;`
+`ADD TILE WITH ID 2;`
+`ADD COWARD PANDA WITH ID 3 ONTO TILE 1;`
+`ADD ORANGUTAN WITH ID 4 ONTO TILE 2;`
+
+`/print`
+
+#### Elvárt kimenet:
+
+## 4. Move orangutan on safe tile
+
+#### Bemenet:
+
+`ADD TILE WITH ID 1;`
+`ADD TILE WITH ID 2;`
+`ADD ORANGUTAN WITH ID 3 ONTO TILE 1;`
+
+`CONNECT TILE 1 WITH TILE 2;`
+
+`MOVE ORANGUTAN WITH ID 3 ONTO TILE 2;` 
+
+`/print`
+
+#### Elvárt kimenet:
+
+## 5. Move panda on safe tile
+
+#### Bemenet:
+
+`ADD TILE WITH ID 1;`
+`ADD TILE WITH ID 2;`
+`ADD SLEEPY PANDA WITH ID 3 ONTO TILE 1;`
+
+`CONNECT TILE 1 WITH TILE 2;`
+
+`MOVE SLEEPY PANDA WITH ID 3 ONTO TILE 2;` 
+
+`/print`
+
+#### Elvárt kimenet:
+
+## 6. Move orangutan on broken tile
+
+#### Bemenet:
+
+`ADD TILE WITH ID 1;`
+`ADD BROKEN TILE WITH ID 2;`
+`ADD ORANGUTAN WITH ID 3 ONTO TILE 1;`
+
+`CONNECT TILE 1 WITH TILE 2;`
+
+`MOVE ORANGUTAN WITH ID 3 ONTO TILE 2;` 
+
+`/print`
+
+#### Elvárt kimenet:
+
+## 7. Move panda on broken tile alone
+
+#### Bemenet:
+
+`ADD TILE WITH ID 1;`
+`ADD BROKEN TILE WITH ID 2;`
+`ADD SLEEPY PANDA WITH ID 3 ONTO TILE 1;`
+
+`CONNECT TILE 1 WITH TILE 2;`
+
+`BEGIN;`
+`MOVE SLEEPY PANDA WITH ID 3 ONTO TILE 2;` 
+`END;`
+
+`/print`
+
+#### Elvárt kimenet:
+
+## 8. Move panda on broken tile in line // TODO
+
+#### Bemenet:
+
+`ADD TILE WITH ID 1;`
+`ADD TILE WITH ID 2;`
+`ADD FRAGILE TILE WITH ID 3 WITH LIFE 1;`
+`ADD ORANGUTAN WITH ID 4 ONTO TILE 3;`
+`ADD SLEEPY PANDA WITH ID 5 ONTO TILE 1;`
+
+`CONNECT TILE 1 WITH TILE 3;`
+`CONNECT TILE 2 WITH TILE 3;`
+
+`BEGIN;`
+`MOVE ORANGUTAN WITH ID 4 ONTO TILE 1;`
+`MOVE ORANGUTAN WITH ID 4 ONTO TILE 2;`
+`END;`
+
+`/print`
+
+#### Elvárt kimenet:
+
+## 9. Move orangutan to exit tile alone
+
+#### Bemenet:
+
+
+`ADD TILE WITH ID 1;`
+`ADD EXIT TILE WITH ID 2;`
+`ADD ORANGUTAN WITH ID 3 ONTO TILE 1;`
+
+`CONNECT TILE 1 WITH TILE 2;`
+
+`MOVE ORANGUTAN WITH ID 3 ONTO TILE 2;` 
+
+`/print`
+
+#### Elvárt kimenet:
+
+## 10. Move orangutan to exit tile with pandas
+
+#### Bemenet:
+
+`ADD TILE WITH ID 1;`
+`ADD TILE WITH ID 2;`
+`ADD EXIT TILE WITH ID 3;`
+`ADD ORANGUTAN WITH ID 4 ONTO TILE 2;`
+`ADD SLEEPY PANDA WITH ID 5 ONTO TILE 1;`
+
+`CONNECT TILE 1 WITH TILE 2;`
+`CONNECT TILE 2 WITH TILE 3;`
+
+`BEGIN;`
+`MOVE ORANGUTAN WITH ID 4 ONTO TILE 1;`
+`MOVE ORANGUTAN WITH ID 4 ONTO TILE 3;`
+`END;`
+
+`/print`
+
+#### Elvárt kimenet:
+
+## 11. Orangutan uses wardrobe alone
+
+#### Bemenet:
+
+#### Elvárt kimenet:
+
+## 12. Orangutan uses wardrobe with pandas
+
+#### Bemenet:
+
+#### Elvárt kimenet:
+
+## 13. Panda uses wardrobe
+
+#### Bemenet:
+
+#### Elvárt kimenet:
+
+## 14. Panda sleeps alone
+
+#### Bemenet:
+
+#### Elvárt kimenet:
+
+## 15. Panda sleeps in line
+
+#### Bemenet:
+
+#### Elvárt kimenet:
+
+## 16. Panda gets scared alone
+
+#### Bemenet:
+
+#### Elvárt kimenet:
+
+## 17. Panda gets scared in line
+
+#### Bemenet:
+
+#### Elvárt kimenet:
+
+## 18. Panda jumps alone on safe tile
+
+#### Bemenet:
+
+#### Elvárt kimenet:
+
+## 19. Panda jumps in line on safe tile
+
+#### Bemenet:
+
+#### Elvárt kimenet:
+
+## 20. Panda jumps alone on fragile tile
+
+#### Bemenet:
+
+#### Elvárt kimenet:
+
+## 21. Panda jumps in line on fragile tile
+
+#### Bemenet:
+
+#### Elvárt kimenet:
+
+## 22. Panda jumps alone on broken tile
+
+#### Bemenet:
+
+#### Elvárt kimenet:
+
+## 23. Panda jumps in line on broken tile
+
+#### Bemenet:
+
+#### Elvárt kimenet:
+
+## 24. Orangutan lets go
+
+#### Bemenet:
+
+#### Elvárt kimenet:
+
+## 25. Orangutan steals from orangutan
+
+#### Bemenet:
+
+#### Elvárt kimenet:
+
 
