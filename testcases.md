@@ -448,7 +448,6 @@ A prototipus tesztesetei:
 
 `/print`
 
-
 #### Elvárt kimenet:
 
 ## 23. Panda jumps in line on broken tile
@@ -462,17 +461,50 @@ A prototipus tesztesetei:
 `WORK GAMEMACHINE WITH ID 8;`
 `END;`
 
+`/print`
+
 #### Elvárt kimenet:
 
 ## 24. Orangutan lets go
 
 #### Bemenet:
 
+`ADD TILE WITH ID 1;`
+`ADD TILE WITH ID 2;`
+`ADD SLEEPY PANDA WITH ID 3 ONTO TILE 1;`
+`ADD ORANGUTAN WITH ID 4 ONTO TILE 2;`
+
+`CONNECT TILE 1 WITH TILE 2;`
+
+`BEGIN;`
+`MOVE ORANGUTAN WITH ID 4 ONTO TILE 1;`
+`RELEASE ORANGUTAN WITH ID 4;`
+`END;`
+
+`/print`
+
 #### Elvárt kimenet:
 
 ## 25. Orangutan steals from orangutan
 
 #### Bemenet:
+
+`ADD TILE WITH ID 1;`
+`ADD TILE WITH ID 2;`
+`ADD TILE WITH ID 3;`
+`ADD SLEEPY PANDA WITH ID 4 ONTO TILE 1;`
+`ADD ORANGUTAN WITH ID 5 ONTO TILE 2;`
+`ADD ORANGUTAN WITH ID 6 ONTO TILE 3;`
+
+`CONNECT TILE 1 WITH TILE 2;`
+`CONNECT TILE 2 WITH TILE 3;`
+
+`BEGIN;`
+`MOVE ORANGUTAN WITH ID 5 ONTO TILE 1;`
+`MOVE ORANGUTAN WITH ID 6 ONTO TILE 2;`
+`END;`
+
+`/print`
 
 #### Elvárt kimenet:
 
