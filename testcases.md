@@ -91,6 +91,16 @@ A prototipus tesztesetei:
 
 #### Elvárt kimenet:
 
+[TILES]
+
+`TILE ID = 1 CURRENTANIMAL = (COWARD PANDA 3) CURRENTITEM = (NULL)`
+`TILE ID = 2 CURRENTANIMAL = (ORANGUTAN 4) CURRENTITEM = (NULL)`
+
+[ANIMALS]
+
+`COWARD PANDA ID = 3 STANDINGON = (TILE 1) SLEEPINGIN = (NULL) LEADERANIMAL = (NULL) GUIDEDANUMAL = (NULL)`
+`ORANGUTAN ID = 4 STANDINGON = (TILE 2) LEADERANIMAL = (NULL) GUIDEDANUMAL = (NULL) THEFTTIMER = 0`
+
 ## 4. Move orangutan on safe tile
 
 #### Bemenet:
@@ -108,6 +118,19 @@ A prototipus tesztesetei:
 `/print`
 
 #### Elvárt kimenet:
+
+[TILES]
+
+`TILE ID = 1 CURRENTANIMAL = (NULL) CURRENTITEM = (NULL)`
+`TILE ID = 2 CURRENTANIMAL = (ORANGUTAN 3) CURRENTITEM = (NULL)`
+
+[ANIMALS]
+
+`ORANGUTAN ID = 4 STANDINGON = (TILE 2) LEADERANIMAL = (NULL) GUIDEDANUMAL = (NULL) THEFTTIMER = 0`
+
+[CONNECTIONS]
+
+`TILE 1 CONNECTED WITH TILE 2`
 
 ## 5. Move panda on safe tile
 
@@ -127,6 +150,19 @@ A prototipus tesztesetei:
 
 #### Elvárt kimenet:
 
+[TILES]
+
+`TILE ID = 1 CURRENTANIMAL = (NULL) CURRENTITEM = (NULL)`
+`TILE ID = 2 CURRENTANIMAL = (SLEEPY PANDA 3) CURRENTITEM = (NULL)`
+
+[ANIMALS]
+
+`SLEEPY PANDA ID = 3 STANDINGON = (TILE 2) SLEEPINGIN = (NULL) LEADERANIMAL = (NULL) GUIDEDANUMAL = (NULL)`
+
+[CONNECTIONS]
+
+`TILE 1 CONNECTED WITH TILE 2`
+
 ## 6. Move orangutan on broken tile
 
 #### Bemenet:
@@ -142,6 +178,15 @@ A prototipus tesztesetei:
 `/print`
 
 #### Elvárt kimenet:
+
+[TILES]
+
+`TILE ID = 1 CURRENTANIMAL = (NULL) CURRENTITEM = (NULL)`
+`BROKEN TILE ID = 2 CURRENTANIMAL = (NULL) CURRENTITEM = (NULL)`
+
+[CONNECTIONS]
+
+`TILE 1 CONNECTED WITH TILE 2`
 
 ## 7. Move panda on broken tile alone
 
@@ -160,6 +205,15 @@ A prototipus tesztesetei:
 `/print`
 
 #### Elvárt kimenet:
+
+[TILES]
+
+`TILE ID = 1 CURRENTANIMAL = (NULL) CURRENTITEM = (NULL)`
+`BROKEN TILE ID = 2 CURRENTANIMAL = (NULL) CURRENTITEM = (NULL)`
+
+[CONNECTIONS]
+
+`TILE 1 CONNECTED WITH TILE 2`
 
 ## 8. Move panda on broken tile in line
 
