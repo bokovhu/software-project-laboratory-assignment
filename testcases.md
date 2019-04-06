@@ -168,15 +168,18 @@ A prototipus tesztesetei:
 `ADD TILE WITH ID 1;`
 `ADD TILE WITH ID 2;`
 `ADD FRAGILE TILE WITH ID 3 WITH LIFE 1;`
-`ADD ORANGUTAN WITH ID 4 ONTO TILE 3;`
-`ADD SLEEPY PANDA WITH ID 5 ONTO TILE 1;`
+`ADD TILE WITH ID 4;`
+`ADD ORANGUTAN WITH ID 5 ONTO TILE 3;`
+`ADD SLEEPY PANDA WITH ID 6 ONTO TILE 1;`
+`ADD SLEEPY PANDA WITH ID 7 ONTO TILE 2;`
 
-`CONNECT TILE 1 WITH TILE 3;`
-`CONNECT TILE 2 WITH TILE 3;`
+`CONNECT TILE 1 WITH TILE 2;`
+`CONNECT TILE 2 WITH FRAGILE TILE 3;`
+`CONNECT FRAGILE TILE 3 WITH TILE 4;`
 
 `BEGIN;`
-`MOVE ORANGUTAN WITH ID 4 ONTO TILE 1;`
-`MOVE ORANGUTAN WITH ID 4 ONTO TILE 2;`
+`MOVE ORANGUTAN WITH ID 5 ONTO TILE 2;`
+`MOVE ORANGUTAN WITH ID 5 ONTO TILE 4;`
 `END;`
 
 `/print`
@@ -322,17 +325,43 @@ A prototipus tesztesetei:
 
 #### Bemenet:
 
+`/load sleep_test.txt`
+
+`BEGIN;`
+`MOVE ORANGUTAN WITH ID 7 ONTO TILE 4;`
+`END;`
+
+`/print`
+
 #### Elvárt kimenet:
 
 ## 16. Panda gets scared alone
 
 #### Bemenet:
+`ADD TILE WITH ID 1;`
+`ADD TILE WITH ID 2;`
+`ADD VENDINGMACHINE WITH ID 3 ONTO TILE 1;`
+`ADD COWARD PANDA WITH ID 4 ONTO TILE 2;`
+
+`CONNECT TILE 1 WITH TILE 2;`
+
+`BEGIN;`
+`WORK VENDINGMACHINE WITH ID 3;`
+`END;`
+
+`/print`
 
 #### Elvárt kimenet:
 
 ## 17. Panda gets scared in line
 
 #### Bemenet:
+`/load scare_test.txt`
+
+`BEGIN;`
+`MOVE ORANGUTAN WITH ID 7 ONTO TILE 4;`
+`WORK VENDINGMACHINE WITH ID 8;`
+`END;`
 
 #### Elvárt kimenet:
 
@@ -340,11 +369,33 @@ A prototipus tesztesetei:
 
 #### Bemenet:
 
+`ADD TILE WITH ID 1;`
+`ADD TILE WITH ID 2;`
+`ADD GAMEMACHINE WITH ID 3 ONTO TILE 1;`
+`ADD JUMPY PANDA WITH ID 4 ONTO TILE 2;`
+
+`CONNECT TILE 1 WITH TILE 2;`
+
+`BEGIN;`
+`WORK GAMEMACHINE WITH ID 3;`
+`END;`
+
+`/print`
+
 #### Elvárt kimenet:
 
 ## 19. Panda jumps in line on safe tile
 
 #### Bemenet:
+
+`/load jumpy_safe_test.txt`
+
+`BEGIN;`
+`MOVE ORANGUTAN WITH ID 7 ONTO TILE 4;`
+`WORK GAMEMACHINE WITH ID 8;`
+`END;`
+
+`/print`
 
 #### Elvárt kimenet:
 
@@ -352,11 +403,31 @@ A prototipus tesztesetei:
 
 #### Bemenet:
 
+`ADD TILE WITH ID 1;`
+`ADD FRAGILE TILE WITH ID 2 WITH LIFE 5;`
+`ADD GAMEMACHINE WITH ID 3 ONTO TILE 1;`
+`ADD JUMPY PANDA WITH ID 4 ONTO TILE 2;`
+
+`CONNECT TILE 1 WITH TILE 2;`
+
+`BEGIN;`
+`WORK GAMEMACHINE WITH ID 3;`
+`END;`
+
+`/print`
+
 #### Elvárt kimenet:
 
 ## 21. Panda jumps in line on fragile tile
 
 #### Bemenet:
+
+`/load jumpy_fragile_test.txt`
+
+`BEGIN;`
+`MOVE ORANGUTAN WITH ID 7 ONTO TILE 4;`
+`WORK GAMEMACHINE WITH ID 8;`
+`END;`
 
 #### Elvárt kimenet:
 
@@ -364,11 +435,32 @@ A prototipus tesztesetei:
 
 #### Bemenet:
 
+`ADD TILE WITH ID 1;`
+`ADD FRAGILE TILE WITH ID 2 WITH LIFE 1;`
+`ADD GAMEMACHINE WITH ID 3 ONTO TILE 1;`
+`ADD JUMPY PANDA WITH ID 4 ONTO TILE 2;`
+
+`CONNECT TILE 1 WITH TILE 2;`
+
+`BEGIN;`
+`WORK GAMEMACHINE WITH ID 3;`
+`END;`
+
+`/print`
+
+
 #### Elvárt kimenet:
 
 ## 23. Panda jumps in line on broken tile
 
 #### Bemenet:
+
+`/load jumpy_broken_test.txt`
+
+`BEGIN;`
+`MOVE ORANGUTAN WITH ID 7 ONTO TILE 4;`
+`WORK GAMEMACHINE WITH ID 8;`
+`END;`
 
 #### Elvárt kimenet:
 
