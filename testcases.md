@@ -2,17 +2,17 @@ A nyelv definíciója itt van: https://drive.google.com/drive/u/0/folders/1mcYym
 
 A prototipus tesztesetei:
 1. Create Tiles [x]
-2. Create Items [ ]
-3. Create Animals [ ]
-4. Move orangutan to safe tile [ ]
-5. Move panda to safe tile [ ]
-6. Move orangutan to broken tile [ ]
-7. Move panda to broken tile alone [ ]
-8. Move panda to broken tile in line [ ]
-9. Move orangutan to exit tile alone [ ]
-10. Move orangutan to exit tile with pandas [ ]
-11. Orangutan uses wardrobe alone [ ]
-12. Orangutan uses wardrobe with pandas [ ]
+2. Create Items [x]
+3. Create Animals [x]
+4. Move orangutan to safe tile [x]
+5. Move panda to safe tile [x]
+6. Move orangutan to broken tile [x]
+7. Move panda to broken tile alone [x]
+8. Move panda to broken tile in line [x]
+9. Move orangutan to exit tile alone [x]
+10. Move orangutan to exit tile with pandas [x]
+11. Orangutan uses wardrobe alone [x]
+12. Orangutan uses wardrobe with pandas [x]
 13. Panda uses wardrobe [ ]
 14. Panda sleeps alone [ ]
 15. Panda sleeps in line [ ]
@@ -20,7 +20,7 @@ A prototipus tesztesetei:
 17. Panda gets scared in line [ ] 
 18. Panda jumps alone on safe tile [ ]
 19. Panda jumps in line on safe tile [ ]
-~~20. Panda jumps alone on fragile tile~~
+20. Panda jumps alone on fragile tile [ ]
 21. Panda jumps in line on fragile tile [ ]
 22. Panda jumps alone on broken tile [ ]
 23. Panda jumps in line on broken tile [ ]
@@ -186,7 +186,7 @@ A prototipus tesztesetei:
 
 [CONNECTIONS]
 
-`TILE 1 CONNECTED WITH TILE 2`
+`TILE 1 CONNECTED WITH BROKEN TILE 2`
 
 ## 7. Move panda on broken tile alone
 
@@ -213,26 +213,15 @@ A prototipus tesztesetei:
 
 [CONNECTIONS]
 
-`TILE 1 CONNECTED WITH TILE 2`
+`TILE 1 CONNECTED WITH BROKEN TILE 2`
 
 ## 8. Move panda on broken tile in line
 
 #### Bemenet:
 
-`ADD TILE WITH ID 1;`
-`ADD TILE WITH ID 2;`
-`ADD FRAGILE TILE WITH ID 3 WITH LIFE 1;`
-`ADD TILE WITH ID 4;`
-`ADD ORANGUTAN WITH ID 5 ONTO TILE 3;`
-`ADD SLEEPY PANDA WITH ID 6 ONTO TILE 1;`
-`ADD SLEEPY PANDA WITH ID 7 ONTO TILE 2;`
-
-`CONNECT TILE 1 WITH TILE 2;`
-`CONNECT TILE 2 WITH FRAGILE TILE 3;`
-`CONNECT FRAGILE TILE 3 WITH TILE 4;`
+`/load panda_line_brokentile.txt`
 
 `BEGIN;`
-`MOVE ORANGUTAN WITH ID 5 ONTO TILE 2;`
 `MOVE ORANGUTAN WITH ID 5 ONTO TILE 4;`
 `END;`
 
@@ -240,28 +229,60 @@ A prototipus tesztesetei:
 
 #### Elvárt kimenet:
 
+[TILES]
+
+`TILE ID = 1 CURRENTANIMAL = (NULL) CURRENTITEM = (NULL)`
+`TILE ID = 2 CURRENTANIMAL = (SLEEPY PANDA 5) CURRENTITEM = (NULL)`
+`BROKEN TILE ID = 3 CURRENTANIMAL = (NULL) CURRENTITEM = (NULL)`
+`TILE ID = 4 CURRENTANIMAL = (ORANGUTAN 7) CURRENTITEM = (NULL)`
+
+[ANIMALS]
+
+`SLEEPY PANDA ID = 5 STANDINGON = (TILE 2) SLEEPINGIN = (NULL) LEADERANIMAL = (ORANGUTAN 7) GUIDEDANUMAL = (NULL)`
+`ORANGUTAN ID = 7 STANDINGON = (TILE 4) SLEEPINGIN = (NULL) LEADERANIMAL = (NULL) GUIDEDANUMAL = (SLEEPY PANDA 5)`
+
+[CONNECTIONS]
+
+`TILE 1 CONNECTED WITH TILE 2`
+`TILE 2 CONNECTED WITH BROKEN TILE 3`
+`BROKEN TILE 3 CONNECTED WITH TILE 4`
+
 ## 9. Move orangutan to exit tile alone
 
 #### Bemenet:
 
-
-`ADD TILE WITH ID 1;`
+`ADD ENTRY TILE WITH ID 1;`
 `ADD EXIT TILE WITH ID 2;`
 `ADD ORANGUTAN WITH ID 3 ONTO TILE 1;`
 
 `CONNECT TILE 1 WITH TILE 2;`
 
+`BEGIN;`
 `MOVE ORANGUTAN WITH ID 3 ONTO TILE 2;` 
+`END;`
 
 `/print`
 
 #### Elvárt kimenet:
 
+[TILES]
+
+`ENTRY TILE ID = 1 CURRENTANIMAL = (ORANGUTAN 3) CURRENTITEM = (NULL)`
+`EXIT TILE ID = 2 CURRENTANIMAL = (NULL) CURRENTITEM = (NULL)`
+
+[ANIMALS]
+
+`ORANGUTAN ID = 3 STANDINGON = (ENTRY TILE 1) SLEEPINGIN = (NULL) LEADERANIMAL = (NULL) GUIDEDANUMAL = (NULL)`
+
+[CONNECTIONS]
+
+`ENTRY TILE 1 CONNECTED WITH EXIT TILE 2`
+
 ## 10. Move orangutan to exit tile with pandas
 
 #### Bemenet:
 
-`ADD TILE WITH ID 1;`
+`ADD ENTRY TILE WITH ID 1;`
 `ADD TILE WITH ID 2;`
 `ADD EXIT TILE WITH ID 3;`
 `ADD ORANGUTAN WITH ID 4 ONTO TILE 2;`
@@ -279,6 +300,22 @@ A prototipus tesztesetei:
 
 #### Elvárt kimenet:
 
+[TILES]
+
+`ENTRY TILE ID = 1 CURRENTANIMAL = (ORANGUTAN 4) CURRENTITEM = (NULL)`
+`TILE ID = 2 CURRENTANIMAL = (NULL) CURRENTITEM = (NULL)`
+`EXIT TILE ID = 3 CURRENTANIMAL = (SLEEPY PANDA 5) CURRENTITEM = (NULL)`
+
+[ANIMALS]
+
+`ORANGUTAN ID = 4 STANDINGON = (ENTRY TILE 1) SLEEPINGIN = (NULL) LEADERANIMAL = (NULL) GUIDEDANUMAL = (SLEEPY PANDA 5)`
+`SLEEPY PANDA ID = 5 STANDINGON = (EXIT TILE 3) SLEEPINGIN = (NULL) LEADERANIMAL = (ORANGUTAN 4) GUIDEDANUMAL = (NULL)`
+
+[CONNECTIONS]
+
+`ENTRY TILE 1 CONNECTED WITH TILE 2`
+`TILE 2 CONNECTED WITH EXIT TILE 3`
+
 ## 11. Orangutan uses wardrobe alone
 
 #### Bemenet:
@@ -286,21 +323,41 @@ A prototipus tesztesetei:
 `ADD TILE WITH ID 1;`
 `ADD TILE WITH ID 2;`
 `ADD TILE WITH ID 3;`
-`ADD ORANGUTAN WITH ID 3 ONTO TILE 1;`
-`ADD WARDROBE WITH ID 4 ONTO TILE 2;`
-`ADD WARDROBE WITH ID 5 ONTO TILE 3;`
+`ADD ORANGUTAN WITH ID 4 ONTO TILE 1;`
+`ADD WARDROBE WITH ID 5 ONTO TILE 2;`
+`ADD WARDROBE WITH ID 6 ONTO TILE 3;`
 
 `CONNECT TILE 1 WITH TILE 2;`
-`CONNECT WARDROBE 4 WITH WARDROBE 5;`
+`CONNECT WARDROBE 5 WITH WARDROBE 6;`
 
 `BEGIN;`
-`MOVE ORANGUTAN WITH ID 3 ONTO TILE 2;` 
-`USE WARDROBE WITH ID 4 BY ORANGUTAN WITH ID 3;`
+`MOVE ORANGUTAN WITH ID 4 ONTO TILE 2;` 
+`USE WARDROBE WITH ID 5 BY ORANGUTAN WITH ID 3;`
 `END;`
 
 `/print`
 
 #### Elvárt kimenet:
+
+[TILES]
+
+`TILE ID = 1 CURRENTANIMAL = (NULL) CURRENTITEM = (NULL)`
+`TILE ID = 2 CURRENTANIMAL = (NULL) CURRENTITEM = (WARDROBE 5)`
+`TILE ID = 3 CURRENTANIMAL = (ORANGUTAN 4) CURRENTITEM = (WARDROBE 6)`
+
+[ANIMALS]
+
+`ORANGUTAN ID = 3 STANDINGON = (TILE 3) SLEEPINGIN = (NULL) LEADERANIMAL = (NULL) GUIDEDANUMAL = (NULL)`
+
+[ITEMS]
+
+`WARDROBE ID = 5 PLACEDON = (TILE 2)`
+`WARDROBE ID = 6 PLACEDON = (TILE 3)`
+
+[CONNECTIONS]
+
+`TILE 1 CONNECTED WITH TILE 2`
+`WARDROBE 5 CONNECTED WITH WARDROBE 6`
 
 ## 12. Orangutan uses wardrobe with pandas
 
@@ -328,6 +385,30 @@ A prototipus tesztesetei:
 `/print`
 
 #### Elvárt kimenet:
+
+[TILES]
+
+`TILE ID = 1 CURRENTANIMAL = (NULL) CURRENTITEM = (NULL)`
+`TILE ID = 2 CURRENTANIMAL = (NULL) CURRENTITEM = (NULL)`
+`TILE ID = 3 CURRENTANIMAL = (SLEEPY PANDA 6) CURRENTITEM = (WARDROBE 7)`
+`TILE ID = 4 CURRENTANIMAL = (ORANGUTAN 5) CURRENTITEM = (WARDROBE 8)`
+
+[ANIMALS]
+
+`ORANGUTAN ID = 5 STANDINGON = (TILE 4) SLEEPINGIN = (NULL) LEADERANIMAL = (NULL) GUIDEDANUMAL = (SLEEPY PANDA 6)`
+`SLEEPY PANDA ID = 6 STANDINGON = (TILE 3) SLEEPINGIN = (NULL) LEADERANIMAL = (ORANGUTAN 5) GUIDEDANUMAL = (NULL)`
+
+[ITEMS]
+
+`WARDROBE ID = 7 PLACEDON = (TILE 3)`
+`WARDROBE ID = 8 PLACEDON = (TILE 4)`
+
+[CONNECTIONS]
+
+`TILE 1 CONNECTED WITH TILE 2`
+`TILE 2 CONNECTED WITH TILE 3`
+`WARDROBE 7 CONNECTED WITH WARDROBE 8`
+
 
 ## 13. Panda uses wardrobe
 
