@@ -14,3 +14,14 @@ repositories {
 dependencies {
     testCompile group: 'junit', name: 'junit', version: '4.12'
 }
+
+jar {
+    archiveName = 'panda-proto.jar'
+    manifest {
+        attributes ("Main-Class": "hu.johndoe.panda.proto.Main")
+    }
+}
+
+task distribute(type: GradleBuild) {
+    tasks = ['clean', 'jar']
+}
