@@ -1,7 +1,7 @@
 grammar PandaLanguage;
 
 parse
-	: ( expression | error )* SEMICOLON* NEWLINE* EOF
+	: ( expression | error )* (SEMICOLON | NEWLINE)* EOF
 	;
 
 error
@@ -27,6 +27,7 @@ pandalang_command
 		| pl_cmd_begin
 		| pl_cmd_end
 		| pl_cmd_set
+		| pl_cmd_release
 	) SEMICOLON+
 	;
 
@@ -86,6 +87,10 @@ pl_cmd_end
 pl_cmd_set
 	: KW_SET WORD (WORD WHITESPACE?)+
 	;
+
+pl_cmd_release
+    : KW_RELEASE (KW_PANDA | KW_ORANGUTAN) KW_WITH KW_ID IDENTIFIER
+    ;
 
 // ADD commands
 
@@ -170,6 +175,7 @@ KW_WORK : W O R K;
 KW_PUSH : P U S H;
 KW_POP : P O P;
 KW_SET : S E T;
+KW_RELEASE : R E L E A S E;
 
 // Keywords for identifying type of things
 KW_TILE : T I L E;
