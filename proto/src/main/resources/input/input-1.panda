@@ -1,0 +1,38 @@
+# Clear, reset to initial state
+/clear
+
+ADD TILE WITH ID 1;
+ADD TILE WITH ID 2;
+ADD FRAGILE TILE WITH ID 3;
+ADD TILE WITH ID 4;
+
+CONNECT TILE 1 WITH TILE 2;
+CONNECT TILE 2 WITH TILE 3;
+CONNECT TILE 3 WITH TILE 4;
+
+# Orangutan needs to get to panda from the other side
+CONNECT TILE 4 WITH TILE 1;
+
+ADD SLEEPY PANDA WITH ID 5 ONTO TILE 1;
+ADD ORANGUTAN WITH ID 7 ONTO TILE 4;
+ADD COWARD PANDA WITH ID 11 ONTO TILE 2;
+
+BEGIN;
+
+    # Move to neighbour of panda
+    MOVE ORANGUTAN WITH ID 7 ONTO TILE 3;
+
+    # Run into panda
+    MOVE ORANGUTAN WITH ID 7 ONTO TILE 2;
+
+    # Orangutan should still be on tile 3
+
+    # Move orangutan to the other panda from the other side of the level
+
+    MOVE ORANGUTAN WITH ID 7 ONTO TILE 4;
+    MOVE ORANGUTAN WITH ID 7 ONTO TILE 1;
+
+    # Orangutan should be on TILE 4
+    /print
+
+END;

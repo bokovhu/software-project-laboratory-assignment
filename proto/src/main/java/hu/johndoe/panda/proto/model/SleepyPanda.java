@@ -43,7 +43,8 @@ public class SleepyPanda extends Panda implements Serializable {
 
     @Override
     public String toPrintableRepresentation () {
-        return super.toPrintableRepresentation () + " ISSLEEPING = " + isSleeping;
+        return super.toPrintableRepresentation () + " ISSLEEPING = " + isSleeping
+                + " SLEEPINGIN = " + (isSleeping ? reference (this.getStandingOn ().getPlacedItem ()) : reference (null));
     }
 
     @Override
