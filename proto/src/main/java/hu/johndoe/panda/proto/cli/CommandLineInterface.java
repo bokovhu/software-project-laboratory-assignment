@@ -16,9 +16,8 @@ import org.antlr.v4.runtime.tree.ParseTreeWalker;
 import org.antlr.v4.runtime.tree.TerminalNode;
 
 import java.io.*;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Scanner;
+import java.nio.file.FileSystems;
+import java.util.*;
 import java.util.stream.Collectors;
 
 public class CommandLineInterface extends PandaLanguageBaseListener {
@@ -27,6 +26,7 @@ public class CommandLineInterface extends PandaLanguageBaseListener {
     private PandaStack pandaStack = new PandaStack ();
     private PandaStack transactionalPandaStack = new PandaStack ();
     private boolean didBegin = false;
+    private Deque <String> loadFilenameStack = new ArrayDeque<> ();
 
     // Command handlers //
 
@@ -404,7 +404,16 @@ public class CommandLineInterface extends PandaLanguageBaseListener {
             throw new IllegalArgumentException ("Filenames should start and end with '\"' character!");
         }
 
-        File inputFile = new File (filename);
+        File dir = new File (System.getProperty ("user.dir"));
+
+        if (!loadFilenameStack.isEmpty ()) {
+
+            dir = new File (loadFilenameStack.getLast ());
+
+        }
+
+        File inputFile = new File (dir, filename);
+        loadFilenameStack.addLast (inputFile.getParentFile ().getAbsolutePath ());
 
         try (
                 FileReader fr = new FileReader (inputFile);
@@ -423,6 +432,8 @@ public class CommandLineInterface extends PandaLanguageBaseListener {
         } catch (IOException e) {
             System.err.println ("Error during execution of loaded code, reverting ...");
             Game.getInstance ().level = transactionalPandaStack.pop ();
+        } finally {
+            loadFilenameStack.removeLast ();
         }
 
     }

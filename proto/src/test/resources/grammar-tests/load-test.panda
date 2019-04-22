@@ -1,0 +1,4 @@
+/load "load-base.panda"
+
+CONNECT TILE 0 WITH TILE 1;
+CONNECT TILE 1 WITH TILE 2;

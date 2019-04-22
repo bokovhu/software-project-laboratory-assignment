@@ -1,0 +1,5 @@
+Add Tile with ID 0;
+Add Tile with ID 1;
+
+Connect Tile 0 with Tile 1;
+Connect Tile 1 with Tile 2;
