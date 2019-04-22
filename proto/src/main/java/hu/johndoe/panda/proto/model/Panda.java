@@ -90,4 +90,9 @@ public abstract class Panda extends Animal implements Serializable {
                 '}';
     }
 
+    @Override
+    public String getTag () {
+        return "PANDA";
+    }
+
 }

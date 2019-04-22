@@ -100,4 +100,14 @@ public class Orangutan extends Animal implements Serializable {
                 '}';
     }
 
+    @Override
+    public String getTag () {
+        return "ORANGUTAN";
+    }
+
+    @Override
+    public String toPrintableRepresentation () {
+        return super.toPrintableRepresentation () + " THEFTTIMER = " + theftTimer;
+    }
+
 }

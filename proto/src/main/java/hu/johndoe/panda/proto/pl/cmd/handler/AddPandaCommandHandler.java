@@ -30,6 +30,8 @@ public class AddPandaCommandHandler implements CommandHandler <AddPandaArgs> {
         panda.setStandingOn (standingOn);
         standingOn.setCurrentAnimal (panda);
 
+        Game.getInstance ().level.getAnimals ().add (panda);
+
     }
 
 }

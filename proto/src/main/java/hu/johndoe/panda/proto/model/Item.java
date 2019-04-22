@@ -2,12 +2,14 @@ package hu.johndoe.panda.proto.model;
 
 import hu.johndoe.panda.proto._internal.ActionLogger;
 import hu.johndoe.panda.proto._internal.IdGenerator;
+import hu.johndoe.panda.proto._internal.Printable;
+import hu.johndoe.panda.proto._internal.Referencable;
 
 import java.io.Serializable;
 
-public abstract class Item implements Updatable, Serializable {
+public abstract class Item implements Updatable, Serializable, Referencable, Printable {
 
-    protected final int id = IdGenerator.fetch ();
+    protected int id;
 
     private Tile placedOn;
 
@@ -37,6 +39,27 @@ public abstract class Item implements Updatable, Serializable {
         return "Item{" +
                 "id=" + id +
                 '}';
+    }
+
+    @Override
+    public int getId () {
+        return id;
+    }
+
+    public void setId (int id) {
+        this.id = id;
+    }
+
+    @Override
+    public String toPrintableRepresentation () {
+
+        StringBuilder sb = new StringBuilder ();
+
+        sb.append (getTag ()).append (" ID = ").append (getId ())
+                .append (" PLACEDON = ").append (reference (placedOn));
+
+        return sb.toString ();
+
     }
 
 }

@@ -10,8 +10,11 @@ public class Main {
 
     public static void main (String [] args) {
 
-        Game.getInstance ().level = new Level ();
-        Game.getInstance ().level.setTiles (new ArrayList<> ());
+        Game.getInstance ().level = new Level (
+                new ArrayList<> (),
+                new ArrayList<> (),
+                null, null
+        );
 
         CommandLineInterface cli = new CommandLineInterface ();
         cli.loop ();

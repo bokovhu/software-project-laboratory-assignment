@@ -100,6 +100,30 @@ public class PandaLanguageBaseListener implements PandaLanguageListener {
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
+	@Override public void enterPl_cmd_work_specific(PandaLanguageParser.Pl_cmd_work_specificContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void exitPl_cmd_work_specific(PandaLanguageParser.Pl_cmd_work_specificContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void enterPl_cmd_work_all(PandaLanguageParser.Pl_cmd_work_allContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void exitPl_cmd_work_all(PandaLanguageParser.Pl_cmd_work_allContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
 	@Override public void enterPl_cmd_connect(PandaLanguageParser.Pl_cmd_connectContext ctx) { }
 	/**
 	 * {@inheritDoc}

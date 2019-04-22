@@ -1,5 +1,6 @@
 package hu.johndoe.panda.proto.pl.cmd.handler;
 
+import hu.johndoe.panda.proto._internal.Referencable;
 import hu.johndoe.panda.proto.model.Animal;
 import hu.johndoe.panda.proto.model.Game;
 import hu.johndoe.panda.proto.model.Item;
@@ -15,57 +16,48 @@ import java.util.Set;
 
 public class ShellPrintCommandHandler implements CommandHandler<ShellPrintArgs> {
 
-    private String animalReference (Animal animal) {
-
-        if (animal == null) {
-            return "(NULL)";
-        }
-        return "()";
-
-    }
-
-    private String itemReference (Item item) {
-
-        if (item == null) {
-            return "(NULL)";
-        }
-        return "()";
-
-    }
-
-    private void print (PrintStream ps) {
-
-        ps.println ("[TILES]");
+    private void printSection (PrintStream ps, String section) {
         ps.println ();
+        ps.println ("[" + section + "]");
+        ps.println ();
+    }
+
+    private void printTiles (PrintStream ps) {
 
         for (Tile tile : Game.getInstance ().level.getTiles ()) {
 
-            StringBuilder sb = new StringBuilder ();
-
-            if (tile.isFragile) {
-                sb.append ("FRAGILE ");
-            }
-
-            if (tile.isExit) {
-                sb.append ("EXIT ");
-            }
-
-            if (tile.equals (Game.getInstance ().level.getStartTile ())) {
-                sb.append ("START ");
-            }
-
-            sb.append ("TILE ")
-                    .append ("ID = ").append (tile.getId ()).append (" ")
-                    .append ("CURRENTANIMAL = ").append (animalReference (tile.getCurrentAnimal ())).append (" ")
-                    .append ("CURRENTITEM = ").append (itemReference (tile.getPlacedItem ()));
-
-            ps.println (sb.toString ());
+            ps.println (tile.toPrintableRepresentation ());
 
         }
 
-        ps.println ();
-        ps.println ("[CONNECTIONS]");
-        ps.println ();
+    }
+
+    private void printItems (PrintStream ps) {
+
+        for (Tile tile : Game.getInstance ().level.getTiles ()) {
+
+            if (tile.getPlacedItem () != null) {
+
+                Item item = tile.getPlacedItem ();
+                ps.println (item.toPrintableRepresentation ());
+
+            }
+
+        }
+
+    }
+
+    private void printAnimals (PrintStream ps) {
+
+        for (Animal animal : Game.getInstance ().level.getAnimals ()) {
+
+            ps.println (animal.toPrintableRepresentation ());
+
+        }
+
+    }
+
+    private void printConnections (PrintStream ps) {
 
         Set <OrderIndependentPair <Integer>> visitedTileConnections = new HashSet<> ();
 
@@ -89,6 +81,22 @@ public class ShellPrintCommandHandler implements CommandHandler<ShellPrintArgs> 
             }
 
         }
+
+    }
+
+    private void print (PrintStream ps) {
+
+        printSection (ps, "TILES");
+        printTiles (ps);
+
+        printSection (ps, "ITEMS");
+        printItems (ps);
+
+        printSection (ps, "ANIMALS");
+        printAnimals (ps);
+
+        printSection (ps, "CONNECTIONS");
+        printConnections (ps);
 
     }
 

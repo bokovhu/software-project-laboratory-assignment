@@ -2,7 +2,10 @@ package hu.johndoe.panda.proto.model;
 
 import hu.johndoe.panda.proto._internal.ActionLogger;
 import hu.johndoe.panda.proto._internal.IdGenerator;
+import hu.johndoe.panda.proto._internal.Printable;
+import hu.johndoe.panda.proto._internal.Referencable;
 
+import java.io.PrintStream;
 import java.io.Serializable;
 import java.util.Objects;
 
@@ -10,7 +13,7 @@ import java.util.Objects;
  * A single animal in the game. The implemented animal species are orangutans and pandas (and the different specialized
  * pandas).
  */
-public abstract class Animal implements Updatable, Serializable {
+public abstract class Animal implements Updatable, Serializable, Referencable, Printable {
 
     /**
      * The internal ID of the object, used for logging purposes
@@ -286,6 +289,20 @@ public abstract class Animal implements Updatable, Serializable {
 
     public void setId (int id) {
         this.id = id;
+    }
+
+    @Override
+    public String toPrintableRepresentation () {
+
+        StringBuilder sb = new StringBuilder ();
+
+        sb.append (getTag ()).append (" ID = ").append (getId ())
+                .append (" STANDINGON = ").append (reference (standingOn))
+                .append (" LEADERANIMAL = ").append (reference (leaderAnimal))
+                .append (" GUIDEDANIMAL = ").append (reference (guidedAnimal));
+
+        return sb.toString ();
+
     }
 
 }

@@ -48,4 +48,9 @@ public class ChocolateVendingMachine extends Item implements Serializable {
                 '}';
     }
 
+    @Override
+    public String getTag () {
+        return "VENDINGMACHINE";
+    }
+
 }

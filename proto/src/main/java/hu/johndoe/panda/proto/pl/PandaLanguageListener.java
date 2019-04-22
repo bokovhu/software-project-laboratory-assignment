@@ -78,6 +78,26 @@ public interface PandaLanguageListener extends ParseTreeListener {
 	 */
 	void exitPl_cmd_work (PandaLanguageParser.Pl_cmd_workContext ctx);
 	/**
+	 * Enter a parse tree produced by {@link PandaLanguageParser#pl_cmd_work_specific}.
+	 * @param ctx the parse tree
+	 */
+	void enterPl_cmd_work_specific (PandaLanguageParser.Pl_cmd_work_specificContext ctx);
+	/**
+	 * Exit a parse tree produced by {@link PandaLanguageParser#pl_cmd_work_specific}.
+	 * @param ctx the parse tree
+	 */
+	void exitPl_cmd_work_specific (PandaLanguageParser.Pl_cmd_work_specificContext ctx);
+	/**
+	 * Enter a parse tree produced by {@link PandaLanguageParser#pl_cmd_work_all}.
+	 * @param ctx the parse tree
+	 */
+	void enterPl_cmd_work_all (PandaLanguageParser.Pl_cmd_work_allContext ctx);
+	/**
+	 * Exit a parse tree produced by {@link PandaLanguageParser#pl_cmd_work_all}.
+	 * @param ctx the parse tree
+	 */
+	void exitPl_cmd_work_all (PandaLanguageParser.Pl_cmd_work_allContext ctx);
+	/**
 	 * Enter a parse tree produced by {@link PandaLanguageParser#pl_cmd_connect}.
 	 * @param ctx the parse tree
 	 */

@@ -53,4 +53,14 @@ public class Wardrobe extends Item implements Serializable {
                 '}';
     }
 
+    @Override
+    public String getTag () {
+        return "WARDROBE";
+    }
+
+    @Override
+    public String toPrintableRepresentation () {
+        return super.toPrintableRepresentation () + " OTHERWARDROBE = " + reference (otherWardrobe);
+    }
+
 }

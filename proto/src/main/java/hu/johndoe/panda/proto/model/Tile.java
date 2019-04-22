@@ -2,13 +2,15 @@ package hu.johndoe.panda.proto.model;
 
 import hu.johndoe.panda.proto._internal.ActionLogger;
 import hu.johndoe.panda.proto._internal.IdGenerator;
+import hu.johndoe.panda.proto._internal.Printable;
+import hu.johndoe.panda.proto._internal.Referencable;
 
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
-public class Tile implements Serializable {
+public class Tile implements Serializable, Referencable, Printable {
 
     private int id;
 
@@ -175,6 +177,27 @@ public class Tile implements Serializable {
 
     public void setId (int id) {
         this.id = id;
+    }
+
+    @Override
+    public String getTag () {
+        return (isFragile ? "FRAGILE " : "") +
+                (isExit ? "EXIT " : "") +
+                (this.equals (Game.getInstance ().level.getStartTile ()) ? "START " : "") +
+                "TILE";
+    }
+
+    @Override
+    public String toPrintableRepresentation () {
+
+        StringBuilder sb = new StringBuilder ();
+
+        sb.append (getTag ()).append (" ID = ").append (getId ())
+                .append (" CURRENTANIMAL = ").append (reference (currentAnimal))
+                .append (" CURRENTITEM = ").append (reference (placedItem));
+
+        return sb.toString ();
+
     }
 
 }

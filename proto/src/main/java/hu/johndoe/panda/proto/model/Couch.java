@@ -53,4 +53,14 @@ public class Couch extends Item implements Serializable {
                 '}';
     }
 
+    @Override
+    public String getTag () {
+        return "COUCH";
+    }
+
+    @Override
+    public String toPrintableRepresentation () {
+        return super.toPrintableRepresentation () + " ISTAKEN = " + isTaken;
+    }
+
 }

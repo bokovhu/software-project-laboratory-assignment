@@ -52,8 +52,16 @@ pl_cmd_add
 	;
 
 pl_cmd_work
-	: KW_WORK (KW_GAMEMACHINE | KW_VENDINGMACHINE | KW_COUCH | KW_WARDROBE | KW_PANDA | KW_ORANGUTAN) KW_WITH KW_ID IDENTIFIER
+	: (pl_cmd_work_specific | pl_cmd_work_all)
 	;
+
+pl_cmd_work_specific
+    : KW_WORK (KW_GAMEMACHINE | KW_VENDINGMACHINE | KW_COUCH | KW_WARDROBE | KW_PANDA | KW_ORANGUTAN) KW_WITH KW_ID IDENTIFIER
+    ;
+
+pl_cmd_work_all
+    : KW_WORK ASTERISK
+    ;
 
 pl_cmd_connect
 	: pl_cmd_connect_tile
@@ -226,6 +234,7 @@ RIGHTPAR : ')';
 EQUALS : '=';
 SLASH : '/';
 WORD : (LETTER | DIGIT)+;
+ASTERISK : '*';
 
 UNEXPECTED_CHAR
 	: .
