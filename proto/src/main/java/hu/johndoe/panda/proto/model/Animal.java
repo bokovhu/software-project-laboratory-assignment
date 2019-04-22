@@ -3,18 +3,19 @@ package hu.johndoe.panda.proto.model;
 import hu.johndoe.panda.proto._internal.ActionLogger;
 import hu.johndoe.panda.proto._internal.IdGenerator;
 
+import java.io.Serializable;
 import java.util.Objects;
 
 /**
  * A single animal in the game. The implemented animal species are orangutans and pandas (and the different specialized
  * pandas).
  */
-public abstract class Animal implements Updatable {
+public abstract class Animal implements Updatable, Serializable {
 
     /**
      * The internal ID of the object, used for logging purposes
      */
-    protected final int id = IdGenerator.fetch ();
+    protected int id;
 
     /**
      * The animal that's leading this one
@@ -277,6 +278,14 @@ public abstract class Animal implements Updatable {
         return "Animal{" +
                 "id=" + id +
                 '}';
+    }
+
+    public int getId () {
+        return id;
+    }
+
+    public void setId (int id) {
+        this.id = id;
     }
 
 }

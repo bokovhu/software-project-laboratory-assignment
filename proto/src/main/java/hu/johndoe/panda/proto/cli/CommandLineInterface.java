@@ -1,24 +1,64 @@
 package hu.johndoe.panda.proto.cli;
 
-import hu.johndoe.panda.proto.pl.PandaLanguageBaseListener;
+import hu.johndoe.panda.proto.model.Game;
+import hu.johndoe.panda.proto.model.Level;
 import hu.johndoe.panda.proto.pl.PandaLanguageLexer;
 import hu.johndoe.panda.proto.pl.PandaLanguageListener;
 import hu.johndoe.panda.proto.pl.PandaLanguageParser;
+import hu.johndoe.panda.proto.pl.cmd.args.AddPandaArgs;
+import hu.johndoe.panda.proto.pl.cmd.args.AddTileArgs;
+import hu.johndoe.panda.proto.pl.cmd.args.ConnectTilesArgs;
 import hu.johndoe.panda.proto.pl.cmd.args.ShellPrintArgs;
+import hu.johndoe.panda.proto.pl.cmd.handler.AddPandaCommandHandler;
+import hu.johndoe.panda.proto.pl.cmd.handler.AddTileCommandHandler;
+import hu.johndoe.panda.proto.pl.cmd.handler.ConnectTilesCommandHandler;
 import hu.johndoe.panda.proto.pl.cmd.handler.ShellPrintCommandHandler;
-import org.antlr.v4.runtime.CharStreams;
-import org.antlr.v4.runtime.CommonTokenStream;
-import org.antlr.v4.runtime.ParserRuleContext;
+import org.antlr.v4.runtime.*;
 import org.antlr.v4.runtime.tree.ErrorNode;
 import org.antlr.v4.runtime.tree.ParseTree;
 import org.antlr.v4.runtime.tree.ParseTreeWalker;
 import org.antlr.v4.runtime.tree.TerminalNode;
 
+import java.io.*;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Scanner;
+import java.util.stream.Collectors;
 
 public class CommandLineInterface implements PandaLanguageListener {
 
-    ShellPrintCommandHandler shellPrintCommandHandler = new ShellPrintCommandHandler ();
+    private List <String> commandBuffer = new ArrayList<> ();
+    private PandaStack pandaStack = new PandaStack ();
+    private PandaStack transactionalPandaStack = new PandaStack ();
+
+    // Command handlers //
+
+    private ShellPrintCommandHandler shellPrintCommandHandler = new ShellPrintCommandHandler ();
+    private AddTileCommandHandler addTileCommandHandler = new AddTileCommandHandler ();
+    private AddPandaCommandHandler addPandaCommandHandler = new AddPandaCommandHandler ();
+    private ConnectTilesCommandHandler connectTilesCommandHandler = new ConnectTilesCommandHandler ();
+
+    private void execute (String commandLine) {
+
+        commandBuffer.add (commandLine);
+
+        PandaLanguageLexer lexer = new PandaLanguageLexer (CharStreams.fromString (commandLine));
+        lexer.removeErrorListener (ConsoleErrorListener.INSTANCE);
+        PandaLanguageParser parser = new PandaLanguageParser (new CommonTokenStream (lexer));
+        parser.removeErrorListener (ConsoleErrorListener.INSTANCE);
+        try {
+            ParseTree tree = parser.parse ();
+            ParseTreeWalker walker = new ParseTreeWalker ();
+            walker.walk (
+                    this,
+                    tree
+            );
+        } catch (Throwable th) {
+            System.err.println ("Invalid command line!");
+            throw new IllegalArgumentException (th);
+        }
+
+    }
 
     public void loop () {
 
@@ -27,14 +67,16 @@ public class CommandLineInterface implements PandaLanguageListener {
         while (true) {
 
             String commandLine = stdinScanner.nextLine ();
-            PandaLanguageLexer lexer = new PandaLanguageLexer (CharStreams.fromString (commandLine));
-            PandaLanguageParser parser = new PandaLanguageParser (new CommonTokenStream (lexer));
-            ParseTree tree = parser.parse ();
-            ParseTreeWalker walker = new ParseTreeWalker ();
-            walker.walk (
-                    this,
-                    tree
-            );
+
+            try {
+                transactionalPandaStack.push ();
+                execute (commandLine);
+                transactionalPandaStack.pop ();
+            } catch (Exception e) {
+                System.err.println ("Could not execute command '" + commandLine + "', reverting to previous state ...");
+                e.printStackTrace ();
+                Game.getInstance ().level = transactionalPandaStack.pop ();
+            }
 
         }
 
@@ -148,6 +190,8 @@ public class CommandLineInterface implements PandaLanguageListener {
     @Override
     public void exitPl_cmd_push (PandaLanguageParser.Pl_cmd_pushContext ctx) {
 
+        pandaStack.push ();
+
     }
 
     @Override
@@ -157,6 +201,8 @@ public class CommandLineInterface implements PandaLanguageListener {
 
     @Override
     public void exitPl_cmd_pop (PandaLanguageParser.Pl_cmd_popContext ctx) {
+
+        Game.getInstance ().level = pandaStack.pop ();
 
     }
 
@@ -208,6 +254,13 @@ public class CommandLineInterface implements PandaLanguageListener {
     @Override
     public void exitPl_cmd_add_tile (PandaLanguageParser.Pl_cmd_add_tileContext ctx) {
 
+        addTileCommandHandler.handleCommand (
+                new AddTileArgs (
+                        ctx.tile_flag ().stream ().map (RuleContext::getText).collect (Collectors.toList ()),
+                        Integer.parseInt (ctx.IDENTIFIER ().getText ())
+                )
+        );
+
     }
 
     @Override
@@ -217,6 +270,16 @@ public class CommandLineInterface implements PandaLanguageListener {
 
     @Override
     public void exitPl_cmd_add_panda (PandaLanguageParser.Pl_cmd_add_pandaContext ctx) {
+
+        addPandaCommandHandler.handleCommand (
+                new AddPandaArgs (
+                        ctx.panda_flag ().KW_COWARD () != null,
+                        ctx.panda_flag ().KW_SLEEPY () != null,
+                        ctx.panda_flag ().KW_JUMPY () != null,
+                        Integer.parseInt (ctx.IDENTIFIER (0).getText ()),
+                        Integer.parseInt (ctx.IDENTIFIER (1).getText ())
+                )
+        );
 
     }
 
@@ -268,6 +331,13 @@ public class CommandLineInterface implements PandaLanguageListener {
     @Override
     public void exitPl_cmd_connect_tile (PandaLanguageParser.Pl_cmd_connect_tileContext ctx) {
 
+        connectTilesCommandHandler.handleCommand (
+                new ConnectTilesArgs (
+                        Integer.parseInt (ctx.IDENTIFIER (0).getText ()),
+                        Integer.parseInt (ctx.IDENTIFIER (1).getText ())
+                )
+        );
+
     }
 
     @Override
@@ -310,7 +380,7 @@ public class CommandLineInterface implements PandaLanguageListener {
 
         shellPrintCommandHandler.handleCommand (
                 new ShellPrintArgs (
-                        ctx.FILENAME ().getText ()
+                        ctx.FILENAME () == null ? null : ctx.FILENAME ().getText ()
                 )
         );
 
@@ -324,15 +394,64 @@ public class CommandLineInterface implements PandaLanguageListener {
     @Override
     public void exitSh_cmd_save (PandaLanguageParser.Sh_cmd_saveContext ctx) {
 
+        String filename = ctx.FILENAME ().getText ();
+
+        if (filename.startsWith ("\"") && filename.endsWith ("\"")) {
+            filename = filename.substring (1, filename.length () - 1);
+        } else {
+            throw new IllegalArgumentException ("Filenames should start and end with '\"' character!");
+        }
+
+        File outputFile = new File (filename);
+
+        try (PrintStream ps = new PrintStream (outputFile)) {
+
+            commandBuffer.forEach (ps::println);
+
+        } catch (FileNotFoundException e) {
+            e.printStackTrace ();
+        }
+
     }
 
     @Override
     public void enterSh_cmd_load (PandaLanguageParser.Sh_cmd_loadContext ctx) {
 
+        transactionalPandaStack.push ();
+
     }
 
     @Override
     public void exitSh_cmd_load (PandaLanguageParser.Sh_cmd_loadContext ctx) {
+
+        String filename = ctx.FILENAME ().getText ();
+
+        if (filename.startsWith ("\"") && filename.endsWith ("\"")) {
+            filename = filename.substring (1, filename.length () - 1);
+        } else {
+            throw new IllegalArgumentException ("Filenames should start and end with '\"' character!");
+        }
+
+        File inputFile = new File (filename);
+
+        try (
+                FileReader fr = new FileReader (inputFile);
+                BufferedReader br = new BufferedReader (fr)
+        ) {
+
+            String line = null;
+            while ((line = br.readLine ()) != null) {
+                execute (line.trim ());
+            }
+
+            // Pop without setting the state
+            // Should only happen in case of fully successful file loading
+            transactionalPandaStack.pop ();
+
+        } catch (IOException e) {
+            System.err.println ("Error during execution of loaded code, reverting ...");
+            Game.getInstance ().level = transactionalPandaStack.pop ();
+        }
 
     }
 
@@ -343,6 +462,14 @@ public class CommandLineInterface implements PandaLanguageListener {
 
     @Override
     public void exitSh_cmd_clear (PandaLanguageParser.Sh_cmd_clearContext ctx) {
+
+        commandBuffer.clear ();
+        Game.getInstance ().level = new Level (
+                new ArrayList<> (),
+                new ArrayList<> (),
+                null, null
+        );
+        transactionalPandaStack.clear ();
 
     }
 

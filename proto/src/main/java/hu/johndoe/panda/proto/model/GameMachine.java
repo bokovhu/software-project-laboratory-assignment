@@ -2,7 +2,9 @@ package hu.johndoe.panda.proto.model;
 
 import hu.johndoe.panda.proto._internal.ActionLogger;
 
-public class GameMachine extends Item {
+import java.io.Serializable;
+
+public class GameMachine extends Item implements Serializable {
 
     public GameMachine () {
     }

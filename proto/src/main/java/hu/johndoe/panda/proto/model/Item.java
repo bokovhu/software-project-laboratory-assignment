@@ -3,7 +3,9 @@ package hu.johndoe.panda.proto.model;
 import hu.johndoe.panda.proto._internal.ActionLogger;
 import hu.johndoe.panda.proto._internal.IdGenerator;
 
-public abstract class Item implements Updatable {
+import java.io.Serializable;
+
+public abstract class Item implements Updatable, Serializable {
 
     protected final int id = IdGenerator.fetch ();
 

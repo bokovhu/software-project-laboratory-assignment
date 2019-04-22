@@ -2,7 +2,9 @@ package hu.johndoe.panda.proto.model;
 
 import hu.johndoe.panda.proto._internal.ActionLogger;
 
-public class JumpyPanda extends Panda {
+import java.io.Serializable;
+
+public class JumpyPanda extends Panda implements Serializable {
 
     public JumpyPanda () {
     }

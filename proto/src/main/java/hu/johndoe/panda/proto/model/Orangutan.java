@@ -2,7 +2,9 @@ package hu.johndoe.panda.proto.model;
 
 import hu.johndoe.panda.proto._internal.ActionLogger;
 
-public class Orangutan extends Animal {
+import java.io.Serializable;
+
+public class Orangutan extends Animal implements Serializable {
 
     private int theftTimer = 0;
 

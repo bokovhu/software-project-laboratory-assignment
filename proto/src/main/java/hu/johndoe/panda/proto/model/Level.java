@@ -2,9 +2,10 @@ package hu.johndoe.panda.proto.model;
 
 import hu.johndoe.panda.proto._internal.ActionLogger;
 
+import java.io.Serializable;
 import java.util.List;
 
-public class Level {
+public class Level implements Serializable {
 
     private List<Animal> animals;
     private List<Tile> tiles;

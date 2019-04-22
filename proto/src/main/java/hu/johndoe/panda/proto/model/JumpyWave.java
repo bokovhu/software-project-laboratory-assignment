@@ -2,7 +2,9 @@ package hu.johndoe.panda.proto.model;
 
 import hu.johndoe.panda.proto._internal.ActionLogger;
 
-public class JumpyWave extends Wave {
+import java.io.Serializable;
+
+public class JumpyWave extends Wave implements Serializable {
 
     public JumpyWave () {
     }

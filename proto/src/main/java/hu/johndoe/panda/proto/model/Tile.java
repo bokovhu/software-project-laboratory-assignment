@@ -3,13 +3,14 @@ package hu.johndoe.panda.proto.model;
 import hu.johndoe.panda.proto._internal.ActionLogger;
 import hu.johndoe.panda.proto._internal.IdGenerator;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
-public class Tile {
+public class Tile implements Serializable {
 
-    private final int id = IdGenerator.fetch ();
+    private int id;
 
     public int life;
     public boolean isFragile;
@@ -17,7 +18,7 @@ public class Tile {
 
     private Animal currentAnimal;
     private Item placedItem;
-    private List<Tile> neighbours;
+    private List<Tile> neighbours = new ArrayList<> ();
 
     public Tile (
             int life,
@@ -166,6 +167,14 @@ public class Tile {
         return "Tile{" +
                 "id=" + id +
                 '}';
+    }
+
+    public int getId () {
+        return id;
+    }
+
+    public void setId (int id) {
+        this.id = id;
     }
 
 }

@@ -3,7 +3,9 @@ package hu.johndoe.panda.proto.model;
 import hu.johndoe.panda.proto._internal.ActionLogger;
 import hu.johndoe.panda.proto._internal.IdGenerator;
 
-public abstract class Wave {
+import java.io.Serializable;
+
+public abstract class Wave implements Serializable {
 
     protected final int id = IdGenerator.fetch ();
 

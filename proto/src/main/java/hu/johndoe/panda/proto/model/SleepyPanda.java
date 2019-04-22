@@ -2,9 +2,10 @@ package hu.johndoe.panda.proto.model;
 
 import hu.johndoe.panda.proto._internal.ActionLogger;
 
+import java.io.Serializable;
 import java.util.Objects;
 
-public class SleepyPanda extends Panda {
+public class SleepyPanda extends Panda implements Serializable {
 
     public boolean isSleeping = false;
 

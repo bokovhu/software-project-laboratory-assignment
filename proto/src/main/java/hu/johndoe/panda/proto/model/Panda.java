@@ -2,7 +2,9 @@ package hu.johndoe.panda.proto.model;
 
 import hu.johndoe.panda.proto._internal.ActionLogger;
 
-public abstract class Panda extends Animal {
+import java.io.Serializable;
+
+public abstract class Panda extends Animal implements Serializable {
 
     public boolean isAsleep;
 

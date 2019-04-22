@@ -2,11 +2,13 @@ package hu.johndoe.panda.proto.model;
 
 import hu.johndoe.panda.proto._internal.ActionLogger;
 
+import java.io.Serializable;
+
 /**
  * Represents a chocolate vending machine in the game. Sometimes, the chocolate vending machine emits a beep wave, that
  * may scare coward pandas.
  */
-public class ChocolateVendingMachine extends Item {
+public class ChocolateVendingMachine extends Item implements Serializable {
 
     public ChocolateVendingMachine () {
     }

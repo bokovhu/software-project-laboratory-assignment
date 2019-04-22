@@ -2,11 +2,13 @@ package hu.johndoe.panda.proto.model;
 
 import hu.johndoe.panda.proto._internal.ActionLogger;
 
+import java.io.Serializable;
+
 /**
  * Represents a propagating beep wave. When hitting a coward panda, this wave scares them. The wave has no effects on
  * other animals.
  */
-public class BeepWave extends Wave {
+public class BeepWave extends Wave implements Serializable {
 
     public BeepWave () {
     }
