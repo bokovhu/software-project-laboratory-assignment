@@ -37,7 +37,7 @@ shell_command
 		| sh_cmd_save
 		| sh_cmd_load
 		| sh_cmd_clear
-	) NEWLINE
+	)
 	;
 
 // Panda language commands
