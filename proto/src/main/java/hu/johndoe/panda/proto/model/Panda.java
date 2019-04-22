@@ -80,6 +80,8 @@ public abstract class Panda extends Animal implements Serializable {
     public void update () {
         super.update ();
 
+        // TODO @Janka: Ide kéne random tile választás, és bolyongás, vagy valami
+
         ActionLogger.log (this, "Updating");
     }
 

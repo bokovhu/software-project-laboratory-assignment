@@ -16,7 +16,7 @@ expression
 	;
 
 pandalang_command
-	: SEMICOLON* NEWLINE* (
+	: (SEMICOLON | NEWLINE)* (
 		pl_cmd_add
 		| pl_cmd_work
 		| pl_cmd_connect

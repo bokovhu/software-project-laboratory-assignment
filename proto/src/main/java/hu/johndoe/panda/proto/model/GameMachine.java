@@ -1,6 +1,7 @@
 package hu.johndoe.panda.proto.model;
 
 import hu.johndoe.panda.proto._internal.ActionLogger;
+import hu.johndoe.panda.proto._internal.GameRandom;
 
 import java.io.Serializable;
 
@@ -18,11 +19,11 @@ public class GameMachine extends Item implements Serializable {
 
         ActionLogger.log (this, "Updating");
 
-        // if (random) {
-        //     JumpyWave wave = new JumpyWave ();
-        //     wave.setOrigin (getPlacedOn ());
-        //     getPlacedOn ().spawnWave (wave);
-        // }
+        if (GameRandom.random ()) {
+            JumpyWave wave = new JumpyWave ();
+            wave.setOrigin (getPlacedOn ());
+            getPlacedOn ().spawnWave (wave);
+        }
 
         throw new UnsupportedOperationException ();
 

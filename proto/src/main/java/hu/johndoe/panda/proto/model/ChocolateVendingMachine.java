@@ -1,6 +1,7 @@
 package hu.johndoe.panda.proto.model;
 
 import hu.johndoe.panda.proto._internal.ActionLogger;
+import hu.johndoe.panda.proto._internal.GameRandom;
 
 import java.io.Serializable;
 
@@ -26,11 +27,11 @@ public class ChocolateVendingMachine extends Item implements Serializable {
 
         ActionLogger.log (this, "Updating");
 
-        // if (random) {
-        //     BeepWave wave = new BeepWave ();
-        //     wave.setOrigin (getPlacedOn ());
-        //     getPlacedOn ().spawnWave (wave);
-        // }
+        if (GameRandom.random ()) {
+            BeepWave wave = new BeepWave ();
+            wave.setOrigin (getPlacedOn ());
+            getPlacedOn ().spawnWave (wave);
+        }
 
         throw new UnsupportedOperationException ();
 

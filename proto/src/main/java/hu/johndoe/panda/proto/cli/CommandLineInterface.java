@@ -3,6 +3,7 @@ package hu.johndoe.panda.proto.cli;
 import hu.johndoe.panda.proto.model.Animal;
 import hu.johndoe.panda.proto.model.Game;
 import hu.johndoe.panda.proto.model.Level;
+import hu.johndoe.panda.proto.pl.PandaLanguageBaseListener;
 import hu.johndoe.panda.proto.pl.PandaLanguageLexer;
 import hu.johndoe.panda.proto.pl.PandaLanguageListener;
 import hu.johndoe.panda.proto.pl.PandaLanguageParser;
@@ -20,7 +21,7 @@ import java.util.List;
 import java.util.Scanner;
 import java.util.stream.Collectors;
 
-public class CommandLineInterface implements PandaLanguageListener {
+public class CommandLineInterface extends PandaLanguageBaseListener {
 
     private List<String> commandBuffer = new ArrayList<> ();
     private PandaStack pandaStack = new PandaStack ();
@@ -36,6 +37,9 @@ public class CommandLineInterface implements PandaLanguageListener {
     private AddItemCommandHandler addItemCommandHandler = new AddItemCommandHandler ();
     private ConnectWardrobesCommandHandler connectWardrobesCommandHandler = new ConnectWardrobesCommandHandler ();
     private WorkCommandHandler workCommandHandler = new WorkCommandHandler ();
+    private MoveCommandHandler moveCommandHandler = new MoveCommandHandler ();
+    private UseCommandHandler useCommandHandler = new UseCommandHandler ();
+    private ReleaseCommandHandler releaseCommandHandler = new ReleaseCommandHandler ();
 
     private void execute (String commandLine) {
 
@@ -65,6 +69,7 @@ public class CommandLineInterface implements PandaLanguageListener {
 
         while (true) {
 
+            System.out.print ("PandaLang > ");
             String commandLine = stdinScanner.nextLine ();
 
             try {
@@ -82,66 +87,11 @@ public class CommandLineInterface implements PandaLanguageListener {
     }
 
     @Override
-    public void enterParse (PandaLanguageParser.ParseContext ctx) {
-
-    }
-
-    @Override
-    public void exitParse (PandaLanguageParser.ParseContext ctx) {
-
-    }
-
-    @Override
-    public void enterError (PandaLanguageParser.ErrorContext ctx) {
-
-    }
-
-    @Override
-    public void exitError (PandaLanguageParser.ErrorContext ctx) {
-
-    }
-
-    @Override
-    public void enterExpression (PandaLanguageParser.ExpressionContext ctx) {
-
-    }
-
-    @Override
-    public void exitExpression (PandaLanguageParser.ExpressionContext ctx) {
-
-    }
-
-    @Override
-    public void enterPandalang_command (PandaLanguageParser.Pandalang_commandContext ctx) {
-
-    }
-
-    @Override
-    public void exitPandalang_command (PandaLanguageParser.Pandalang_commandContext ctx) {
-
-    }
-
-    @Override
-    public void enterShell_command (PandaLanguageParser.Shell_commandContext ctx) {
-
-    }
-
-    @Override
-    public void exitShell_command (PandaLanguageParser.Shell_commandContext ctx) {
-
-    }
-
-    @Override
     public void enterPl_cmd_add (PandaLanguageParser.Pl_cmd_addContext ctx) {
 
         if (didBegin) {
             throw new IllegalStateException ("Cannot execute ADD, already begun!");
         }
-
-    }
-
-    @Override
-    public void exitPl_cmd_add (PandaLanguageParser.Pl_cmd_addContext ctx) {
 
     }
 
@@ -155,16 +105,6 @@ public class CommandLineInterface implements PandaLanguageListener {
     }
 
     @Override
-    public void exitPl_cmd_work (PandaLanguageParser.Pl_cmd_workContext ctx) {
-
-    }
-
-    @Override
-    public void enterPl_cmd_work_specific (PandaLanguageParser.Pl_cmd_work_specificContext ctx) {
-
-    }
-
-    @Override
     public void exitPl_cmd_work_specific (PandaLanguageParser.Pl_cmd_work_specificContext ctx) {
 
         workCommandHandler.handleCommand (
@@ -174,11 +114,6 @@ public class CommandLineInterface implements PandaLanguageListener {
                         Integer.parseInt (ctx.IDENTIFIER ().getText ())
                 )
         );
-
-    }
-
-    @Override
-    public void enterPl_cmd_work_all (PandaLanguageParser.Pl_cmd_work_allContext ctx) {
 
     }
 
@@ -202,11 +137,6 @@ public class CommandLineInterface implements PandaLanguageListener {
     }
 
     @Override
-    public void exitPl_cmd_connect (PandaLanguageParser.Pl_cmd_connectContext ctx) {
-
-    }
-
-    @Override
     public void enterPl_cmd_move (PandaLanguageParser.Pl_cmd_moveContext ctx) {
 
         if (!didBegin) {
@@ -217,6 +147,13 @@ public class CommandLineInterface implements PandaLanguageListener {
 
     @Override
     public void exitPl_cmd_move (PandaLanguageParser.Pl_cmd_moveContext ctx) {
+
+        moveCommandHandler.handleCommand (
+                new MoveArgs (
+                        Integer.parseInt (ctx.IDENTIFIER (0).getText ()),
+                        Integer.parseInt (ctx.IDENTIFIER (1).getText ())
+                )
+        );
 
     }
 
@@ -232,10 +169,12 @@ public class CommandLineInterface implements PandaLanguageListener {
     @Override
     public void exitPl_cmd_use (PandaLanguageParser.Pl_cmd_useContext ctx) {
 
-    }
-
-    @Override
-    public void enterPl_cmd_push (PandaLanguageParser.Pl_cmd_pushContext ctx) {
+        useCommandHandler.handleCommand (
+                new UseArgs (
+                        Integer.parseInt (ctx.IDENTIFIER (1).getText ()),
+                        Integer.parseInt (ctx.IDENTIFIER (0).getText ())
+                )
+        );
 
     }
 
@@ -247,19 +186,9 @@ public class CommandLineInterface implements PandaLanguageListener {
     }
 
     @Override
-    public void enterPl_cmd_pop (PandaLanguageParser.Pl_cmd_popContext ctx) {
-
-    }
-
-    @Override
     public void exitPl_cmd_pop (PandaLanguageParser.Pl_cmd_popContext ctx) {
 
         Game.getInstance ().level = pandaStack.pop ();
-
-    }
-
-    @Override
-    public void enterPl_cmd_begin (PandaLanguageParser.Pl_cmd_beginContext ctx) {
 
     }
 
@@ -274,11 +203,6 @@ public class CommandLineInterface implements PandaLanguageListener {
     }
 
     @Override
-    public void enterPl_cmd_end (PandaLanguageParser.Pl_cmd_endContext ctx) {
-
-    }
-
-    @Override
     public void exitPl_cmd_end (PandaLanguageParser.Pl_cmd_endContext ctx) {
 
         if (!didBegin) {
@@ -289,12 +213,11 @@ public class CommandLineInterface implements PandaLanguageListener {
     }
 
     @Override
-    public void enterPl_cmd_set (PandaLanguageParser.Pl_cmd_setContext ctx) {
-
-    }
-
-    @Override
     public void exitPl_cmd_set (PandaLanguageParser.Pl_cmd_setContext ctx) {
+
+        String prop = ctx.WORD (0).getText ();
+        String val = ctx.WORD (1).getText ();
+        System.setProperty ("hu.johndoe.panda.proto." + prop, val);
 
     }
 
@@ -310,10 +233,11 @@ public class CommandLineInterface implements PandaLanguageListener {
     @Override
     public void exitPl_cmd_release (PandaLanguageParser.Pl_cmd_releaseContext ctx) {
 
-    }
-
-    @Override
-    public void enterPl_cmd_add_tile (PandaLanguageParser.Pl_cmd_add_tileContext ctx) {
+        releaseCommandHandler.handleCommand (
+                new ReleaseArgs (
+                        Integer.parseInt (ctx.IDENTIFIER ().getText ())
+                )
+        );
 
     }
 
@@ -326,11 +250,6 @@ public class CommandLineInterface implements PandaLanguageListener {
                         Integer.parseInt (ctx.IDENTIFIER ().getText ())
                 )
         );
-
-    }
-
-    @Override
-    public void enterPl_cmd_add_panda (PandaLanguageParser.Pl_cmd_add_pandaContext ctx) {
 
     }
 
@@ -350,11 +269,6 @@ public class CommandLineInterface implements PandaLanguageListener {
     }
 
     @Override
-    public void enterPl_cmd_add_vendingmachine (PandaLanguageParser.Pl_cmd_add_vendingmachineContext ctx) {
-
-    }
-
-    @Override
     public void exitPl_cmd_add_vendingmachine (PandaLanguageParser.Pl_cmd_add_vendingmachineContext ctx) {
 
         addItemCommandHandler.handleCommand (
@@ -364,11 +278,6 @@ public class CommandLineInterface implements PandaLanguageListener {
                         Integer.parseInt (ctx.IDENTIFIER (1).getText ())
                 )
         );
-
-    }
-
-    @Override
-    public void enterPl_cmd_add_gamemachine (PandaLanguageParser.Pl_cmd_add_gamemachineContext ctx) {
 
     }
 
@@ -386,11 +295,6 @@ public class CommandLineInterface implements PandaLanguageListener {
     }
 
     @Override
-    public void enterPl_cmd_add_couch (PandaLanguageParser.Pl_cmd_add_couchContext ctx) {
-
-    }
-
-    @Override
     public void exitPl_cmd_add_couch (PandaLanguageParser.Pl_cmd_add_couchContext ctx) {
 
         addItemCommandHandler.handleCommand (
@@ -400,11 +304,6 @@ public class CommandLineInterface implements PandaLanguageListener {
                         Integer.parseInt (ctx.IDENTIFIER (1).getText ())
                 )
         );
-
-    }
-
-    @Override
-    public void enterPl_cmd_add_wardrobe (PandaLanguageParser.Pl_cmd_add_wardrobeContext ctx) {
 
     }
 
@@ -422,11 +321,6 @@ public class CommandLineInterface implements PandaLanguageListener {
     }
 
     @Override
-    public void enterPl_cmd_connect_tile (PandaLanguageParser.Pl_cmd_connect_tileContext ctx) {
-
-    }
-
-    @Override
     public void exitPl_cmd_connect_tile (PandaLanguageParser.Pl_cmd_connect_tileContext ctx) {
 
         connectTilesCommandHandler.handleCommand (
@@ -435,11 +329,6 @@ public class CommandLineInterface implements PandaLanguageListener {
                         Integer.parseInt (ctx.IDENTIFIER (1).getText ())
                 )
         );
-
-    }
-
-    @Override
-    public void enterPl_cmd_connect_wardrobe (PandaLanguageParser.Pl_cmd_connect_wardrobeContext ctx) {
 
     }
 
@@ -456,31 +345,6 @@ public class CommandLineInterface implements PandaLanguageListener {
     }
 
     @Override
-    public void enterTile_flag (PandaLanguageParser.Tile_flagContext ctx) {
-
-    }
-
-    @Override
-    public void exitTile_flag (PandaLanguageParser.Tile_flagContext ctx) {
-
-    }
-
-    @Override
-    public void enterPanda_flag (PandaLanguageParser.Panda_flagContext ctx) {
-
-    }
-
-    @Override
-    public void exitPanda_flag (PandaLanguageParser.Panda_flagContext ctx) {
-
-    }
-
-    @Override
-    public void enterSh_cmd_print (PandaLanguageParser.Sh_cmd_printContext ctx) {
-
-    }
-
-    @Override
     public void exitSh_cmd_print (PandaLanguageParser.Sh_cmd_printContext ctx) {
 
         shellPrintCommandHandler.handleCommand (
@@ -493,6 +357,9 @@ public class CommandLineInterface implements PandaLanguageListener {
 
     @Override
     public void enterSh_cmd_save (PandaLanguageParser.Sh_cmd_saveContext ctx) {
+
+        // Remove last commandBuffer entry, that is this /save command
+        commandBuffer.remove (commandBuffer.size () - 1);
 
     }
 
@@ -561,11 +428,6 @@ public class CommandLineInterface implements PandaLanguageListener {
     }
 
     @Override
-    public void enterSh_cmd_clear (PandaLanguageParser.Sh_cmd_clearContext ctx) {
-
-    }
-
-    @Override
     public void exitSh_cmd_clear (PandaLanguageParser.Sh_cmd_clearContext ctx) {
 
         commandBuffer.clear ();
@@ -575,26 +437,6 @@ public class CommandLineInterface implements PandaLanguageListener {
                 null, null
         );
         transactionalPandaStack.clear ();
-
-    }
-
-    @Override
-    public void visitTerminal (TerminalNode node) {
-
-    }
-
-    @Override
-    public void visitErrorNode (ErrorNode node) {
-
-    }
-
-    @Override
-    public void enterEveryRule (ParserRuleContext ctx) {
-
-    }
-
-    @Override
-    public void exitEveryRule (ParserRuleContext ctx) {
 
     }
 
