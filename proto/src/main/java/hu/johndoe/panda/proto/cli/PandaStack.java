@@ -39,7 +39,10 @@ public class PandaStack {
 
     public Level pop () {
 
-        return stack.removeLast ();
+        if (!stack.isEmpty ()) {
+            return stack.removeLast ();
+        }
+        return null;
 
     }
 
