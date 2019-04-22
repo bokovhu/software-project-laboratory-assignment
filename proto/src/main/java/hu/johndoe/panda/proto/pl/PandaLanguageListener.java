@@ -248,6 +248,16 @@ public interface PandaLanguageListener extends ParseTreeListener {
 	 */
 	void exitPl_cmd_add_wardrobe (PandaLanguageParser.Pl_cmd_add_wardrobeContext ctx);
 	/**
+	 * Enter a parse tree produced by {@link PandaLanguageParser#pl_cmd_add_orangutan}.
+	 * @param ctx the parse tree
+	 */
+	void enterPl_cmd_add_orangutan (PandaLanguageParser.Pl_cmd_add_orangutanContext ctx);
+	/**
+	 * Exit a parse tree produced by {@link PandaLanguageParser#pl_cmd_add_orangutan}.
+	 * @param ctx the parse tree
+	 */
+	void exitPl_cmd_add_orangutan (PandaLanguageParser.Pl_cmd_add_orangutanContext ctx);
+	/**
 	 * Enter a parse tree produced by {@link PandaLanguageParser#pl_cmd_connect_tile}.
 	 * @param ctx the parse tree
 	 */

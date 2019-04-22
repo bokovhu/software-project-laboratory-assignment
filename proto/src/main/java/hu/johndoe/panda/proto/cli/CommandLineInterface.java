@@ -33,8 +33,9 @@ public class CommandLineInterface extends PandaLanguageBaseListener {
     private ShellPrintCommandHandler shellPrintCommandHandler = new ShellPrintCommandHandler ();
     private AddTileCommandHandler addTileCommandHandler = new AddTileCommandHandler ();
     private AddPandaCommandHandler addPandaCommandHandler = new AddPandaCommandHandler ();
-    private ConnectTilesCommandHandler connectTilesCommandHandler = new ConnectTilesCommandHandler ();
     private AddItemCommandHandler addItemCommandHandler = new AddItemCommandHandler ();
+    private AddOrangutanCommandHandler addOrangutanCommandHandler = new AddOrangutanCommandHandler ();
+    private ConnectTilesCommandHandler connectTilesCommandHandler = new ConnectTilesCommandHandler ();
     private ConnectWardrobesCommandHandler connectWardrobesCommandHandler = new ConnectWardrobesCommandHandler ();
     private WorkCommandHandler workCommandHandler = new WorkCommandHandler ();
     private MoveCommandHandler moveCommandHandler = new MoveCommandHandler ();
@@ -448,6 +449,18 @@ public class CommandLineInterface extends PandaLanguageBaseListener {
                 null, null
         );
         transactionalPandaStack.clear ();
+
+    }
+
+    @Override
+    public void exitPl_cmd_add_orangutan (PandaLanguageParser.Pl_cmd_add_orangutanContext ctx) {
+
+        addOrangutanCommandHandler.handleCommand (
+                new AddOrangutanArgs (
+                        Integer.parseInt (ctx.IDENTIFIER (0).getText ()),
+                        Integer.parseInt (ctx.IDENTIFIER (1).getText ())
+                )
+        );
 
     }
 

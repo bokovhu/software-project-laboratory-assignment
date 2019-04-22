@@ -304,6 +304,18 @@ public class PandaLanguageBaseListener implements PandaLanguageListener {
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
+	@Override public void enterPl_cmd_add_orangutan(PandaLanguageParser.Pl_cmd_add_orangutanContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void exitPl_cmd_add_orangutan(PandaLanguageParser.Pl_cmd_add_orangutanContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
 	@Override public void enterPl_cmd_connect_tile(PandaLanguageParser.Pl_cmd_connect_tileContext ctx) { }
 	/**
 	 * {@inheritDoc}

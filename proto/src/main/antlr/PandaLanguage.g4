@@ -49,6 +49,7 @@ pl_cmd_add
 	| pl_cmd_add_gamemachine
 	| pl_cmd_add_couch
 	| pl_cmd_add_wardrobe
+	| pl_cmd_add_orangutan
 	;
 
 pl_cmd_work
@@ -125,6 +126,10 @@ pl_cmd_add_couch
 pl_cmd_add_wardrobe
 	: KW_ADD KW_WARDROBE KW_WITH KW_ID IDENTIFIER KW_ONTO KW_TILE IDENTIFIER
 	;
+
+pl_cmd_add_orangutan
+    : KW_ADD KW_ORANGUTAN KW_WITH KW_ID IDENTIFIER KW_ONTO KW_TILE IDENTIFIER
+    ;
 
 // CONNECT commands
 
