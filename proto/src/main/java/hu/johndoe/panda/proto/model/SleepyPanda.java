@@ -46,4 +46,9 @@ public class SleepyPanda extends Panda implements Serializable {
         return super.toPrintableRepresentation () + " ISSLEEPING = " + isSleeping;
     }
 
+    @Override
+    public String getTag () {
+        return "SLEEPY PANDA";
+    }
+
 }

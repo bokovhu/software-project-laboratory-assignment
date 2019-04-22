@@ -27,4 +27,9 @@ public class CowardPanda extends Panda implements Serializable {
                 '}';
     }
 
+    @Override
+    public String getTag () {
+        return "COWARD PANDA";
+    }
+
 }

@@ -33,4 +33,9 @@ public class JumpyPanda extends Panda implements Serializable {
                 '}';
     }
 
+    @Override
+    public String getTag () {
+        return "JUMPY PANDA";
+    }
+
 }
