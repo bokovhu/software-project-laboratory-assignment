@@ -145,23 +145,23 @@ panda_flag
 // Shell commands
 
 sh_cmd_print
-	: 'print' filename?
+	: 'print' FILENAME?
 	;
 
 sh_cmd_save
-	: 'save' filename
+	: 'save' FILENAME
 	;
 
 sh_cmd_load
-	: 'load' filename
+	: 'load' FILENAME
 	;
 
 sh_cmd_clear
 	: 'clear'
 	;
 
-filename
-	: ~NEWLINE+?
+FILENAME
+	: '"' FILENAME_CHAR+ '"'
 	;
 
 // Command keywords
@@ -233,6 +233,7 @@ UNEXPECTED_CHAR
 
 fragment DIGIT : [0-9];
 fragment LETTER : [a-zA-Z];
+fragment FILENAME_CHAR : ~["\r\n];
 
 fragment A : [aA];
 fragment B : [bB];

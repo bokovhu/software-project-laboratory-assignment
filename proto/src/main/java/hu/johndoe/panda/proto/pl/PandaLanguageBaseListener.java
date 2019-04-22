@@ -371,18 +371,6 @@ public class PandaLanguageBaseListener implements PandaLanguageListener {
 	 * <p>The default implementation does nothing.</p>
 	 */
 	@Override public void exitSh_cmd_clear(PandaLanguageParser.Sh_cmd_clearContext ctx) { }
-	/**
-	 * {@inheritDoc}
-	 *
-	 * <p>The default implementation does nothing.</p>
-	 */
-	@Override public void enterFilename(PandaLanguageParser.FilenameContext ctx) { }
-	/**
-	 * {@inheritDoc}
-	 *
-	 * <p>The default implementation does nothing.</p>
-	 */
-	@Override public void exitFilename(PandaLanguageParser.FilenameContext ctx) { }
 
 	/**
 	 * {@inheritDoc}

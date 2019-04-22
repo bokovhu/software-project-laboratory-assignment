@@ -4,6 +4,8 @@ import hu.johndoe.panda.proto.pl.PandaLanguageBaseListener;
 import hu.johndoe.panda.proto.pl.PandaLanguageLexer;
 import hu.johndoe.panda.proto.pl.PandaLanguageListener;
 import hu.johndoe.panda.proto.pl.PandaLanguageParser;
+import hu.johndoe.panda.proto.pl.cmd.args.ShellPrintArgs;
+import hu.johndoe.panda.proto.pl.cmd.handler.ShellPrintCommandHandler;
 import org.antlr.v4.runtime.CharStreams;
 import org.antlr.v4.runtime.CommonTokenStream;
 import org.antlr.v4.runtime.ParserRuleContext;
@@ -15,6 +17,8 @@ import org.antlr.v4.runtime.tree.TerminalNode;
 import java.util.Scanner;
 
 public class CommandLineInterface implements PandaLanguageListener {
+
+    ShellPrintCommandHandler shellPrintCommandHandler = new ShellPrintCommandHandler ();
 
     public void loop () {
 
@@ -304,6 +308,12 @@ public class CommandLineInterface implements PandaLanguageListener {
     @Override
     public void exitSh_cmd_print (PandaLanguageParser.Sh_cmd_printContext ctx) {
 
+        shellPrintCommandHandler.handleCommand (
+                new ShellPrintArgs (
+                        ctx.FILENAME ().getText ()
+                )
+        );
+
     }
 
     @Override
@@ -333,16 +343,6 @@ public class CommandLineInterface implements PandaLanguageListener {
 
     @Override
     public void exitSh_cmd_clear (PandaLanguageParser.Sh_cmd_clearContext ctx) {
-
-    }
-
-    @Override
-    public void enterFilename (PandaLanguageParser.FilenameContext ctx) {
-
-    }
-
-    @Override
-    public void exitFilename (PandaLanguageParser.FilenameContext ctx) {
 
     }
 
