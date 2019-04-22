@@ -21,6 +21,9 @@ jar {
     manifest {
         attributes ("Main-Class": "hu.johndoe.panda.proto.Main")
     }
+    from {
+        configurations.compile.collect { it.isDirectory() ? it : zipTree (it) }
+    }
 }
 
 task distribute(type: GradleBuild) {
