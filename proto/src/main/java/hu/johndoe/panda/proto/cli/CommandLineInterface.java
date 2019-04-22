@@ -5,28 +5,62 @@ import hu.johndoe.panda.proto.model.Game;
 import hu.johndoe.panda.proto.model.Level;
 import hu.johndoe.panda.proto.pl.PandaLanguageBaseListener;
 import hu.johndoe.panda.proto.pl.PandaLanguageLexer;
-import hu.johndoe.panda.proto.pl.PandaLanguageListener;
 import hu.johndoe.panda.proto.pl.PandaLanguageParser;
 import hu.johndoe.panda.proto.pl.cmd.args.*;
 import hu.johndoe.panda.proto.pl.cmd.handler.*;
-import org.antlr.v4.runtime.*;
-import org.antlr.v4.runtime.tree.ErrorNode;
+import org.antlr.v4.runtime.CharStreams;
+import org.antlr.v4.runtime.CommonTokenStream;
+import org.antlr.v4.runtime.ConsoleErrorListener;
+import org.antlr.v4.runtime.RuleContext;
 import org.antlr.v4.runtime.tree.ParseTree;
 import org.antlr.v4.runtime.tree.ParseTreeWalker;
-import org.antlr.v4.runtime.tree.TerminalNode;
 
 import java.io.*;
-import java.nio.file.FileSystems;
 import java.util.*;
 import java.util.stream.Collectors;
 
+/**
+ * This class is responsible for controlling the command line interface of the application.
+ * <p>
+ * Using the command line interface, the user can interact with the system using text commands. The language that is
+ * recognized by the command line interface is specified in the previous documentation. This specific application uses
+ * a grammar-based approach for command recognition. The grammar definition can be found in the
+ * src/main/antlr/PandaLanguage.g4 file. The command line interface follows the following principle during operation:
+ * <p>
+ * 1. Read a line of input from the user
+ * 2. Instantiate the lexer and the parser for the PandaLanguage grammar, and try to parse the input
+ * 3. The output AST (Abstract Syntax Tree) is then walked, using this very class as a visitor. The CLI is able to react
+ * to commands, because it implements the PandaLanguageListener interface.
+ *
+ * NOTE: This application uses ANTLR4, a code generator that takes the grammar definition as the input, and produces
+ * the lexer and parser required to parse the grammar. Certain java source files in the project are generated sources,
+ * hence the "funny" method names.
+ */
 public class CommandLineInterface extends PandaLanguageBaseListener {
 
+    /**
+     * List of the previously entered commands, excluding /save commands
+     */
     private List<String> commandBuffer = new ArrayList<> ();
+
+    /**
+     * The stack used by PUSH and POP commands
+     */
     private PandaStack pandaStack = new PandaStack ();
+
+    /**
+     * The stack used for providing transaction-like error safety
+     * <p>
+     * Before execution of any command, the entire state of the application is pushed to this stack. If any errors occur
+     * during the execution of a command, the previous state is restored.
+     */
     private PandaStack transactionalPandaStack = new PandaStack ();
+
+    /** Determines whether code execution is inside a BEGIN; END; block */
     private boolean didBegin = false;
-    private Deque <String> loadFilenameStack = new ArrayDeque<> ();
+
+    /** Used for correct relative path handling when a /load command is included in a loaded file */
+    private Deque<String> loadFilenameStack = new ArrayDeque<> ();
 
     // Command handlers //
 
@@ -42,21 +76,34 @@ public class CommandLineInterface extends PandaLanguageBaseListener {
     private UseCommandHandler useCommandHandler = new UseCommandHandler ();
     private ReleaseCommandHandler releaseCommandHandler = new ReleaseCommandHandler ();
 
+    /**
+     * Tries to execute a single line of commands
+     * @param commandLine the user input
+     */
     private void execute (String commandLine) {
 
+        // Save user input to command buffer
         commandBuffer.add (commandLine);
 
+        // Instantiate lexer and parser
         PandaLanguageLexer lexer = new PandaLanguageLexer (CharStreams.fromString (commandLine));
         lexer.removeErrorListener (ConsoleErrorListener.INSTANCE);
         PandaLanguageParser parser = new PandaLanguageParser (new CommonTokenStream (lexer));
         parser.removeErrorListener (ConsoleErrorListener.INSTANCE);
+
+
         try {
+
+            // Parse the input
             ParseTree tree = parser.parse ();
+
+            // Walk the AST using this object as a visitor
             ParseTreeWalker walker = new ParseTreeWalker ();
             walker.walk (
                     this,
                     tree
             );
+
         } catch (Throwable th) {
             System.err.println ("Invalid command line!");
             throw new IllegalArgumentException (th);
@@ -64,22 +111,41 @@ public class CommandLineInterface extends PandaLanguageBaseListener {
 
     }
 
+    /**
+     * The main loop for the CLI
+     */
     public void loop () {
 
+        // Used for reading user input line-by-line
         Scanner stdinScanner = new Scanner (System.in);
 
         while (true) {
 
+            // Shell prompt
             System.out.print ("PandaLang > ");
+
+            // Read input
             String commandLine = stdinScanner.nextLine ();
 
             try {
+
+                // Save the current state
                 transactionalPandaStack.push ();
+
+                // Try to execute the user's command
                 execute (commandLine);
+
+                // Execution successful, pop the stack without applying the previous state
                 transactionalPandaStack.pop ();
+
             } catch (Exception e) {
+
+                // Error during command execution
+
                 System.err.println ("Could not execute command '" + commandLine + "', reverting to previous state ...");
                 e.printStackTrace ();
+
+                // Restore the state before the command was tried to be executed
                 Game.getInstance ().level = transactionalPandaStack.pop ();
             }
 
@@ -111,7 +177,8 @@ public class CommandLineInterface extends PandaLanguageBaseListener {
         workCommandHandler.handleCommand (
                 new WorkArgs (
                         ctx.KW_PANDA () != null || ctx.KW_ORANGUTAN () != null,
-                        ctx.KW_GAMEMACHINE () != null || ctx.KW_VENDINGMACHINE () != null || ctx.KW_COUCH () != null || ctx.KW_WARDROBE () != null,
+                        ctx.KW_GAMEMACHINE () != null || ctx.KW_VENDINGMACHINE () != null || ctx.KW_COUCH () != null || ctx
+                                .KW_WARDROBE () != null,
                         Integer.parseInt (ctx.IDENTIFIER ().getText ())
                 )
         );
@@ -405,8 +472,10 @@ public class CommandLineInterface extends PandaLanguageBaseListener {
             throw new IllegalArgumentException ("Filenames should start and end with '\"' character!");
         }
 
+        // Default directory for loaded files is the current directory
         File dir = new File (System.getProperty ("user.dir"));
 
+        // We are inside another load command, use the last directory as the root for relative paths
         if (!loadFilenameStack.isEmpty ()) {
 
             dir = new File (loadFilenameStack.getLast ());
