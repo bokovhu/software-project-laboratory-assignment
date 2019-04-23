@@ -57,11 +57,18 @@ public class Tile implements Serializable, Referencable, Printable {
             return false;
         }
 
-        if (life == 0 && isFragile) {
-            ActionLogger.log (this, "I am broken, killing %s", Objects.toString (animal));
-            animal.kill ();
-            return true;
+        if(isFragile){
+
+            life --;
+
+            if (life == 0) {
+
+                ActionLogger.log (this, "I am broken, killing %s", Objects.toString (animal));
+                animal.kill ();
+                return true;
+            }
         }
+
 
         if (isExit) {
             animal.leadOut ();
