@@ -4,8 +4,14 @@ import hu.johndoe.panda.proto._internal.ActionLogger;
 
 import java.io.Serializable;
 
+/**
+ * A single coward panda. Coward pandas may be scared by the vending machines' noise.
+ */
 public class CowardPanda extends Panda implements Serializable {
 
+    /**
+     * Scares the panda, causing it to disrupts the currently lead chain, if one is present.
+     */
     @Override
     public void scare () {
 

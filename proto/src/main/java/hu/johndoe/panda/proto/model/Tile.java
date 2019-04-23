@@ -10,16 +10,31 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
+/**
+ * A tile in the level. Animals can travel between tiles. At any given time, a single animal, and a single item may be
+ * present on any tile. When an animal tries to move to an occupied tile, the movement is rejected, and the collision
+ * handling callbacks are fired.
+ */
 public class Tile implements Serializable, Referencable, Printable {
 
     private int id;
 
+    /** The wear of this tile. When it reaches zero, the tile is considered broken, and animals stepping onto it die */
     public int life;
+
+    /** True, if this tile is capable of breaking */
     public boolean isFragile;
+
+    /** True, if this tile is the exit tile on the level */
     public boolean isExit;
 
+    /** The animal, that is currently standing on this tile */
     private Animal currentAnimal;
+
+    /** The item, that is currently placed on this tile */
     private Item placedItem;
+
+    /** The neighbours of the tile */
     private List<Tile> neighbours = new ArrayList<> ();
 
     public Tile (
@@ -41,6 +56,11 @@ public class Tile implements Serializable, Referencable, Printable {
     public Tile () {
     }
 
+    /**
+     * Tries to accept an animal. When successful, the animal is moved to this tile.
+     * @param animal the animal that's trying to move here
+     * @return true, if the movement is successful, false otherwise
+     */
     public boolean accept (Animal animal) {
 
         ActionLogger.log (this, "Accepting animal %s", animal.toString ());
@@ -89,6 +109,9 @@ public class Tile implements Serializable, Referencable, Printable {
 
     }
 
+    /**
+     * Damages this tile for exactly one wear points.
+     */
     public void damage () {
 
         if (life > 0) {
@@ -102,6 +125,10 @@ public class Tile implements Serializable, Referencable, Printable {
 
     }
 
+    /**
+     * Spawns a perceivable wave on this tile. The spawned tile is propagated to the tile's neighbours too.
+     * @param wave the wave to spawn
+     */
     public void spawnWave (Wave wave) {
 
         ActionLogger.log (this, "Spawning wave %s", wave.toString ());
@@ -122,6 +149,10 @@ public class Tile implements Serializable, Referencable, Printable {
 
     }
 
+    /**
+     * Pushes a wave onto this tile. If an animal is currently present on this tile, the wave hits it.
+     * @param wave the wave to push onto this tile
+     */
     public void pushWave (Wave wave) {
 
         ActionLogger.log (this, "Pushing wave %s", wave.toString ());

@@ -6,6 +6,9 @@ import hu.johndoe.panda.proto._internal.GameRandom;
 import java.io.Serializable;
 import java.util.Random;
 
+/**
+ * A panda
+ */
 public abstract class Panda extends Animal implements Serializable {
 
     public boolean isAsleep;
@@ -17,6 +20,10 @@ public abstract class Panda extends Animal implements Serializable {
         super (leaderAnimal, guidedAnimal, standingOn);
     }
 
+    /**
+     * Handles an outgoing (this animal moves INTO another one) collision with another animal
+     * @param animal the animal to collide with
+     */
     @Override
     public void collideWithAnimal (Animal animal) {
 
@@ -29,6 +36,10 @@ public abstract class Panda extends Animal implements Serializable {
 
     }
 
+    /**
+     * Handles an incoming collision with an orangutan
+     * @param orangutan the orangutan this animal collided with
+     */
     @Override
     public void collideWithOrangutan (Animal orangutan) {
 
@@ -43,6 +54,9 @@ public abstract class Panda extends Animal implements Serializable {
 
     }
 
+    /**
+     * Causes this panda to be lead out from the level
+     */
     @Override
     public void leadOut () {
 
@@ -61,6 +75,10 @@ public abstract class Panda extends Animal implements Serializable {
 
     }
 
+    /**
+     * Causes this panda to be lead by the parameter animal
+     * @param leader the animal that's leading this one
+     */
     @Override
     public void startLeading (Animal leader) {
 
@@ -78,6 +96,10 @@ public abstract class Panda extends Animal implements Serializable {
 
     }
 
+    /**
+     * Updates the internal state of the panda. The pandas may randomly wander around the map when they are not being
+     * lead.
+     */
     @Override
     public void update () {
         super.update ();

@@ -5,6 +5,11 @@ import hu.johndoe.panda.proto._internal.GameRandom;
 
 import java.io.Serializable;
 
+/**
+ * A single game machine. The game machine randomly makes noises, which may make jumpy pandas jump. When a jumpy panda
+ * jumps, the jumping disrupts the currently lead animal chain, and if the panda is standing on a fragile tile, the tile
+ * is damaged.
+ */
 public class GameMachine extends Item implements Serializable {
 
     public GameMachine () {
@@ -14,6 +19,10 @@ public class GameMachine extends Item implements Serializable {
         super (placedOn);
     }
 
+    /**
+     * Updates the game machine. It may emit a jumpy wave randomly to the tile its placed on, as well as its
+     * neighbouring tiles.
+     */
     @Override
     public void update () {
 

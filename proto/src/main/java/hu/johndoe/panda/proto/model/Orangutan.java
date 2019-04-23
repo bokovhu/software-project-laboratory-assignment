@@ -4,6 +4,10 @@ import hu.johndoe.panda.proto._internal.ActionLogger;
 
 import java.io.Serializable;
 
+/**
+ * An orangutan in the game. Orangutans are controlled by the player. Orangutans may collect animals into a chain, and
+ * upon doing so, whenever the orangutan moves, the animals in the chain follow.
+ */
 public class Orangutan extends Animal implements Serializable {
 
     private int theftTimer = 0;
@@ -16,12 +20,13 @@ public class Orangutan extends Animal implements Serializable {
 
     }
 
+    /** Returns whether or not this orangutan is able to steal a panda chain */
     @Override
     public boolean canGrab () {
         return (this.theftTimer < 1);
     }
 
-
+    /** Causes the animals in its chain to be lead out, and the player being rewarded with points */
     @Override
     public void leadOut () {
         ActionLogger.log (this, "Going out and back in");
@@ -33,6 +38,10 @@ public class Orangutan extends Animal implements Serializable {
         moveTo (Game.getInstance ().level.getStartTile ());
     }
 
+    /**
+     * Handles an outgoing (this animal moves INTO another one) collision with another animal
+     * @param animal the animal to collide with
+     */
     @Override
     public void collideWithAnimal (Animal animal) {
 
@@ -66,6 +75,10 @@ public class Orangutan extends Animal implements Serializable {
         ActionLogger.pop ();
     }
 
+    /**
+     * Swaps places AND chains with another animal (that can only logically be an orangutan)
+     * @param orangutan the animal to swap places with
+     */
     public void swapWith (Animal orangutan) {
         ActionLogger.log (this, "Swapping places with orangutan %s", orangutan.toString ());
         ActionLogger.push ();

@@ -5,6 +5,11 @@ import hu.johndoe.panda.proto._internal.ActionLogger;
 import java.io.Serializable;
 import java.util.Objects;
 
+/**
+ * A sleepy panda in the game. When sleepy pandas get near a couch, they will decide to take a nap there, given that
+ * given that they are not already sleeping, and the couch is not taken yet. When a sleepy panda begins its nap, it
+ * cannot be rescued afterwards.
+ */
 public class SleepyPanda extends Panda implements Serializable {
 
     public boolean isSleeping = false;
@@ -16,6 +21,10 @@ public class SleepyPanda extends Panda implements Serializable {
         super (leaderAnimal, guidedAnimal, standingOn);
     }
 
+    /**
+     * Causes the sleepy panda to go to sleep into the couch that is found on the parameter tile.
+     * @param where the tile to go to in order to sleep
+     */
     @Override
     public void goToSleep (Tile where) {
 

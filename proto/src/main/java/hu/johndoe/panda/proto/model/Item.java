@@ -7,10 +7,15 @@ import hu.johndoe.panda.proto._internal.Referencable;
 
 import java.io.Serializable;
 
+/**
+ * A single placeable item in the level. Items may be interacted with by animals, causing different kinds of effects.
+ * Certain items may also produce different things with the passage of time.
+ */
 public abstract class Item implements Updatable, Serializable, Referencable, Printable {
 
     protected int id;
 
+    /** The tile this item is placed on. Only a single item may be placed on any given tile */
     private Tile placedOn;
 
     public Item () {
@@ -20,6 +25,10 @@ public abstract class Item implements Updatable, Serializable, Referencable, Pri
         this.placedOn = placedOn;
     }
 
+    /**
+     * Makes the item be used by the parameter animal
+     * @param user the item user animal
+     */
     public void use (Animal user) {
 
         ActionLogger.log (this, "Getting used by %s", user.toString ());

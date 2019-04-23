@@ -5,11 +5,23 @@ import hu.johndoe.panda.proto._internal.ActionLogger;
 import java.io.Serializable;
 import java.util.List;
 
+/**
+ * The level the game is played on. Contains the tiles, as well as the animals.
+ */
 public class Level implements Serializable {
 
+    /** The (alive) animals in the game */
     private List<Animal> animals;
+
+    /** The tiles in the game */
     private List<Tile> tiles;
+
+    /** The start tile in the level. When an animal steps on the exit tile, it appears here instantly */
     private Tile startTile;
+
+    /** The exit tile in the level. When an orangutan steps on it, the player is rewarded with a point for each animal
+     * in its currently lead chain. The animals then disappear, and the orangutan is placed on the start tile
+     */
     private Tile exitTile;
 
     public Level () {
@@ -22,6 +34,10 @@ public class Level implements Serializable {
         this.exitTile = exitTile;
     }
 
+    /**
+     * Removes an animal from the level. This may occur if the animal dies, or is lead out.
+     * @param animal the animal to remove
+     */
     public void removeAnimal (Animal animal) {
 
         ActionLogger.log ("Level", "Removing animal %s", animal.toString ());

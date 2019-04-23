@@ -4,8 +4,14 @@ import hu.johndoe.panda.proto._internal.ActionLogger;
 
 import java.io.Serializable;
 
+/**
+ * A single couch in the game. Sleepy pandas can sleep in couches. When a sleepy panda steps to a neighbouring tile of
+ * an untaken couch, the panda will decide to go to sleep, and occupy the couch. After this, the panda becomes
+ * inrescuable
+ */
 public class Couch extends Item implements Serializable {
 
+    /** True, if there's currently a panda sleeping in this couch */
     private boolean isTaken;
 
     public Couch () {
@@ -15,6 +21,10 @@ public class Couch extends Item implements Serializable {
         super (placedOn);
     }
 
+    /**
+     * Makes the couch be used by the parameter animal. The couch will command the user to go to sleep.
+     * @param user the animal that uses the couch
+     */
     @Override
     public void use (Animal user) {
 
@@ -31,6 +41,11 @@ public class Couch extends Item implements Serializable {
 
     }
 
+    /**
+     * Updates the couch. On every update, the couch will emit sleepy waves to the tile that it's placed on, as well as
+     * its neighbours, causing sleepy pandas that are standing on either of these tiles to suddenly feel the urge to go
+     * to sleep immediately.
+     */
     @Override
     public void update () {
 
