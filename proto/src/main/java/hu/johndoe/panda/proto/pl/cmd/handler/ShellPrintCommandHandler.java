@@ -1,10 +1,7 @@
 package hu.johndoe.panda.proto.pl.cmd.handler;
 
 import hu.johndoe.panda.proto._internal.Referencable;
-import hu.johndoe.panda.proto.model.Animal;
-import hu.johndoe.panda.proto.model.Game;
-import hu.johndoe.panda.proto.model.Item;
-import hu.johndoe.panda.proto.model.Tile;
+import hu.johndoe.panda.proto.model.*;
 import hu.johndoe.panda.proto.pl.cmd.CommandHandler;
 import hu.johndoe.panda.proto.pl.cmd.args.ShellPrintArgs;
 
@@ -73,6 +70,35 @@ public class ShellPrintCommandHandler implements CommandHandler<ShellPrintArgs> 
                     if (visitedTileConnections.add (oip)) {
                         StringBuilder sb = new StringBuilder ();
                         sb.append ("TILE ").append (t.getId ()).append (" CONNECTED WITH TILE ").append (n.getId ());
+                        ps.println (sb.toString ());
+                    }
+
+                }
+
+            }
+
+        }
+
+        Set <OrderIndependentPair <Integer>> visitedWardrobeConnections = new HashSet<> ();
+
+        for (Tile t : Game.getInstance ().level.getTiles ()) {
+
+            // Hang me upside down from a telephone pole, I don't even care
+            // instanceof is part of the Java language, and believe me when I tell you, that it is WIDELY used in the
+            // industry
+            // This is the ONLY part in the WHOLE CODE where we had to use it
+            if (t.getPlacedItem () instanceof Wardrobe) {
+
+                Wardrobe w = (Wardrobe) t.getPlacedItem ();
+                if (w.getOtherWardrobe () != null) {
+
+                    OrderIndependentPair <Integer> oip = new OrderIndependentPair<> ();
+                    oip.set (w.getId (), w.getOtherWardrobe ().getId ());
+
+                    if (visitedWardrobeConnections.add (oip)) {
+                        StringBuilder sb = new StringBuilder ();
+                        sb.append ("WARDROBE ").append (w.getId ())
+                                .append (" CONNECTED WITH WARDROBE ").append (w.getOtherWardrobe ().getId ());
                         ps.println (sb.toString ());
                     }
 
