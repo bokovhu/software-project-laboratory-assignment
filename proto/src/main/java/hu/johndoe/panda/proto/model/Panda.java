@@ -1,8 +1,10 @@
 package hu.johndoe.panda.proto.model;
 
 import hu.johndoe.panda.proto._internal.ActionLogger;
+import hu.johndoe.panda.proto._internal.GameRandom;
 
 import java.io.Serializable;
+import java.util.Random;
 
 public abstract class Panda extends Animal implements Serializable {
 
@@ -79,8 +81,13 @@ public abstract class Panda extends Animal implements Serializable {
     @Override
     public void update () {
         super.update ();
-
-        // TODO @Janka: Ide kéne random tile választás, és bolyongás, vagy valami
+        if(getLeaderAnimal() == null) {
+            if (GameRandom.random()) {
+                Random random = new Random();
+                Tile target = getStandingOn().getNeighbours().get(random.nextInt(getStandingOn().getNeighbours().size()));
+                moveTo(target);
+            }
+        }
 
         ActionLogger.log (this, "Updating");
     }
