@@ -238,7 +238,7 @@ LEFTPAR : '(';
 RIGHTPAR : ')';
 EQUALS : '=';
 SLASH : '/';
-WORD : (LETTER | DIGIT)+;
+WORD : (LETTER | DIGIT | [\-_])+;
 ASTERISK : '*';
 
 UNEXPECTED_CHAR

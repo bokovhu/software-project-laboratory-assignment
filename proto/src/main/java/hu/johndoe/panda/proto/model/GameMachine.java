@@ -25,8 +25,6 @@ public class GameMachine extends Item implements Serializable {
             getPlacedOn ().spawnWave (wave);
         }
 
-        throw new UnsupportedOperationException ();
-
     }
 
     @Override

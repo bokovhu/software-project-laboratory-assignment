@@ -1,0 +1,42 @@
+/clear
+
+ADD FRAGILE TILE WITH ID 0;
+ADD TILE WITH ID 1;
+
+CONNECT TILE 0 WITH TILE 1;
+
+ADD GAMEMACHINE WITH ID 2 ONTO TILE 1;
+
+ADD JUMPY PANDA WITH ID 3 ONTO TILE 0;
+
+SET random always_true;
+
+BEGIN;
+
+    WORK *;
+    WORK *;
+    WORK *;
+    WORK *;
+    WORK *;
+
+    WORK *;
+    WORK *;
+    WORK *;
+    WORK *;
+    WORK *;
+
+    WORK *;
+    WORK *;
+    WORK *;
+    WORK *;
+    WORK *;
+
+    WORK *;
+    WORK *;
+    WORK *;
+    WORK *;
+    WORK *;
+
+    /print
+
+END;

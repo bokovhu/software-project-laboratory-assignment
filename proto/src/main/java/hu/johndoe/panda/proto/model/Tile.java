@@ -84,10 +84,14 @@ public class Tile implements Serializable, Referencable, Printable {
 
     public void damage () {
 
-        if (isFragile) {
-            life -= 1;
-            ActionLogger.log (this, "Getting damaged, new life value: %d", life);
+        if (life > 0) {
+            if (isFragile) {
+                life -= 1;
+                ActionLogger.log (this, "Getting damaged, new life value: %d", life);
+            }
         }
+
+        if (isFragile && life <= 0 && currentAnimal != null) currentAnimal.kill ();
 
     }
 
@@ -181,7 +185,7 @@ public class Tile implements Serializable, Referencable, Printable {
 
     @Override
     public String getTag () {
-        return (isFragile ? "FRAGILE " : "") +
+        return (isFragile ? (life > 0 ? "FRAGILE " : "BROKEN ") : "") +
                 (isExit ? "EXIT " : "") +
                 (this.equals (Game.getInstance ().level.getStartTile ()) ? "START " : "") +
                 "TILE";
@@ -195,6 +199,9 @@ public class Tile implements Serializable, Referencable, Printable {
         sb.append (getTag ()).append (" ID = ").append (getId ())
                 .append (" CURRENTANIMAL = ").append (reference (currentAnimal))
                 .append (" CURRENTITEM = ").append (reference (placedItem));
+        if (isFragile) {
+            sb.append (" LIFE = ").append (life);
+        }
 
         return sb.toString ();
 
