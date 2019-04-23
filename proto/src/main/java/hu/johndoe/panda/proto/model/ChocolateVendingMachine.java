@@ -33,8 +33,6 @@ public class ChocolateVendingMachine extends Item implements Serializable {
             getPlacedOn ().spawnWave (wave);
         }
 
-        throw new UnsupportedOperationException ();
-
     }
 
     /**

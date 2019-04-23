@@ -364,6 +364,18 @@ public class PandaLanguageBaseListener implements PandaLanguageListener {
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
+	@Override public void enterWith_life(PandaLanguageParser.With_lifeContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void exitWith_life(PandaLanguageParser.With_lifeContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
 	@Override public void enterSh_cmd_print(PandaLanguageParser.Sh_cmd_printContext ctx) { }
 	/**
 	 * {@inheritDoc}

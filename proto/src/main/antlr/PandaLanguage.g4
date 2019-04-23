@@ -104,7 +104,7 @@ pl_cmd_release
 // ADD commands
 
 pl_cmd_add_tile
-	: KW_ADD (tile_flag)* KW_TILE KW_WITH KW_ID IDENTIFIER
+	: KW_ADD (tile_flag)* KW_TILE KW_WITH KW_ID IDENTIFIER with_life?
 	;
 
 pl_cmd_add_panda
@@ -154,6 +154,10 @@ panda_flag
 	| KW_SLEEPY
 	| KW_JUMPY
 	;
+
+with_life
+    : KW_WITH KW_LIFE IDENTIFIER
+    ;
 
 // Shell commands
 
@@ -226,6 +230,7 @@ KW_ID : I D;
 KW_ONTO : O N T O;
 KW_CONNECTED : C O N N E C T E D;
 KW_BY : B Y;
+KW_LIFE : L I F E;
 
 IDENTIFIER : DIGIT+;
 

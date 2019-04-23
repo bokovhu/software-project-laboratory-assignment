@@ -31,7 +31,7 @@ import java.util.stream.Collectors;
  * 2. Instantiate the lexer and the parser for the PandaLanguage grammar, and try to parse the input
  * 3. The output AST (Abstract Syntax Tree) is then walked, using this very class as a visitor. The CLI is able to react
  * to commands, because it implements the PandaLanguageListener interface.
- *
+ * <p>
  * NOTE: This application uses ANTLR4, a code generator that takes the grammar definition as the input, and produces
  * the lexer and parser required to parse the grammar. Certain java source files in the project are generated sources,
  * hence the "funny" method names.
@@ -56,10 +56,14 @@ public class CommandLineInterface extends PandaLanguageBaseListener {
      */
     private PandaStack transactionalPandaStack = new PandaStack ();
 
-    /** Determines whether code execution is inside a BEGIN; END; block */
+    /**
+     * Determines whether code execution is inside a BEGIN; END; block
+     */
     private boolean didBegin = false;
 
-    /** Used for correct relative path handling when a /load command is included in a loaded file */
+    /**
+     * Used for correct relative path handling when a /load command is included in a loaded file
+     */
     private Deque<String> loadFilenameStack = new ArrayDeque<> ();
 
     // Command handlers //
@@ -78,6 +82,7 @@ public class CommandLineInterface extends PandaLanguageBaseListener {
 
     /**
      * Tries to execute a single line of commands
+     *
      * @param commandLine the user input
      */
     private void execute (String commandLine) {
@@ -315,7 +320,10 @@ public class CommandLineInterface extends PandaLanguageBaseListener {
         addTileCommandHandler.handleCommand (
                 new AddTileArgs (
                         ctx.tile_flag ().stream ().map (RuleContext::getText).collect (Collectors.toList ()),
-                        Integer.parseInt (ctx.IDENTIFIER ().getText ())
+                        Integer.parseInt (ctx.IDENTIFIER ().getText ()),
+                        ctx.with_life () != null
+                                ? Integer.parseInt (ctx.with_life ().IDENTIFIER ().getText ())
+                                : 20
                 )
         );
 

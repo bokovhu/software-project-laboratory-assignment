@@ -12,7 +12,7 @@ public class AddTileCommandHandler implements CommandHandler <AddTileArgs> {
     public void handleCommand (AddTileArgs addTileArgs) {
 
         Tile tile = new Tile ();
-        tile.life = 20;
+        tile.life = addTileArgs.life;
         tile.setId (addTileArgs.id);
         if (StringListUtil.listContainsIgnoreCase (addTileArgs.flags, "fragile")) {
             tile.isFragile = true;

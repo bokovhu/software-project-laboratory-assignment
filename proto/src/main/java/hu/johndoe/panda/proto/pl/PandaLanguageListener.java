@@ -298,6 +298,16 @@ public interface PandaLanguageListener extends ParseTreeListener {
 	 */
 	void exitPanda_flag (PandaLanguageParser.Panda_flagContext ctx);
 	/**
+	 * Enter a parse tree produced by {@link PandaLanguageParser#with_life}.
+	 * @param ctx the parse tree
+	 */
+	void enterWith_life (PandaLanguageParser.With_lifeContext ctx);
+	/**
+	 * Exit a parse tree produced by {@link PandaLanguageParser#with_life}.
+	 * @param ctx the parse tree
+	 */
+	void exitWith_life (PandaLanguageParser.With_lifeContext ctx);
+	/**
 	 * Enter a parse tree produced by {@link PandaLanguageParser#sh_cmd_print}.
 	 * @param ctx the parse tree
 	 */
