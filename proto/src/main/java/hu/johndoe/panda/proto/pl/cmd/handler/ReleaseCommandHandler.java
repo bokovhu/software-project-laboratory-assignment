@@ -5,6 +5,9 @@ import hu.johndoe.panda.proto.model.Game;
 import hu.johndoe.panda.proto.pl.cmd.CommandHandler;
 import hu.johndoe.panda.proto.pl.cmd.args.ReleaseArgs;
 
+/**
+ * Handles a "RELEASE ..." command
+ */
 public class ReleaseCommandHandler implements CommandHandler <ReleaseArgs> {
 
     @Override

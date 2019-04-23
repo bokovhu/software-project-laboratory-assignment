@@ -11,6 +11,9 @@ import java.util.HashSet;
 import java.util.Objects;
 import java.util.Set;
 
+/**
+ * Handles a "/print ..." shell command
+ */
 public class ShellPrintCommandHandler implements CommandHandler<ShellPrintArgs> {
 
     private void printSection (PrintStream ps, String section) {

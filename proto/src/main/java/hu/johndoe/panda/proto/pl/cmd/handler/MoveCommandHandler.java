@@ -6,6 +6,9 @@ import hu.johndoe.panda.proto.model.Tile;
 import hu.johndoe.panda.proto.pl.cmd.CommandHandler;
 import hu.johndoe.panda.proto.pl.cmd.args.MoveArgs;
 
+/**
+ * Handles a "MOVE ..." command
+ */
 public class MoveCommandHandler implements CommandHandler <MoveArgs> {
 
     @Override

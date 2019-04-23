@@ -6,6 +6,9 @@ import hu.johndoe.panda.proto.model.Updatable;
 import hu.johndoe.panda.proto.pl.cmd.CommandHandler;
 import hu.johndoe.panda.proto.pl.cmd.args.WorkArgs;
 
+/**
+ * Handles a "WORK ..." command
+ */
 public class WorkCommandHandler implements CommandHandler <WorkArgs> {
 
     @Override

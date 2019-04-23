@@ -5,6 +5,9 @@ import hu.johndoe.panda.proto.model.Tile;
 import hu.johndoe.panda.proto.pl.cmd.CommandHandler;
 import hu.johndoe.panda.proto.pl.cmd.args.ConnectTilesArgs;
 
+/**
+ * Handles a "CONNECT TILE ..." command
+ */
 public class ConnectTilesCommandHandler implements CommandHandler<ConnectTilesArgs> {
 
     @Override

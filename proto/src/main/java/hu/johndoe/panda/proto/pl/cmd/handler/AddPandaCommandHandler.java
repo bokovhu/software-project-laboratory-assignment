@@ -4,6 +4,9 @@ import hu.johndoe.panda.proto.model.*;
 import hu.johndoe.panda.proto.pl.cmd.CommandHandler;
 import hu.johndoe.panda.proto.pl.cmd.args.AddPandaArgs;
 
+/**
+ * Handles an "ADD PANDA ..." command
+ */
 public class AddPandaCommandHandler implements CommandHandler <AddPandaArgs> {
 
     @Override

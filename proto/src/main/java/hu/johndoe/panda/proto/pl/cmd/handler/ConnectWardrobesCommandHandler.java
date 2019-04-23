@@ -6,8 +6,9 @@ import hu.johndoe.panda.proto.model.Wardrobe;
 import hu.johndoe.panda.proto.pl.cmd.CommandHandler;
 import hu.johndoe.panda.proto.pl.cmd.args.ConnectWardrobesArgs;
 
-import java.util.function.Function;
-
+/**
+ * Handles a "CONNECT WARDROBE ..." command
+ */
 public class ConnectWardrobesCommandHandler implements CommandHandler <ConnectWardrobesArgs> {
 
     @Override

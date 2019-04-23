@@ -6,6 +6,9 @@ import hu.johndoe.panda.proto.model.Tile;
 import hu.johndoe.panda.proto.pl.cmd.CommandHandler;
 import hu.johndoe.panda.proto.pl.cmd.args.AddOrangutanArgs;
 
+/**
+ * Handles an "ADD ORANGUTAN ..." command
+ */
 public class AddOrangutanCommandHandler implements CommandHandler <AddOrangutanArgs> {
 
     @Override

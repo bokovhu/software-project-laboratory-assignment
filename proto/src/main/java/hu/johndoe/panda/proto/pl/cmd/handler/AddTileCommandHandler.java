@@ -6,6 +6,9 @@ import hu.johndoe.panda.proto.pl.cmd.CommandHandler;
 import hu.johndoe.panda.proto.pl.cmd.args.AddTileArgs;
 import hu.johndoe.panda.proto.util.StringListUtil;
 
+/**
+ * Handles an "ADD TILE ..." command
+ */
 public class AddTileCommandHandler implements CommandHandler <AddTileArgs> {
 
     @Override

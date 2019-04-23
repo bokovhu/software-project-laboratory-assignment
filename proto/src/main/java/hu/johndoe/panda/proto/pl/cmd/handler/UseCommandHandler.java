@@ -7,6 +7,9 @@ import hu.johndoe.panda.proto.model.Tile;
 import hu.johndoe.panda.proto.pl.cmd.CommandHandler;
 import hu.johndoe.panda.proto.pl.cmd.args.UseArgs;
 
+/**
+ * Handles a "USE ..." command
+ */
 public class UseCommandHandler implements CommandHandler <UseArgs> {
 
     @Override
