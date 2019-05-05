@@ -1,0 +1,81 @@
+@startuml
+
+
+skinparam classAttributeIconSize 0
+skinparam guillemet false
+
+' ==========
+' Interfaces
+' ==========
+
+interface Viewable {
+	+reDraw() : void
+}
+
+interface FrontEnd {
+	+onEnter () : void
+	+onDraw () : void
+}
+
+' =======
+' Classes
+' =======
+
+abstract class Animal {
+	+reDraw () : void
+}
+
+abstract class Item {
+	+reDraw () : void
+}
+
+class Tile {
+	+reDraw () : void
+}
+
+class View <<singleton>> {
+	+reset () : void
+	+addTile(tile: Tile) : void
+	+addItem(item: Item) : void
+	+addAnimal(animal: Animal): void
+}
+
+class MenuFrontEnd {
+	+onEnter () : void
+	+onDraw () : void
+}
+
+class GameOverFrontEnd {
+	+onEnter () : void
+	+onDraw () : void
+}
+
+' onEnter () meghívja a View reset függvényét
+class GameFrontEnd {
+	+onEnter () : void
+	+onDraw () : void
+}
+
+' ===========
+' Inheritance
+' ===========
+
+Viewable <|.. Animal
+Viewable <|.. Item
+Viewable <|.. Tile
+
+FrontEnd <|.. MenuFrontEnd
+FrontEnd <|.. GameOverFrontEnd
+FrontEnd <|.. GameFrontEnd
+
+' ============
+' Compositions
+' ============
+
+Animal "0..n" -- View : +animals
+Tile "0..n" -- View : +tiles
+Item "0..n" -- View : +items
+
+View <.. GameFrontEnd
+
+@enduml
