@@ -7,11 +7,9 @@ import hu.johndoe.panda.gui.model.Level;
 import hu.johndoe.panda.gui.model.Tile;
 import hu.johndoe.panda.gui.swing.GamePanel;
 import hu.johndoe.panda.gui.util.LevelLayoutUtil;
-import hu.johndoe.panda.gui.util.LogUtil;
 
 import java.awt.*;
 import java.awt.event.MouseEvent;
-import java.awt.geom.AffineTransform;
 
 public class GameView extends ViewBase {
 
@@ -25,6 +23,14 @@ public class GameView extends ViewBase {
     private float cameraX = 0f;
     private float cameraY = 0f;
     private float zoom = 1f;
+
+    final Stroke levelEdgeStroke = new BasicStroke (
+            1f,
+            BasicStroke.CAP_BUTT, BasicStroke.JOIN_BEVEL,
+            0f,
+            new float[] { 32f },
+            0f
+    );
 
     public GameView (GamePanel gamePanel) {
         super (gamePanel);
@@ -50,6 +56,7 @@ public class GameView extends ViewBase {
         for (Tile tile : level.tiles) {
             for (Tile neighbour : tile.neighbours) {
 
+                g.setStroke (levelEdgeStroke);
                 g.drawLine (
                         (int) ( tile.getX () + Sizes.TileRadius ),
                         (int) ( tile.getY () + Sizes.TileRadius ),

@@ -22,14 +22,14 @@ public final class LevelLayoutUtil {
         Random random = new Random ();
 
         final float tileCircleRadius = Sizes.TileRadius;
-        final float minDistanceBetweenTiles = tileCircleRadius * 2f;
+        final float minDistanceBetweenTiles = tileCircleRadius * 4f;
         final float minDistanceBetweenNodesAndEdges = Sizes.TileRadius * 1.5f;
 
         final float xLowerBound = 0f;
         final float yLowerBound = 0f;
 
-        final float xUpperBound = (float) level.tiles.size () * minDistanceBetweenTiles * 1.5f;
-        final float yUpperBound = (float) level.tiles.size () * minDistanceBetweenTiles * 1.5f;
+        final float xUpperBound = (float) level.tiles.size () * minDistanceBetweenTiles * 1.8f;
+        final float yUpperBound = (float) level.tiles.size () * minDistanceBetweenTiles * 1.8f;
 
         while (true) {
 
