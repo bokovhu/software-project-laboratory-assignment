@@ -16,6 +16,8 @@ public final class ViewFactory {
         switch (viewId) {
             case Views.MAIN_MENU:
                 return new MainMenuView (gamePanel);
+            case Views.PLAY_MENU:
+                return new PlayMenuView (gamePanel);
             default:
                 throw new IllegalArgumentException (Errors.PandaGui_ViewFactory_InvalidViewId ());
         }

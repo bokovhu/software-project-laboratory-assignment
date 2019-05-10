@@ -33,6 +33,7 @@ public class GamePanel extends JPanel implements KeyListener, MouseListener, Mou
     private void init () {
 
         setDoubleBuffered (true);
+        setPreferredSize (new Dimension (1280, 720));
 
         currentView = new MainMenuView (this);
 
