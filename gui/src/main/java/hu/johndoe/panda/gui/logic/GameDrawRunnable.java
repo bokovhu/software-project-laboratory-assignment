@@ -18,10 +18,25 @@ public class GameDrawRunnable implements Runnable {
 
         LogUtil.log (LOGTAG, "Starting up");
 
+        int fps = 0;
+        long lastFrameTime = System.currentTimeMillis ();
+        float fpsTimer = 0f;
+
         while (true) {
+
+            long now = System.currentTimeMillis ();
+            fpsTimer += (now - lastFrameTime) / 1000.0f;
+            lastFrameTime = now;
+            if (fpsTimer >= 1f) {
+                LogUtil.log (LOGTAG, "FPS: " + fps);
+                fps = 0;
+                fpsTimer -= 1f;
+            }
 
             mainFrame.invalidate ();
             mainFrame.repaint ();
+
+            ++fps;
 
             try {
                 Thread.sleep (1L);

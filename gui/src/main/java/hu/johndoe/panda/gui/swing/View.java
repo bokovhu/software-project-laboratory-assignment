@@ -20,5 +20,6 @@ public interface View {
     default void onMouseReleased (int button, float x, float y) {}
     default void onMouseMoved (float x, float y) {}
     default void onMouseDragged (float x, float y) {}
+    default void onMouseScrolled (int amount) {}
 
 }

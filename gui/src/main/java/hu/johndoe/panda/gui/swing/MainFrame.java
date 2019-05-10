@@ -14,6 +14,9 @@ public class MainFrame extends JFrame {
 
     private static final String LOGTAG = "Main Frame";
 
+    private static final String TITLE = "Panda Plaza!";
+    private static final Dimension PREFERRED_SIZE = new Dimension (1280, 720);
+
     private GamePanel gamePanel = null;
     private ExecutorService executorService;
 
@@ -23,13 +26,14 @@ public class MainFrame extends JFrame {
 
     private void initScreen () {
 
-        LogUtil.log (LOGTAG, "Initializing first game screen");
+        LogUtil.log (LOGTAG, "Initializing game panel");
 
         gamePanel = new GamePanel ();
 
         addKeyListener (gamePanel);
         addMouseListener (gamePanel);
         addMouseMotionListener (gamePanel);
+        addMouseWheelListener (gamePanel);
 
     }
 
@@ -52,8 +56,8 @@ public class MainFrame extends JFrame {
         initExecutor ();
 
         setResizable (true);
-        setPreferredSize (new Dimension (1280, 720));
-        setTitle ("Panda Plaza");
+        setPreferredSize (PREFERRED_SIZE);
+        setTitle (TITLE);
         setDefaultCloseOperation (WindowConstants.EXIT_ON_CLOSE);
 
         setIconImage (Resources.Favicon ().getImage ());

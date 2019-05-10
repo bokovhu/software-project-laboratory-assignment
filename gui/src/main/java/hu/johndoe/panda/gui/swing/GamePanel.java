@@ -8,7 +8,7 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.*;
 
-public class GamePanel extends JPanel implements KeyListener, MouseListener, MouseMotionListener {
+public class GamePanel extends JPanel implements KeyListener, MouseListener, MouseMotionListener, MouseWheelListener {
 
     private static final String MAIN_TITLE = "Panda Plaza!";
 
@@ -138,6 +138,13 @@ public class GamePanel extends JPanel implements KeyListener, MouseListener, Mou
     public void mouseMoved (MouseEvent e) {
 
         currentView.onMouseMoved (e.getX (), e.getY ());
+
+    }
+
+    @Override
+    public void mouseWheelMoved (MouseWheelEvent e) {
+
+        currentView.onMouseScrolled (e.getWheelRotation ());
 
     }
 

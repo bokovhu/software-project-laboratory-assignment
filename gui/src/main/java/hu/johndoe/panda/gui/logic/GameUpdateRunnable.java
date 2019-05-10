@@ -23,6 +23,8 @@ public class GameUpdateRunnable implements Runnable {
 
         lastUpdateTime = System.currentTimeMillis ();
         final float updateTimestep = 1.0f / (float) targetUpdatesPerSecond;
+        int ups = 0;
+        float upsTimer = 0f;
 
         while (true) {
 
@@ -31,10 +33,19 @@ public class GameUpdateRunnable implements Runnable {
             deltaAccumulator += deltaMillisec / 1000.0f;
             lastUpdateTime = now;
 
+            upsTimer += deltaMillisec / 1000.0f;
+            if (upsTimer >= 1f) {
+                LogUtil.log (LOGTAG, "UPS: " + ups);
+                ups = 0;
+                upsTimer -= 1f;
+            }
+
             while (deltaAccumulator >= updateTimestep) {
 
                 mainFrame.getGamePanel ().update (updateTimestep);
                 deltaAccumulator -= updateTimestep;
+
+                ++ups;
 
             }
 
