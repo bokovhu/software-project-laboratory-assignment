@@ -1,5 +1,6 @@
 package hu.johndoe.panda.gui.swing;
 
+import hu.johndoe.panda.gui.constants.Views;
 import hu.johndoe.panda.gui.swing.view.MainMenuView;
 import hu.johndoe.panda.gui.swing.view.ViewFactory;
 
@@ -35,7 +36,7 @@ public class GamePanel extends JPanel implements KeyListener, MouseListener, Mou
         setDoubleBuffered (true);
         setPreferredSize (new Dimension (1280, 720));
 
-        currentView = new MainMenuView (this);
+        switchView (Views.MAIN_MENU);
 
     }
 
@@ -61,7 +62,12 @@ public class GamePanel extends JPanel implements KeyListener, MouseListener, Mou
 
     public void switchView (int viewId) {
 
-        currentView = ViewFactory.createView (this, viewId);
+        View newView = ViewFactory.createView (this, viewId);
+        if (currentView != null) {
+            currentView.onExit ();
+        }
+        currentView = newView;
+        currentView.onEnter ();
 
     }
 

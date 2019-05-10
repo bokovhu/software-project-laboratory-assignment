@@ -12,6 +12,9 @@ public final class Colors {
     public static final Color TextDark = ColorUtil.hex ("dedede");
     public static final Color BlueButtonBackground = ColorUtil.hex ("67c9cd");
     public static final Color RedButtonBackground = ColorUtil.hex ("cd7367");
+    public static final Color Tile = ColorUtil.hex ("000000");
+    public static final Color TileEntrance = ColorUtil.hex ("1a5c00");
+    public static final Color TileExit = ColorUtil.hex ("840000");
 
     private Colors () {
         throw new UnsupportedOperationException (Errors.PandaGui_IllegalInstantiation ());

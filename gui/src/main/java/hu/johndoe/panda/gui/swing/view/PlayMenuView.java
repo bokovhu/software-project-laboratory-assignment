@@ -1,8 +1,12 @@
 package hu.johndoe.panda.gui.swing.view;
 
+import com.sun.glass.events.KeyEvent;
 import hu.johndoe.panda.gui.constants.Colors;
 import hu.johndoe.panda.gui.constants.Resources;
+import hu.johndoe.panda.gui.constants.Views;
+import hu.johndoe.panda.gui.model.GameState;
 import hu.johndoe.panda.gui.swing.GamePanel;
+import hu.johndoe.panda.gui.util.LevelGeneratorUtil;
 
 import java.awt.*;
 import java.awt.geom.Rectangle2D;
@@ -92,6 +96,26 @@ public class PlayMenuView extends ViewBase {
 
     @Override
     public void onUpdate (float delta) {
+
+    }
+
+    @Override
+    public void onKeyUp (int keyCode) {
+
+        switch (keyCode) {
+            case KeyEvent.VK_ENTER:
+
+                GameState.getInstance ().reset ();
+                // Generate a random level
+
+                LevelGeneratorUtil.generate (
+                        GameState.getInstance ().getLevel ()
+                );
+
+                getGamePanel ().switchView (Views.GAME);
+
+                break;
+        }
 
     }
 
