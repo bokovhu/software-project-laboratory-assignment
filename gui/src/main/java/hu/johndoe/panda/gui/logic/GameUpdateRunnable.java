@@ -8,10 +8,9 @@ public class GameUpdateRunnable implements Runnable {
     private static final String LOGTAG = "Game Update Thread";
 
     private static final int targetUpdatesPerSecond = 60;
+    private final MainFrame mainFrame;
     private float deltaAccumulator = 0f;
     private long lastUpdateTime = System.currentTimeMillis ();
-
-    private final MainFrame mainFrame;
 
     public GameUpdateRunnable (MainFrame mainFrame) {
         this.mainFrame = mainFrame;
@@ -29,12 +28,12 @@ public class GameUpdateRunnable implements Runnable {
 
             long now = System.currentTimeMillis ();
             long deltaMillisec = now - lastUpdateTime;
-            deltaAccumulator += (now - lastUpdateTime) / 1000.0f;
+            deltaAccumulator += deltaMillisec / 1000.0f;
             lastUpdateTime = now;
 
             while (deltaAccumulator >= updateTimestep) {
 
-                mainFrame.getCurrentScreen ().onUpdate (updateTimestep);
+                mainFrame.getGamePanel ().update (updateTimestep);
                 deltaAccumulator -= updateTimestep;
 
             }

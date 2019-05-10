@@ -1,8 +1,8 @@
 package hu.johndoe.panda.gui.swing;
 
+import hu.johndoe.panda.gui.constants.Resources;
 import hu.johndoe.panda.gui.logic.GameDrawRunnable;
 import hu.johndoe.panda.gui.logic.GameUpdateRunnable;
-import hu.johndoe.panda.gui.swing.screen.MainMenuScreen;
 import hu.johndoe.panda.gui.util.LogUtil;
 
 import javax.swing.*;
@@ -14,14 +14,22 @@ public class MainFrame extends JFrame {
 
     private static final String LOGTAG = "Main Frame";
 
-    private GameScreen currentScreen = null;
+    private GamePanel gamePanel = null;
     private ExecutorService executorService;
+
+    public MainFrame () {
+        init ();
+    }
 
     private void initScreen () {
 
         LogUtil.log (LOGTAG, "Initializing first game screen");
 
-        currentScreen = new MainMenuScreen ();
+        gamePanel = new GamePanel ();
+
+        addKeyListener (gamePanel);
+        addMouseListener (gamePanel);
+        addMouseMotionListener (gamePanel);
 
     }
 
@@ -48,18 +56,16 @@ public class MainFrame extends JFrame {
         setTitle ("Panda Plaza");
         setDefaultCloseOperation (WindowConstants.EXIT_ON_CLOSE);
 
-        setContentPane (currentScreen);
+        setIconImage (Resources.Favicon ().getImage ());
+
+        setContentPane (gamePanel);
         pack ();
         setVisible (true);
 
     }
 
-    public MainFrame () {
-        init ();
-    }
-
-    public GameScreen getCurrentScreen () {
-        return currentScreen;
+    public GamePanel getGamePanel () {
+        return gamePanel;
     }
 
 }

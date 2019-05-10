@@ -24,15 +24,15 @@ public final class ColorUtil {
             throw new IllegalArgumentException (Errors.PandaGui_ColorUtil_HexInvalidFormat ());
         }
 
-        int [] values = new int[] { 0, 0, 0, 255 };
+        int[] values = new int[] {0, 0, 0, 255};
 
         for (int i = 0; i < hex.length (); i += 2) {
 
-            values [i / 2] = Integer.parseInt (hex.substring (i, i + 2), 16);
+            values[i / 2] = Integer.parseInt (hex.substring (i, i + 2), 16);
 
         }
 
-        return new Color (values [0], values [1], values [2], values [3]);
+        return new Color (values[0], values[1], values[2], values[3]);
 
     }
 

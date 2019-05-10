@@ -18,4 +18,8 @@ public final class Errors {
         return "Color hex should be in [0-9a-fA-F]{6} or [0-9a-fA-F]{8} format!";
     }
 
+    public static String PandaGui_ViewFactory_InvalidViewId () {
+        return "Invalid view ID!";
+    }
+
 }
