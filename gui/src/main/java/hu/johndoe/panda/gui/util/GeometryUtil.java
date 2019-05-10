@@ -30,4 +30,31 @@ public final class GeometryUtil {
 
     }
 
+    public static float pointSegmentDistance (
+            float pointX, float pointY,
+            float segmentX1, float segmentY1, float segmentX2, float segmentY2
+    ) {
+
+        float ab = distance (pointX, pointY, segmentX1, segmentY1);
+        float bc = distance (segmentX1, segmentY1, segmentX2, segmentY2);
+        float ac = distance (pointX, pointY, segmentX2, segmentY2);
+
+        float s = (ab + bc + ac) / 2f;
+        float area = (float) Math.sqrt (s * (s - ab) * (s - bc) * (s - ac));
+        return (2.0f * area) / bc;
+
+    }
+
+    public static float distance (
+            float x1, float y1,
+            float x2, float y2
+    ) {
+
+        float dx = x1 - x2;
+        float dy = y1 - y2;
+
+        return (float) Math.sqrt (dx * dx + dy * dy);
+
+    }
+
 }

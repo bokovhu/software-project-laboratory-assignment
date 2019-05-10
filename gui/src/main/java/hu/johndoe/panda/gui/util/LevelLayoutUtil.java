@@ -23,12 +23,13 @@ public final class LevelLayoutUtil {
 
         final float tileCircleRadius = Sizes.TileRadius;
         final float minDistanceBetweenTiles = tileCircleRadius * 2f;
+        final float minDistanceBetweenNodesAndEdges = Sizes.TileRadius * 1.5f;
 
         final float xLowerBound = 0f;
         final float yLowerBound = 0f;
 
-        final float xUpperBound = (float) level.tiles.size () * minDistanceBetweenTiles;
-        final float yUpperBound = (float) level.tiles.size () * minDistanceBetweenTiles;
+        final float xUpperBound = (float) level.tiles.size () * minDistanceBetweenTiles * 1.5f;
+        final float yUpperBound = (float) level.tiles.size () * minDistanceBetweenTiles * 1.5f;
 
         while (true) {
 
@@ -84,6 +85,17 @@ public final class LevelLayoutUtil {
                             );
 
                             if (intersectionResult) {
+                                layoutOk = false;
+                                break;
+                            }
+
+                            float lineDistance = GeometryUtil.pointSegmentDistance (
+                                    thirdTile.getX () + Sizes.TileRadius, thirdTile.getY () + Sizes.TileRadius,
+                                    (tile.getX () + Sizes.TileRadius), (tile.getY () + Sizes.TileRadius),
+                                    (neighbour.getX () + Sizes.TileRadius), (neighbour.getY () + Sizes.TileRadius)
+                            );
+
+                            if (lineDistance < minDistanceBetweenNodesAndEdges) {
                                 layoutOk = false;
                                 break;
                             }
