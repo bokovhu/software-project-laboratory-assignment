@@ -14,6 +14,9 @@ public final class Resources {
     private ImageIcon pandaTexture;
     private ImageIcon orangutanTexture;
     private ImageIcon wardrobeTexture;
+    private ImageIcon gameMachineTexture;
+    private ImageIcon vendingMachineTexture;
+    private ImageIcon couchTexture;
     private ImageIcon favicon;
 
     private Font gameFont;
@@ -50,6 +53,18 @@ public final class Resources {
 
     public static ImageIcon WardrobeTexture () {
         return INSTANCE.wardrobeTexture;
+    }
+
+    public static ImageIcon GameMachineTexture () {
+        return INSTANCE.gameMachineTexture;
+    }
+
+    public static ImageIcon VendingMachineTexture () {
+        return INSTANCE.vendingMachineTexture;
+    }
+
+    public static ImageIcon CouchTexture () {
+        return INSTANCE.couchTexture;
     }
 
     public static ImageIcon Favicon () {
@@ -89,6 +104,11 @@ public final class Resources {
         pandaTexture = new ImageIcon (Resources.class.getClassLoader ().getResource ("textures/panda.png"));
         orangutanTexture = new ImageIcon (Resources.class.getClassLoader ().getResource ("textures/orangutan.png"));
         wardrobeTexture = new ImageIcon (Resources.class.getClassLoader ().getResource ("textures/wardrobe.png"));
+        gameMachineTexture = new ImageIcon (Resources.class.getClassLoader ()
+                .getResource ("textures/game-machine.png"));
+        vendingMachineTexture = new ImageIcon (Resources.class.getClassLoader ()
+                .getResource ("textures/vending-machine.png"));
+        couchTexture = new ImageIcon (Resources.class.getClassLoader ().getResource ("textures/couch.png"));
         favicon = pandaTexture;
 
 

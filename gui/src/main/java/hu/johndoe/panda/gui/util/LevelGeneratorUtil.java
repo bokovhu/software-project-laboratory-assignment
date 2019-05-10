@@ -1,8 +1,7 @@
 package hu.johndoe.panda.gui.util;
 
 import hu.johndoe.panda.gui.constants.Errors;
-import hu.johndoe.panda.gui.model.Level;
-import hu.johndoe.panda.gui.model.Tile;
+import hu.johndoe.panda.gui.model.*;
 
 import java.util.*;
 
@@ -16,8 +15,8 @@ public final class LevelGeneratorUtil {
 
     private static boolean isConnected (Level level) {
 
-        Deque <Tile> bfsQueue = new ArrayDeque<> ();
-        Set <Tile> bfsVisited = new HashSet<> ();
+        Deque<Tile> bfsQueue = new ArrayDeque<> ();
+        Set<Tile> bfsVisited = new HashSet<> ();
 
         bfsQueue.addLast (level.tiles.get (0));
         bfsVisited.addAll (bfsQueue);
@@ -38,6 +37,19 @@ public final class LevelGeneratorUtil {
 
     }
 
+    private static Item randomItem (Random random) {
+
+        final int type = random.nextInt (4);
+
+        switch (type) {
+            case 0: return new GameMachine ();
+            case 1: return new ChocolateVendingMachine ();
+            case 2: return new Couch ();
+            default: return new Wardrobe ();
+        }
+
+    }
+
     public static void generate (Level level) {
 
         LogUtil.log (LOGTAG, "Generating new level");
@@ -49,6 +61,7 @@ public final class LevelGeneratorUtil {
         Random random = new Random ();
 
         final int numNodes = 10 + random.nextInt (5);
+        final int numItems = 1 + random.nextInt (3);
         final float fragileProbability = 0.3f;
 
         for (int i = 0; i < numNodes; i++) {
@@ -102,6 +115,24 @@ public final class LevelGeneratorUtil {
                 level.entranceTile = entrance;
 
                 break;
+
+            }
+
+        }
+
+        for (int i = 0; i < numItems; i++) {
+
+            boolean itemCreated = false;
+
+            while (!itemCreated) {
+
+                int tileIndex = random.nextInt (level.tiles.size ());
+                Tile tile = level.tiles.get (tileIndex);
+
+                if (tile.placedItem == null) {
+                    tile.placedItem = randomItem (random);
+                    itemCreated = true;
+                }
 
             }
 

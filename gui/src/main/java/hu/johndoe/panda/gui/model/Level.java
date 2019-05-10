@@ -9,4 +9,13 @@ public class Level extends BaseEntity {
     public Tile entranceTile;
     public Tile exitTile;
 
+    public List <Animal> animals = new ArrayList<> ();
+
+    public void removeAnimal (Animal animal) {
+
+        // TODO: Test!!!!! Might cause ConcurrentModificationException!!!
+        animals.remove (animal);
+
+    }
+
 }
