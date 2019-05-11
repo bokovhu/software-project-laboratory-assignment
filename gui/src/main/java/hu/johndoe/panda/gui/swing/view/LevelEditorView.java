@@ -70,7 +70,11 @@ public class LevelEditorView extends ViewBase {
     private void drawUI (Graphics2D g, float delta) {
 
         g.setFont (Resources.GameFont32 ());
-        g.setColor (Color.WHITE);
+
+        g.setColor (Colors.Shadow);
+        g.drawString ("Mode: " + mode.name (), 2, 34);
+
+        g.setColor (Colors.TextLight);
         g.drawString ("Mode: " + mode.name (), 0, 32);
 
     }
@@ -87,7 +91,7 @@ public class LevelEditorView extends ViewBase {
 
         if (selectedTile != null) {
 
-            g.setColor (Color.YELLOW);
+            g.setColor (Color.BLACK);
             g.drawRect (
                     (int) (selectedTile.getX () - 4f),
                     (int) (selectedTile.getY () - 4f),
@@ -99,7 +103,7 @@ public class LevelEditorView extends ViewBase {
 
         if (selectedAnimal != null) {
 
-            g.setColor (Color.YELLOW);
+            g.setColor (Color.BLACK);
             g.drawRect (
                     (int) (selectedAnimal.getX () - 4f),
                     (int) (selectedAnimal.getY () - 4f),
@@ -111,7 +115,7 @@ public class LevelEditorView extends ViewBase {
 
         if (selectedItem != null) {
 
-            g.setColor (Color.YELLOW);
+            g.setColor (Color.BLACK);
             g.drawRect (
                     (int) (selectedItem.getX () - 4f),
                     (int) (selectedItem.getY () - 4f),
