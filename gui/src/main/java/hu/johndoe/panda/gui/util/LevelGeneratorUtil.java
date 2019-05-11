@@ -13,7 +13,7 @@ public final class LevelGeneratorUtil {
         throw new UnsupportedOperationException (Errors.PandaGui_IllegalInstantiation ());
     }
 
-    private static boolean isConnected (Level level) {
+    private static boolean isTopologicallySuitable (Level level) {
 
         Deque<Tile> bfsQueue = new ArrayDeque<> ();
         Set<Tile> bfsVisited = new HashSet<> ();
@@ -33,7 +33,11 @@ public final class LevelGeneratorUtil {
 
         }
 
-        return level.tiles.size () == bfsVisited.size ();
+        boolean ok = level.tiles.size () == bfsVisited.size ();
+
+        ok &= level.tiles.stream ().noneMatch (t -> t.neighbours.size () < 2);
+
+        return ok;
 
     }
 
@@ -55,6 +59,8 @@ public final class LevelGeneratorUtil {
         final int type = random.nextInt (3);
 
         switch (type) {
+            case 0: return new CowardPanda ();
+            case 1: return new JumpyPanda ();
             default: return new SleepyPanda ();
         }
 
@@ -84,7 +90,7 @@ public final class LevelGeneratorUtil {
 
         }
 
-        while (!isConnected (level)) {
+        while (!isTopologicallySuitable (level)) {
 
             boolean edgeAdded = false;
 
@@ -160,9 +166,10 @@ public final class LevelGeneratorUtil {
                 Tile tile = level.tiles.get (tileIndex);
 
                 if (tile.currentAnimal == null) {
-                    tile.currentAnimal = new Orangutan ();
+                    Orangutan orangutan = new Orangutan ();
+                    tile.currentAnimal = orangutan;
                     tile.currentAnimal.setStandingOn (tile);
-                    level.animals.add (tile.currentAnimal);
+                    level.animals.add (orangutan);
                     orangutanCreated = true;
                 }
 

@@ -15,6 +15,14 @@ public class Level extends BaseEntity implements Updatable {
 
     public void removeAnimal (Animal animal) {
 
+        if (animal.getGuidedAnimal () != null) {
+            animal.getGuidedAnimal ().setLeaderAnimal (null);
+        }
+        if (animal.getLeaderAnimal () != null) {
+            animal.getLeaderAnimal ().setGuidedAnimal (null);
+        }
+        animal.getStandingOn ().setCurrentAnimal (null);
+        animal.setStandingOn (null);
         animalsToRemove.add (animal);
 
     }

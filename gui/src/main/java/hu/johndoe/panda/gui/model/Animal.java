@@ -1,6 +1,6 @@
 package hu.johndoe.panda.gui.model;
 
-public abstract class Animal extends BaseGameEntity {
+public abstract class Animal extends BaseGameEntity implements Selectable {
 
     private Animal leaderAnimal;
     private Animal guidedAnimal;
@@ -158,6 +158,11 @@ public abstract class Animal extends BaseGameEntity {
 
     public void setStandingOn (Tile standingOn) {
         this.standingOn = standingOn;
+    }
+
+    @Override
+    public boolean select (float x, float y) {
+        return false;
     }
 
 }

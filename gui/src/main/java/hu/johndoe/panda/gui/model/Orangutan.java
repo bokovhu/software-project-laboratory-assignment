@@ -1,18 +1,25 @@
 package hu.johndoe.panda.gui.model;
 
+import hu.johndoe.panda.gui.constants.Resources;
+import hu.johndoe.panda.gui.constants.Sizes;
+
 import java.awt.*;
 
 public class Orangutan extends Animal {
 
     private int theftTimer;
 
-    /** Returns whether or not this orangutan is able to steal a panda chain */
+    /**
+     * Returns whether or not this orangutan is able to steal a panda chain
+     */
     @Override
     public boolean canGrab () {
         return (this.theftTimer < 1);
     }
 
-    /** Causes the animals in its chain to be lead out, and the player being rewarded with points */
+    /**
+     * Causes the animals in its chain to be lead out, and the player being rewarded with points
+     */
     @Override
     public void leadOut () {
         if (getGuidedAnimal () != null) {
@@ -24,6 +31,7 @@ public class Orangutan extends Animal {
 
     /**
      * Handles an outgoing (this animal moves INTO another one) collision with another animal
+     *
      * @param animal the animal to collide with
      */
     @Override
@@ -52,6 +60,7 @@ public class Orangutan extends Animal {
 
     /**
      * Swaps places AND chains with another animal (that can only logically be an orangutan)
+     *
      * @param orangutan the animal to swap places with
      */
     public void swapWith (Animal orangutan) {
@@ -77,6 +86,16 @@ public class Orangutan extends Animal {
     @Override
     public void draw (Graphics2D g, float delta) {
 
+        // Draw orangutan image //
+
+        g.setColor (Color.WHITE);
+        g.drawImage (
+                Resources.OrangutanTexture ().getImage (),
+                (int) getX (), (int) getY (),
+                (int) Sizes.OrangutanSize, (int) Sizes.OrangutanSize,
+                null
+        );
+
     }
 
     @Override
@@ -85,6 +104,13 @@ public class Orangutan extends Animal {
         setX (getStandingOn ().getX ());
         setY (getStandingOn ().getY ());
 
+    }
+
+    @Override
+    public boolean select (float x, float y) {
+        float dx = x - (getX () + Sizes.OrangutanSize / 2f);
+        float dy = y - (getY () + Sizes.OrangutanSize / 2f);
+        return (float) Math.sqrt (dx * dx + dy * dy) < Sizes.OrangutanSize / 2f;
     }
 
 }

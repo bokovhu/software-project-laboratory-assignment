@@ -8,7 +8,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
-public class Tile extends BaseGameEntity {
+public class Tile extends BaseGameEntity implements Selectable {
 
     public static final int DEFAULT_LIFE = 20;
 
@@ -142,6 +142,13 @@ public class Tile extends BaseGameEntity {
 
     public void setCurrentAnimal (Animal currentAnimal) {
         this.currentAnimal = currentAnimal;
+    }
+
+    @Override
+    public boolean select (float x, float y) {
+        float dx = x - (getX () + Sizes.TileRadius);
+        float dy = y - (getY () + Sizes.TileRadius);
+        return (float) Math.sqrt (dx * dx + dy * dy) < Sizes.TileRadius;
     }
 
 }
