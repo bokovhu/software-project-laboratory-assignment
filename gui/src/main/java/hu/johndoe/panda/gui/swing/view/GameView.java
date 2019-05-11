@@ -2,6 +2,7 @@ package hu.johndoe.panda.gui.swing.view;
 
 import hu.johndoe.panda.gui.constants.Colors;
 import hu.johndoe.panda.gui.constants.Sizes;
+import hu.johndoe.panda.gui.model.Animal;
 import hu.johndoe.panda.gui.model.GameState;
 import hu.johndoe.panda.gui.model.Level;
 import hu.johndoe.panda.gui.model.Tile;
@@ -10,6 +11,8 @@ import hu.johndoe.panda.gui.util.LevelLayoutUtil;
 
 import java.awt.*;
 import java.awt.event.MouseEvent;
+import java.util.HashSet;
+import java.util.Set;
 
 public class GameView extends ViewBase {
 
@@ -31,6 +34,10 @@ public class GameView extends ViewBase {
             new float[] { 32f },
             0f
     );
+    final Stroke animalEdgeStroke = new BasicStroke (
+            4f,
+            BasicStroke.CAP_ROUND, BasicStroke.JOIN_ROUND
+    );
 
     public GameView (GamePanel gamePanel) {
         super (gamePanel);
@@ -48,23 +55,50 @@ public class GameView extends ViewBase {
 
     }
 
+    Set <String> visitedLevelEdges = new HashSet<> ();
+
     private void drawLevel (Graphics2D g, float delta) {
 
         Level level = GameState.getInstance ().getLevel ();
 
         g.setColor (Colors.Tile);
+        visitedLevelEdges.clear ();
+
+        g.setStroke (levelEdgeStroke);
+
         for (Tile tile : level.tiles) {
             for (Tile neighbour : tile.neighbours) {
 
-                g.setStroke (levelEdgeStroke);
-                g.drawLine (
-                        (int) ( tile.getX () + Sizes.TileRadius ),
-                        (int) ( tile.getY () + Sizes.TileRadius ),
-                        (int) ( neighbour.getX () + Sizes.TileRadius ),
-                        (int) ( neighbour.getY () + Sizes.TileRadius )
-                );
+                String edgeId = tile.getId () < neighbour.getId ()
+                        ? (tile.getId () + "-" + neighbour.getId ())
+                        : (neighbour.getId () + "-" + tile.getId ());
+
+                if (visitedLevelEdges.add (edgeId)) {
+
+                    g.drawLine (
+                            (int) (tile.getX () + Sizes.TileRadius),
+                            (int) (tile.getY () + Sizes.TileRadius),
+                            (int) (neighbour.getX () + Sizes.TileRadius),
+                            (int) (neighbour.getY () + Sizes.TileRadius)
+                    );
+
+                }
 
             }
+        }
+
+        g.setStroke (animalEdgeStroke);
+
+        for (Animal animal : level.animals) {
+
+            if (animal.getGuidedAnimal () != null) {
+                g.setColor (Colors.RedButtonBackground);
+                g.drawLine (
+                        (int) animal.getX (), (int) animal.getY (),
+                        (int) animal.getGuidedAnimal ().getX (), (int) animal.getGuidedAnimal ().getY ()
+                );
+            }
+
         }
 
         for (Tile tile : level.tiles) {
@@ -99,6 +133,14 @@ public class GameView extends ViewBase {
 
     @Override
     public void onUpdate (float delta) {
+
+        for (Animal animal : GameState.getInstance ().getLevel ().animals) {
+
+            animal.update (delta);
+
+        }
+
+        GameState.getInstance ().getLevel ().update (delta);
 
     }
 

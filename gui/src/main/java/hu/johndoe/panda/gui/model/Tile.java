@@ -44,6 +44,10 @@ public class Tile extends BaseGameEntity {
             placedItem.draw (g, delta);
         }
 
+        if (currentAnimal != null) {
+            currentAnimal.draw (g, delta);
+        }
+
     }
 
     @Override

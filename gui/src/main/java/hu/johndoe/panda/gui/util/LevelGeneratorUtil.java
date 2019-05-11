@@ -50,6 +50,16 @@ public final class LevelGeneratorUtil {
 
     }
 
+    private static Animal randomPanda (Random random) {
+
+        final int type = random.nextInt (3);
+
+        switch (type) {
+            default: return new SleepyPanda ();
+        }
+
+    }
+
     public static void generate (Level level) {
 
         LogUtil.log (LOGTAG, "Generating new level");
@@ -62,6 +72,8 @@ public final class LevelGeneratorUtil {
 
         final int numNodes = 10 + random.nextInt (5);
         final int numItems = 1 + random.nextInt (3);
+        final int numOrangutans = 1 + random.nextInt (3);
+        final int numPandas = 2 + random.nextInt (5);
         final float fragileProbability = 0.3f;
 
         for (int i = 0; i < numNodes; i++) {
@@ -132,6 +144,46 @@ public final class LevelGeneratorUtil {
                 if (tile.placedItem == null) {
                     tile.placedItem = randomItem (random);
                     itemCreated = true;
+                }
+
+            }
+
+        }
+
+        for (int i = 0; i < numOrangutans; i++) {
+
+            boolean orangutanCreated = false;
+
+            while (!orangutanCreated) {
+
+                int tileIndex = random.nextInt (level.tiles.size ());
+                Tile tile = level.tiles.get (tileIndex);
+
+                if (tile.currentAnimal == null) {
+                    tile.currentAnimal = new Orangutan ();
+                    tile.currentAnimal.setStandingOn (tile);
+                    level.animals.add (tile.currentAnimal);
+                    orangutanCreated = true;
+                }
+
+            }
+
+        }
+
+        for (int i = 0; i < numPandas; i++) {
+
+            boolean pandaCreated = false;
+
+            while (!pandaCreated) {
+
+                int tileIndex = random.nextInt (level.tiles.size ());
+                Tile tile = level.tiles.get (tileIndex);
+
+                if (tile.currentAnimal == null) {
+                    tile.currentAnimal = randomPanda (random);
+                    tile.currentAnimal.setStandingOn (tile);
+                    level.animals.add (tile.currentAnimal);
+                    pandaCreated = true;
                 }
 
             }
