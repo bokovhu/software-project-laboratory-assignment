@@ -6,7 +6,7 @@ import java.awt.*;
 
 public final class Colors {
 
-    public static final Color MenuBackground = ColorUtil.hex ("adf7b8");
+    public static final Color Background = ColorUtil.hex ("adf7b8");
     public static final Color Shadow = ColorUtil.hex ("121212");
     public static final Color TextLight = ColorUtil.hex ("ffffff");
     public static final Color TextDark = ColorUtil.hex ("dedede");

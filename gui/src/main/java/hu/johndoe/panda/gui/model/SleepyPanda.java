@@ -63,4 +63,9 @@ public class SleepyPanda extends Panda {
 
     }
 
+    @Override
+    public boolean canBeGrabbed () {
+        return !isSleeping;
+    }
+
 }

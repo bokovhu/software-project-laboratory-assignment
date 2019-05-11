@@ -1,7 +1,6 @@
 package hu.johndoe.panda.gui.swing.view;
 
 import hu.johndoe.panda.gui.constants.Colors;
-import hu.johndoe.panda.gui.constants.Resources;
 import hu.johndoe.panda.gui.constants.Sizes;
 import hu.johndoe.panda.gui.constants.Views;
 import hu.johndoe.panda.gui.swing.GamePanel;
@@ -9,7 +8,6 @@ import hu.johndoe.panda.gui.swing.view.menu.GameButton;
 import hu.johndoe.panda.gui.swing.view.menu.TitleRenderer;
 
 import java.awt.*;
-import java.awt.geom.Rectangle2D;
 
 public class MainMenuView extends ViewBase {
 
@@ -54,7 +52,7 @@ public class MainMenuView extends ViewBase {
 
     public void onDraw (Graphics2D g, float delta) {
 
-        g.setColor (Colors.MenuBackground);
+        g.setColor (Colors.Background);
         g.fillRect (0, 0, (int) getWidth (), (int) getHeight ());
 
         titleRenderer.draw (g, delta);

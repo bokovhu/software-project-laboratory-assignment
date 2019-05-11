@@ -128,6 +128,8 @@ public class Orangutan extends Animal {
     @Override
     public void update (float delta) {
 
+        System.out.println ("Orangutan update");
+
     }
 
     @Override

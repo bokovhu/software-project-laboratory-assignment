@@ -72,6 +72,8 @@ public abstract class Panda extends Animal {
     @Override
     public void update (float delta) {
 
+        System.out.println ("Panda update");
+
         if (getLeaderAnimal () == null) {
             Random random = new Random ();
             if (random.nextFloat () < Probabilities.PandaMoveProbability) {
@@ -82,6 +84,11 @@ public abstract class Panda extends Animal {
             }
         }
 
+    }
+
+    @Override
+    public boolean canBeGrabbed () {
+        return true;
     }
 
 }

@@ -1,8 +1,6 @@
 package hu.johndoe.panda.gui.swing.view;
 
-import com.sun.glass.events.KeyEvent;
 import hu.johndoe.panda.gui.constants.Colors;
-import hu.johndoe.panda.gui.constants.Resources;
 import hu.johndoe.panda.gui.constants.Sizes;
 import hu.johndoe.panda.gui.constants.Views;
 import hu.johndoe.panda.gui.model.GameState;
@@ -10,12 +8,10 @@ import hu.johndoe.panda.gui.model.Level;
 import hu.johndoe.panda.gui.swing.GamePanel;
 import hu.johndoe.panda.gui.swing.view.menu.GameButton;
 import hu.johndoe.panda.gui.swing.view.menu.TitleRenderer;
-import hu.johndoe.panda.gui.util.LevelGeneratorUtil;
 
 import javax.swing.*;
 import javax.swing.filechooser.FileNameExtensionFilter;
 import java.awt.*;
-import java.awt.geom.Rectangle2D;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.ObjectInputStream;
@@ -64,7 +60,7 @@ public class PlayMenuView extends ViewBase {
     @Override
     public void onDraw (Graphics2D g, float delta) {
 
-        g.setColor (Colors.MenuBackground);
+        g.setColor (Colors.Background);
         g.fillRect (0, 0, (int) getWidth (), (int) getHeight ());
 
         titleRenderer.draw (g, delta);

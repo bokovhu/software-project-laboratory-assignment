@@ -2,22 +2,21 @@ package hu.johndoe.panda.gui.swing.view;
 
 import hu.johndoe.panda.gui.constants.Colors;
 import hu.johndoe.panda.gui.constants.Sizes;
-import hu.johndoe.panda.gui.model.*;
+import hu.johndoe.panda.gui.constants.Views;
+import hu.johndoe.panda.gui.model.Animal;
+import hu.johndoe.panda.gui.model.GameState;
+import hu.johndoe.panda.gui.model.Level;
+import hu.johndoe.panda.gui.model.Tile;
 import hu.johndoe.panda.gui.swing.GamePanel;
 import hu.johndoe.panda.gui.swing.view.game.CameraController;
-import hu.johndoe.panda.gui.swing.view.game.GameEffect;
 import hu.johndoe.panda.gui.swing.view.game.GameEffects;
 import hu.johndoe.panda.gui.swing.view.game.LevelRenderer;
-import hu.johndoe.panda.gui.util.LevelLayoutUtil;
 import hu.johndoe.panda.gui.util.LogUtil;
 
 import java.awt.*;
+import java.awt.event.KeyEvent;
 import java.awt.event.MouseEvent;
-import java.awt.geom.AffineTransform;
-import java.awt.geom.NoninvertibleTransformException;
 import java.awt.geom.Point2D;
-import java.util.HashSet;
-import java.util.Set;
 
 public class GameView extends ViewBase {
 
@@ -84,7 +83,7 @@ public class GameView extends ViewBase {
     @Override
     public void onDraw (Graphics2D g, float delta) {
 
-        g.setColor (Colors.MenuBackground);
+        g.setColor (Colors.Background);
         g.fillRect (0, 0, (int) getWidth (), (int) getHeight ());
 
         cameraController.push (g);
@@ -108,6 +107,12 @@ public class GameView extends ViewBase {
 
         GameState.getInstance ().getLevel ().update (delta);
 
+        if (GameState.getInstance ().getLevel ()
+                .animals
+                .stream ().noneMatch (Animal::canBeGrabbed)) {
+            getGamePanel ().switchView (Views.GAME_OVER);
+        }
+
     }
 
     @Override
@@ -125,7 +130,10 @@ public class GameView extends ViewBase {
                         for (Animal animal : GameState.getInstance ().getLevel ().animals) {
 
                             if (animal.select (unprojected.x, unprojected.y)) {
-                                LogUtil.log (LOGTAG, "Select animal " + animal.getClass ().getSimpleName () + " " + animal.getId ());
+                                LogUtil.log (
+                                        LOGTAG,
+                                        "Select animal " + animal.getClass ().getSimpleName () + " " + animal.getId ()
+                                );
                                 selectedAnimal = animal;
                                 inputState = InputState.AnimalSelected;
                                 break;
@@ -189,6 +197,18 @@ public class GameView extends ViewBase {
         } else {
             zoom *= 4f / 3f;
         } */
+
+    }
+
+    @Override
+    public void onKeyDown (int keyCode) {
+
+        switch (keyCode) {
+            case KeyEvent.VK_ESCAPE:
+                getGamePanel ().switchView (Views.MAIN_MENU);
+                break;
+
+        }
 
     }
 

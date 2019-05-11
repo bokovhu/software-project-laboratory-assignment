@@ -6,6 +6,8 @@ import java.util.concurrent.atomic.AtomicInteger;
 
 public abstract class BaseEntity implements Serializable {
 
+    private static final long serialVersionUID = 1L;
+
     private static final AtomicInteger ID_GENERATOR = new AtomicInteger (1);
 
     protected final int id = ID_GENERATOR.getAndIncrement ();

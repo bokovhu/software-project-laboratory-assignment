@@ -3,6 +3,7 @@ package hu.johndoe.panda.gui.swing.view;
 import hu.johndoe.panda.gui.constants.Colors;
 import hu.johndoe.panda.gui.constants.Resources;
 import hu.johndoe.panda.gui.constants.Sizes;
+import hu.johndoe.panda.gui.constants.Views;
 import hu.johndoe.panda.gui.model.*;
 import hu.johndoe.panda.gui.swing.GamePanel;
 import hu.johndoe.panda.gui.swing.view.game.CameraController;
@@ -82,7 +83,7 @@ public class LevelEditorView extends ViewBase {
     @Override
     public void onDraw (Graphics2D g, float delta) {
 
-        g.setColor (Colors.MenuBackground);
+        g.setColor (Colors.Background);
         g.fillRect (0, 0, (int) getWidth (), (int) getHeight ());
 
         cameraController.push (g);
@@ -538,6 +539,9 @@ public class LevelEditorView extends ViewBase {
                 break;
             case KeyEvent.VK_X:
                 load ();
+                break;
+            case KeyEvent.VK_ESCAPE:
+                getGamePanel ().switchView (Views.MAIN_MENU);
                 break;
         }
 

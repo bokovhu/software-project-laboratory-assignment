@@ -25,6 +25,8 @@ public class Couch extends Item {
     @Override
     public void update (float delta) {
 
+        System.out.println ("Couch update");
+
     }
 
 }

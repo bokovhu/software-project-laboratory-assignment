@@ -25,6 +25,8 @@ public class ChocolateVendingMachine extends Item {
     @Override
     public void update (float delta) {
 
+        System.out.println ("Vending machine update");
+
     }
 
 }

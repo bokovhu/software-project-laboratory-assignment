@@ -22,6 +22,8 @@ public final class ViewFactory {
                 return new GameView (gamePanel);
             case Views.LEVEL_EDITOR:
                 return new LevelEditorView (gamePanel);
+            case Views.GAME_OVER:
+                return new GameOverView (gamePanel);
             default:
                 throw new IllegalArgumentException (Errors.PandaGui_ViewFactory_InvalidViewId ());
         }

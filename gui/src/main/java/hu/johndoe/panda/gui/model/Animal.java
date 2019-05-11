@@ -183,4 +183,8 @@ public abstract class Animal extends BaseGameEntity implements Selectable {
         return false;
     }
 
+    public boolean canBeGrabbed () {
+        return false;
+    }
+
 }

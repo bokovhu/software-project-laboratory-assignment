@@ -60,6 +60,8 @@ public class Tile extends BaseGameEntity implements Selectable {
     @Override
     public void update (float delta) {
 
+        System.out.println ("Tile update");
+
     }
 
     /**

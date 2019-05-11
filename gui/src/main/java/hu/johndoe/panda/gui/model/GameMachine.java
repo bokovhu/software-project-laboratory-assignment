@@ -25,6 +25,8 @@ public class GameMachine extends Item {
     @Override
     public void update (float delta) {
 
+        System.out.println ("Game machine update");
+
     }
 
 }
