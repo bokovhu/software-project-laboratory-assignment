@@ -457,9 +457,7 @@ public class LevelEditorView extends ViewBase {
     private void load () {
 
         JFileChooser fileChooser = new JFileChooser (new File (System.getProperty ("user.dir")));
-        fileChooser.addChoosableFileFilter (
-                new FileNameExtensionFilter ("Panda Plaza Level", ".ppl")
-        );
+        fileChooser.setSelectedFile (new File ("My Level.ppl"));
         int result = fileChooser.showOpenDialog (null);
 
         if (result == JFileChooser.APPROVE_OPTION) {

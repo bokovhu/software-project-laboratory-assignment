@@ -44,15 +44,6 @@ public class GameView extends ViewBase {
     @Override
     public void onEnter () {
 
-        while (true) {
-            try {
-                LevelLayoutUtil.generateLayout (GameState.getInstance ().getLevel ());
-                break;
-            } catch (Exception e) {
-
-            }
-        }
-
     }
 
     @Override
