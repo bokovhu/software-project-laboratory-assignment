@@ -105,6 +105,12 @@ public class GameView extends ViewBase {
 
         }
 
+        for (Tile tile : GameState.getInstance ().getLevel ().tiles) {
+            if (tile.placedItem != null) {
+                tile.placedItem.update (delta);
+            }
+        }
+
         GameState.getInstance ().getLevel ().update (delta);
 
         if (GameState.getInstance ().getLevel ()
@@ -152,8 +158,15 @@ public class GameView extends ViewBase {
 
                                 if (tile.select (unprojected.x, unprojected.y)) {
 
-                                    LogUtil.log (LOGTAG, "Select tile " + tile.getId ());
-                                    selectedAnimal.moveTo (tile);
+                                    if (selectedAnimal.getStandingOn ().neighbours.contains (tile)) {
+
+                                        LogUtil.log (LOGTAG, "Select tile " + tile.getId ());
+                                        selectedAnimal.moveTo (tile);
+
+                                    } else if (tile.equals (selectedAnimal.getStandingOn ()) && tile.placedItem != null) {
+                                        tile.placedItem.use (selectedAnimal);
+                                    }
+
                                     break;
 
                                 }

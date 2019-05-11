@@ -17,6 +17,8 @@ public abstract class Wave extends BaseEntity {
      */
     public abstract void hit (Animal animal);
 
+    public abstract String getComicText ();
+
     public Tile getOrigin () {
         return origin;
     }

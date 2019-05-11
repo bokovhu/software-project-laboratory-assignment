@@ -37,7 +37,7 @@ public class FlyingDisappearingText extends GameEffect {
         );
         g.setComposite (newComposite);
 
-        g.setFont (Resources.GameFont18 ());
+        g.setFont (Resources.GameFont32 ());
 
         // Shadow
         g.setColor (Colors.Shadow);

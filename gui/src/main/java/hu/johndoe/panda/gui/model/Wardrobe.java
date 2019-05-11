@@ -39,8 +39,6 @@ public class Wardrobe extends Item {
     @Override
     public void update (float delta) {
 
-        System.out.println ("Wardrobe update");
-
     }
 
     public Wardrobe getOtherWardrobe () {

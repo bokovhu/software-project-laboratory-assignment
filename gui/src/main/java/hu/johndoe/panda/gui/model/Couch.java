@@ -7,6 +7,20 @@ import java.awt.*;
 
 public class Couch extends Item {
 
+    private boolean isTaken;
+
+
+    @Override
+    public void use (Animal user) {
+        super.use (user);
+
+        if (!isTaken) {
+            user.goToSleep (getPlacedOn ());
+            isTaken = true;
+        }
+
+    }
+
     @Override
     public void draw (Graphics2D g, float delta) {
 
@@ -25,7 +39,12 @@ public class Couch extends Item {
     @Override
     public void update (float delta) {
 
-        System.out.println ("Couch update");
+        if (!isTaken) {
+            SleepyWave wave = new SleepyWave ();
+            wave.setOrigin (getPlacedOn ());
+
+            getPlacedOn ().spawnWave (wave);
+        }
 
     }
 

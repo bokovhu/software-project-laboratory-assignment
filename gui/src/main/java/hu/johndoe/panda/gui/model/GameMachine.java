@@ -1,9 +1,11 @@
 package hu.johndoe.panda.gui.model;
 
+import hu.johndoe.panda.gui.constants.Probabilities;
 import hu.johndoe.panda.gui.constants.Resources;
 import hu.johndoe.panda.gui.constants.Sizes;
 
 import java.awt.*;
+import java.util.Random;
 
 public class GameMachine extends Item {
 
@@ -25,7 +27,12 @@ public class GameMachine extends Item {
     @Override
     public void update (float delta) {
 
-        System.out.println ("Game machine update");
+        Random random = new Random ();
+        if (random.nextFloat () < Probabilities.ChocolateVendingMachineBeepProbability) {
+            JumpyWave wave = new JumpyWave ();
+            wave.setOrigin (getPlacedOn ());
+            getPlacedOn ().spawnWave (wave);
+        }
 
     }
 

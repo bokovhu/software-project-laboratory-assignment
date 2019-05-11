@@ -3,6 +3,7 @@ package hu.johndoe.panda.gui.model;
 import hu.johndoe.panda.gui.constants.Colors;
 import hu.johndoe.panda.gui.constants.Resources;
 import hu.johndoe.panda.gui.constants.Sizes;
+import hu.johndoe.panda.gui.swing.view.game.GameEffects;
 
 import java.awt.*;
 import java.util.ArrayList;
@@ -59,8 +60,6 @@ public class Tile extends BaseGameEntity implements Selectable {
 
     @Override
     public void update (float delta) {
-
-        System.out.println ("Tile update");
 
     }
 
@@ -139,6 +138,16 @@ public class Tile extends BaseGameEntity implements Selectable {
      * @param wave the wave to push onto this tile
      */
     public void pushWave (Wave wave) {
+
+        if (wave.getComicText () != null) {
+            GameEffects.getInstance ()
+                    .addFlyingDisappearingText (
+                            wave.getComicText (),
+                            getX (), getY (),
+                            0f, -100f,
+                            1f
+                    );
+        }
 
         if (currentAnimal != null) {
             wave.hit (currentAnimal);
