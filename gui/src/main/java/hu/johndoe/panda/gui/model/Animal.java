@@ -1,5 +1,7 @@
 package hu.johndoe.panda.gui.model;
 
+import hu.johndoe.panda.gui.swing.view.game.GameEffects;
+
 public abstract class Animal extends BaseGameEntity implements Selectable {
 
     private Animal leaderAnimal;
@@ -37,6 +39,13 @@ public abstract class Animal extends BaseGameEntity implements Selectable {
             getGuidedAnimal ().stopLeading ();
         }
 
+        GameEffects.getInstance ()
+                .addFlyingDisappearingText (
+                        "Good bye!",
+                        getX (), getY (),
+                        0f, -64f,
+                        2f
+                );
     }
 
     /**
@@ -57,7 +66,16 @@ public abstract class Animal extends BaseGameEntity implements Selectable {
      */
     public void moveTo (Tile targetTile) {
 
-        targetTile.accept (this);
+        GameEffects.getInstance ()
+                .addFlyingDisappearingText (
+                        "Move",
+                        getX (), getY (),
+                        0f, -64f,
+                        2f
+                );
+        if (!standingOn.equals (targetTile)) {
+            targetTile.accept (this);
+        }
 
     }
 

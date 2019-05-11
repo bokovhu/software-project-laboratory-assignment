@@ -32,4 +32,8 @@ public final class GameState implements Serializable {
         numPoints++;
     }
 
+    public void setLevel (Level level) {
+        this.level = level;
+    }
+
 }

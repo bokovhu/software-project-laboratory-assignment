@@ -23,13 +23,15 @@ public final class LevelLayoutUtil {
 
         final float tileCircleRadius = Sizes.TileRadius;
         final float minDistanceBetweenTiles = tileCircleRadius * 2f;
-        final float minDistanceBetweenNodesAndEdges = Sizes.TileRadius * 1.5f;
+        final float minDistanceBetweenNodesAndEdges = Sizes.TileRadius * 1.25f;
 
         final float xLowerBound = 0f;
         final float yLowerBound = 0f;
 
         final float xUpperBound = (float) level.tiles.size () * minDistanceBetweenTiles * 1.8f;
         final float yUpperBound = (float) level.tiles.size () * minDistanceBetweenTiles * 1.8f;
+
+        int nTries = 0;
 
         while (true) {
 
@@ -86,6 +88,10 @@ public final class LevelLayoutUtil {
 
                             if (intersectionResult) {
                                 layoutOk = false;
+                                float vx = (random.nextFloat () - 0.5f) * minDistanceBetweenTiles;
+                                float vy = (random.nextFloat () - 0.5f) * minDistanceBetweenTiles;
+                                thirdTile.setX (thirdTile.getX () + vx);
+                                thirdTile.setY (thirdTile.getY () + vy);
                                 break;
                             }
 
@@ -97,6 +103,10 @@ public final class LevelLayoutUtil {
 
                             if (lineDistance < minDistanceBetweenNodesAndEdges) {
                                 layoutOk = false;
+                                float vx = (random.nextFloat () - 0.5f) * minDistanceBetweenNodesAndEdges;
+                                float vy = (random.nextFloat () - 0.5f) * minDistanceBetweenNodesAndEdges;
+                                thirdTile.setX (thirdTile.getX () + vx);
+                                thirdTile.setY (thirdTile.getY () + vy);
                                 break;
                             }
 
@@ -109,6 +119,8 @@ public final class LevelLayoutUtil {
             if (layoutOk) break;
 
         }
+
+        LogUtil.log (LOGTAG, "Layout has been successfully generated");
 
     }
 

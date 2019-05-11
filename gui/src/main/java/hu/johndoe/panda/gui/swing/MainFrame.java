@@ -1,8 +1,6 @@
 package hu.johndoe.panda.gui.swing;
 
 import hu.johndoe.panda.gui.constants.Resources;
-import hu.johndoe.panda.gui.logic.GameDrawRunnable;
-import hu.johndoe.panda.gui.logic.GameUpdateRunnable;
 import hu.johndoe.panda.gui.util.LogUtil;
 
 import javax.swing.*;
@@ -41,10 +39,9 @@ public class MainFrame extends JFrame {
 
         LogUtil.log (LOGTAG, "Initializing game threads");
 
-        executorService = Executors.newFixedThreadPool (2);
+        executorService = Executors.newFixedThreadPool (1);
 
-        executorService.submit (new GameDrawRunnable (this));
-        executorService.submit (new GameUpdateRunnable (this));
+        executorService.submit (new GameLoopRunnable (this));
 
     }
 

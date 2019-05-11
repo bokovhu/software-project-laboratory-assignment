@@ -1,6 +1,7 @@
 package hu.johndoe.panda.gui.model;
 
 import hu.johndoe.panda.gui.constants.Probabilities;
+import hu.johndoe.panda.gui.swing.view.game.GameEffects;
 
 import java.util.Random;
 
@@ -59,6 +60,13 @@ public abstract class Panda extends Animal {
         }
         leader.setGuidedAnimal (this);
 
+        GameEffects.getInstance ()
+                .addFlyingDisappearingText (
+                        "Let's be friends!",
+                        getX (), getY (),
+                        0f, -64f,
+                        2f
+                );
     }
 
     @Override
@@ -73,9 +81,6 @@ public abstract class Panda extends Animal {
 
             }
         }
-
-        setX (getStandingOn ().getX ());
-        setY (getStandingOn ().getY ());
 
     }
 

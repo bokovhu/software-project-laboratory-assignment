@@ -10,6 +10,9 @@ public class ChocolateVendingMachine extends Item {
     @Override
     public void draw (Graphics2D g, float delta) {
 
+        setX (getPlacedOn ().getX ());
+        setY (getPlacedOn ().getY ());
+
         g.drawImage (
                 Resources.VendingMachineTexture ().getImage (),
                 (int) getX (), (int) getY (),

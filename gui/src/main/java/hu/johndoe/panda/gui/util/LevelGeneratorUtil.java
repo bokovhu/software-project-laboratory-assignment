@@ -76,10 +76,10 @@ public final class LevelGeneratorUtil {
 
         Random random = new Random ();
 
-        final int numNodes = 10 + random.nextInt (5);
+        final int numNodes = 15 + random.nextInt (5);
         final int numItems = 1 + random.nextInt (3);
         final int numOrangutans = 1 + random.nextInt (3);
-        final int numPandas = 2 + random.nextInt (5);
+        final int numPandas = 2 + random.nextInt (3);
         final float fragileProbability = 0.3f;
 
         for (int i = 0; i < numNodes; i++) {

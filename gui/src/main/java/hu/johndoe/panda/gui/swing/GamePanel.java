@@ -50,11 +50,13 @@ public class GamePanel extends JPanel implements KeyListener, MouseListener, Mou
         lastDrawTime = now;
         screenTime += drawDelta;
 
-        Graphics2D g2 = (Graphics2D) g;
+        Graphics2D g2 = (Graphics2D) g.create ();
 
         g2.setRenderingHint (RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
 
         currentView.onDraw (g2, drawDelta);
+
+        g2.dispose ();
 
     }
 

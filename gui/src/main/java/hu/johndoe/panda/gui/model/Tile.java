@@ -1,6 +1,7 @@
 package hu.johndoe.panda.gui.model;
 
 import hu.johndoe.panda.gui.constants.Colors;
+import hu.johndoe.panda.gui.constants.Resources;
 import hu.johndoe.panda.gui.constants.Sizes;
 
 import java.awt.*;
@@ -37,6 +38,12 @@ public class Tile extends BaseGameEntity implements Selectable {
                 (int) x, (int) y,
                 (int) (Sizes.TileRadius * 2f), (int) (Sizes.TileRadius * 2f)
         );
+
+        if (isFragile) {
+            g.setColor (Colors.TextLight);
+            g.setFont (Resources.GameFont12 ());
+            g.drawString ("Fragile", getX (), getY () + Sizes.TileRadius);
+        }
 
         if (placedItem != null) {
             placedItem.setX (getX ());

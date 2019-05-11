@@ -4,6 +4,10 @@ import hu.johndoe.panda.gui.constants.Colors;
 import hu.johndoe.panda.gui.constants.Sizes;
 import hu.johndoe.panda.gui.model.*;
 import hu.johndoe.panda.gui.swing.GamePanel;
+import hu.johndoe.panda.gui.swing.view.game.CameraController;
+import hu.johndoe.panda.gui.swing.view.game.GameEffect;
+import hu.johndoe.panda.gui.swing.view.game.GameEffects;
+import hu.johndoe.panda.gui.swing.view.game.LevelRenderer;
 import hu.johndoe.panda.gui.util.LevelLayoutUtil;
 import hu.johndoe.panda.gui.util.LogUtil;
 
@@ -26,30 +30,12 @@ public class GameView extends ViewBase {
 
     }
 
-    private boolean panning = false;
-    private float panStartX = 0f;
-    private float panStartY = 0f;
-    private float panStartCameraX = 0f;
-    private float panStartCameraY = 0f;
-    private float cameraX = 0f;
-    private float cameraY = 0f;
-    private float zoom = 1f;
+    private final CameraController cameraController = new CameraController ();
 
     private InputState inputState = InputState.Initial;
     private Animal selectedAnimal = null;
 
-    final Stroke levelEdgeStroke = new BasicStroke (
-            1f,
-            BasicStroke.CAP_BUTT, BasicStroke.JOIN_BEVEL,
-            0f,
-            new float[] { 32f },
-            0f
-    );
-    final Stroke animalEdgeStroke = new BasicStroke (
-            4f,
-            BasicStroke.CAP_ROUND, BasicStroke.JOIN_ROUND
-    );
-    final Stroke defaultStroke = new BasicStroke ();
+    private final LevelRenderer levelRenderer = new LevelRenderer ();
 
     public GameView (GamePanel gamePanel) {
         super (gamePanel);
@@ -58,7 +44,14 @@ public class GameView extends ViewBase {
     @Override
     public void onEnter () {
 
-        LevelLayoutUtil.generateLayout (GameState.getInstance ().getLevel ());
+        while (true) {
+            try {
+                LevelLayoutUtil.generateLayout (GameState.getInstance ().getLevel ());
+                break;
+            } catch (Exception e) {
+
+            }
+        }
 
     }
 
@@ -67,59 +60,11 @@ public class GameView extends ViewBase {
 
     }
 
-    Set <String> visitedLevelEdges = new HashSet<> ();
-
     private void drawLevel (Graphics2D g, float delta) {
 
         Level level = GameState.getInstance ().getLevel ();
 
-        g.setColor (Colors.Tile);
-        visitedLevelEdges.clear ();
-
-        g.setStroke (levelEdgeStroke);
-
-        for (Tile tile : level.tiles) {
-            for (Tile neighbour : tile.neighbours) {
-
-                String edgeId = tile.getId () < neighbour.getId ()
-                        ? (tile.getId () + "-" + neighbour.getId ())
-                        : (neighbour.getId () + "-" + tile.getId ());
-
-                if (visitedLevelEdges.add (edgeId)) {
-
-                    g.drawLine (
-                            (int) (tile.getX () + Sizes.TileRadius),
-                            (int) (tile.getY () + Sizes.TileRadius),
-                            (int) (neighbour.getX () + Sizes.TileRadius),
-                            (int) (neighbour.getY () + Sizes.TileRadius)
-                    );
-
-                }
-
-            }
-        }
-
-        g.setStroke (animalEdgeStroke);
-
-        for (Animal animal : level.animals) {
-
-            if (animal.getGuidedAnimal () != null) {
-                g.setColor (Colors.RedButtonBackground);
-                g.drawLine (
-                        (int) animal.getX (), (int) animal.getY (),
-                        (int) animal.getGuidedAnimal ().getX (), (int) animal.getGuidedAnimal ().getY ()
-                );
-            }
-
-        }
-
-        for (Tile tile : level.tiles) {
-
-            tile.draw (g, delta);
-
-        }
-
-        g.setStroke (defaultStroke);
+        levelRenderer.renderLevel (level, g, delta);
 
         switch (inputState) {
 
@@ -136,6 +81,8 @@ public class GameView extends ViewBase {
                 break;
         }
 
+        GameEffects.getInstance ().update (delta);
+        GameEffects.getInstance ().draw (g, delta);
 
     }
 
@@ -149,13 +96,11 @@ public class GameView extends ViewBase {
         g.setColor (Colors.MenuBackground);
         g.fillRect (0, 0, (int) getWidth (), (int) getHeight ());
 
-        g.translate (-cameraX, -cameraY);
-        g.scale (zoom, zoom);
+        cameraController.push (g);
 
         drawLevel (g, delta);
 
-        g.scale (1f / zoom, 1f / zoom);
-        g.translate (cameraX, cameraY);
+        cameraController.pop (g);
 
         drawUI (g, delta);
 
@@ -174,26 +119,10 @@ public class GameView extends ViewBase {
 
     }
 
-    private Point2D.Float unproject (float x, float y) {
-
-        AffineTransform transform = new AffineTransform ();
-        transform.setToTranslation (-cameraX, -cameraY);
-        transform.scale (zoom, zoom);
-        Point2D.Float in = new Point2D.Float (x, y);
-        Point2D.Float out = new Point2D.Float ();
-        try {
-            transform.inverseTransform (in, out);
-        } catch (NoninvertibleTransformException e) {
-            e.printStackTrace ();
-        }
-        return out;
-
-    }
-
     @Override
     public void onMousePressed (int button, float x, float y) {
 
-        Point2D.Float unprojected = unproject (x, y);
+        Point2D.Float unprojected = cameraController.unproject (x, y);
 
         switch (button) {
             case MouseEvent.BUTTON1:
@@ -241,47 +170,34 @@ public class GameView extends ViewBase {
                 }
 
                 break;
-            case MouseEvent.BUTTON2:
-                panning = true;
-                panStartX = x;
-                panStartY = y;
-                panStartCameraX = cameraX;
-                panStartCameraY = cameraY;
-                break;
         }
+
+        cameraController.handleMousePress (button, x, y);
 
     }
 
     @Override
     public void onMouseReleased (int button, float x, float y) {
 
-        panning = false;
+        cameraController.handleMouseRelease (button, x, y);
 
     }
 
     @Override
     public void onMouseDragged (float x, float y) {
 
-        if (panning) {
-
-            float dx = x - panStartX;
-            float dy = y - panStartY;
-
-            cameraX = panStartCameraX - dx;
-            cameraY = panStartCameraY - dy;
-
-        }
+        cameraController.handleMouseDrag (x, y);
 
     }
 
     @Override
     public void onMouseScrolled (int amount) {
 
-        if (amount > 0) {
+        /* if (amount > 0) {
             zoom *= 3f / 4f;
         } else {
             zoom *= 4f / 3f;
-        }
+        } */
 
     }
 

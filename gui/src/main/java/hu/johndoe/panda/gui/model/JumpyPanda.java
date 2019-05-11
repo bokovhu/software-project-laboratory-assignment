@@ -22,6 +22,9 @@ public class JumpyPanda extends Panda {
     @Override
     public void draw (Graphics2D g, float delta) {
 
+        setX (getStandingOn ().getX ());
+        setY (getStandingOn ().getY ());
+
         // Draw "Jumpy" text //
 
         // Shadow

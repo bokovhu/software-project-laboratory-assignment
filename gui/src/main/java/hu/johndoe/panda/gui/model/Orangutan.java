@@ -2,6 +2,7 @@ package hu.johndoe.panda.gui.model;
 
 import hu.johndoe.panda.gui.constants.Resources;
 import hu.johndoe.panda.gui.constants.Sizes;
+import hu.johndoe.panda.gui.swing.view.game.GameEffects;
 
 import java.awt.*;
 
@@ -25,8 +26,14 @@ public class Orangutan extends Animal {
         if (getGuidedAnimal () != null) {
             getGuidedAnimal ().leadOut ();
         }
-        setGuidedAnimal (null);
         moveTo (GameState.getInstance ().getLevel ().entranceTile);
+        GameEffects.getInstance ()
+                .addFlyingDisappearingText (
+                        "Free, finally!",
+                        getX (), getY (),
+                        0f, -64f,
+                        2f
+                );
     }
 
     /**
@@ -71,12 +78,29 @@ public class Orangutan extends Animal {
 
         this.setStandingOn (otherTile);
         otherTile.setCurrentAnimal (this);
+
+
+        GameEffects.getInstance ()
+                .addFlyingDisappearingText (
+                        "Swap",
+                        getX (), getY (),
+                        0f, -64f,
+                        2f
+                );
+
     }
 
 
     @Override
     public void moveTo (Tile targetTile) {
 
+        GameEffects.getInstance ()
+                .addFlyingDisappearingText (
+                        "Move",
+                        getX (), getY (),
+                        0f, -64f,
+                        2f
+                );
         if (targetTile.accept (this) && this.theftTimer > 0) {
             theftTimer--;
         }
@@ -85,6 +109,9 @@ public class Orangutan extends Animal {
 
     @Override
     public void draw (Graphics2D g, float delta) {
+
+        setX (getStandingOn ().getX ());
+        setY (getStandingOn ().getY ());
 
         // Draw orangutan image //
 
@@ -101,16 +128,13 @@ public class Orangutan extends Animal {
     @Override
     public void update (float delta) {
 
-        setX (getStandingOn ().getX ());
-        setY (getStandingOn ().getY ());
-
     }
 
     @Override
     public boolean select (float x, float y) {
         float dx = x - (getX () + Sizes.OrangutanSize / 2f);
         float dy = y - (getY () + Sizes.OrangutanSize / 2f);
-        return (float) Math.sqrt (dx * dx + dy * dy) < Sizes.OrangutanSize / 2f;
+        return (float) Math.abs (dx) + Math.abs (dy) < Sizes.OrangutanSize / 2f;
     }
 
 }

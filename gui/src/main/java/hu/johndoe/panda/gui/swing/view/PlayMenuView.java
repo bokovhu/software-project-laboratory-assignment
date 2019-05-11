@@ -106,13 +106,8 @@ public class PlayMenuView extends ViewBase {
             case KeyEvent.VK_ENTER:
 
                 GameState.getInstance ().reset ();
-                // Generate a random level
 
-                LevelGeneratorUtil.generate (
-                        GameState.getInstance ().getLevel ()
-                );
-
-                getGamePanel ().switchView (Views.GAME);
+                getGamePanel ().switchView (Views.LEVEL_EDITOR);
 
                 break;
         }

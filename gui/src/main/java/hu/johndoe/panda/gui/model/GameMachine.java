@@ -10,6 +10,9 @@ public class GameMachine extends Item {
     @Override
     public void draw (Graphics2D g, float delta) {
 
+        setX (getPlacedOn ().getX ());
+        setY (getPlacedOn ().getY ());
+
         g.drawImage (
                 Resources.GameMachineTexture ().getImage (),
                 (int) getX (), (int) getY (),
