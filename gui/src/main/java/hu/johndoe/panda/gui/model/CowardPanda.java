@@ -48,7 +48,7 @@ public class CowardPanda extends Panda {
         g.drawImage (
                 Resources.PandaTexture ().getImage (),
                 (int) getX (), (int) getY (),
-                (int) Sizes.PandaSize, (int) Sizes.PandaSize,
+                (int) Sizes.AnimalSize, (int) Sizes.AnimalSize,
                 null
         );
 

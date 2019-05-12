@@ -65,7 +65,7 @@ public class GameView extends ViewBase {
                 g.setColor (Color.YELLOW);
                 g.drawOval (
                         (int) selectedAnimal.getX (), (int) selectedAnimal.getY (),
-                        (int) Sizes.OrangutanSize, (int) Sizes.OrangutanSize
+                        (int) Sizes.AnimalSize, (int) Sizes.AnimalSize
                 );
 
                 break;

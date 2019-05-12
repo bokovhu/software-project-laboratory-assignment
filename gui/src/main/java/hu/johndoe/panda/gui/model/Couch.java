@@ -9,7 +9,6 @@ public class Couch extends Item {
 
     private boolean isTaken;
 
-
     @Override
     public void use (Animal user) {
         super.use (user);

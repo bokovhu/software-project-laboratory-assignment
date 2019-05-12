@@ -27,14 +27,14 @@ public class MainMenuView extends ViewBase {
     @Override
     public void onEnter () {
 
-        playButton = new GameButton (
+        playButton = GameButton.bigButton (
                 PLAY_BUTTON_TEXT,
                 Colors.BlueButtonBackground,
                 getWidth () / 2f - Sizes.ButtonWidth / 2f,
                 getHeight () / 2f - Sizes.ButtonHeight / 2f
         ).onClick (() -> getGamePanel ().switchView (Views.PLAY_MENU));
 
-        exitButton = new GameButton (
+        exitButton = GameButton.bigButton (
                 EXIT_BUTTON_TEXT,
                 Colors.RedButtonBackground,
                 getWidth () / 2f - Sizes.ButtonWidth / 2f,

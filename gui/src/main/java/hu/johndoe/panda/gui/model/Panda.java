@@ -7,6 +7,9 @@ import java.util.Random;
 
 public abstract class Panda extends Animal {
 
+    public boolean isSleeping = false;
+    private float zzzTimer = 0f;
+
     /**
      * Handles an outgoing (this animal moves INTO another one) collision with another animal
      * @param animal the animal to collide with
@@ -72,13 +75,26 @@ public abstract class Panda extends Animal {
     @Override
     public void update (float delta) {
 
-        if (getLeaderAnimal () == null) {
+        if (getLeaderAnimal () == null && !isSleeping) {
             Random random = new Random ();
             if (random.nextFloat () < Probabilities.PandaMoveProbability) {
 
                 Tile target = getStandingOn ().neighbours.get (random.nextInt (getStandingOn ().neighbours.size ()));
                 moveTo (target);
 
+            }
+        }
+
+        if (isSleeping) {
+            zzzTimer += delta;
+            if (zzzTimer >= 2f) {
+                GameEffects.getInstance ()
+                        .addFlyingDisappearingText (
+                                "Zzz zzz",
+                                getX (), getY (),
+                                0, -64f,
+                                2f
+                        );
             }
         }
 

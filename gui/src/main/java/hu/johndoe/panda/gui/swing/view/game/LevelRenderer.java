@@ -16,7 +16,7 @@ public final class LevelRenderer {
             1f,
             BasicStroke.CAP_BUTT, BasicStroke.JOIN_BEVEL,
             0f,
-            new float[] { 32f },
+            new float[] {16f},
             0f
     );
     final Stroke animalEdgeStroke = new BasicStroke (
@@ -66,8 +66,10 @@ public final class LevelRenderer {
             if (animal.getGuidedAnimal () != null) {
                 g.setColor (Colors.RedButtonBackground);
                 g.drawLine (
-                        (int) animal.getX (), (int) animal.getY (),
-                        (int) animal.getGuidedAnimal ().getX (), (int) animal.getGuidedAnimal ().getY ()
+                        (int) (animal.getX () + Sizes.AnimalSize / 2f),
+                        (int) (animal.getY () + Sizes.AnimalSize / 2f),
+                        (int) (animal.getGuidedAnimal ().getX () + Sizes.AnimalSize / 2f),
+                        (int) (animal.getGuidedAnimal ().getY () + Sizes.AnimalSize / 2f)
                 );
             }
 

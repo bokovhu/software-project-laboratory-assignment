@@ -23,6 +23,10 @@ public class GamePanel extends JPanel implements KeyListener, MouseListener, Mou
 
         init ();
 
+        addMouseListener (this);
+        addMouseMotionListener (this);
+        addMouseWheelListener (this);
+
     }
 
     public void update (float delta) {

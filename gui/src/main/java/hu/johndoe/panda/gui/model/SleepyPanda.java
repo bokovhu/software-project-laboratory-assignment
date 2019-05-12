@@ -9,8 +9,6 @@ import java.util.Objects;
 
 public class SleepyPanda extends Panda {
 
-    public boolean isSleeping = false;
-
     /**
      * Causes the sleepy panda to go to sleep into the couch that is found on the parameter tile.
      *
@@ -22,10 +20,6 @@ public class SleepyPanda extends Panda {
         moveTo (where);
         isSleeping = true;
 
-    }
-
-    public void setIsSleeping (boolean v) {
-        isSleeping = v;
     }
 
     @Override
@@ -57,7 +51,7 @@ public class SleepyPanda extends Panda {
         g.drawImage (
                 Resources.PandaTexture ().getImage (),
                 (int) getX (), (int) getY (),
-                (int) Sizes.PandaSize, (int) Sizes.PandaSize,
+                (int) Sizes.AnimalSize, (int) Sizes.AnimalSize,
                 null
         );
 

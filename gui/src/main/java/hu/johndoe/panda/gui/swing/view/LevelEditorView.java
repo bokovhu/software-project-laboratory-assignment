@@ -8,6 +8,7 @@ import hu.johndoe.panda.gui.model.*;
 import hu.johndoe.panda.gui.swing.GamePanel;
 import hu.johndoe.panda.gui.swing.view.game.CameraController;
 import hu.johndoe.panda.gui.swing.view.game.LevelRenderer;
+import hu.johndoe.panda.gui.swing.view.menu.GameButton;
 
 import javax.swing.*;
 import javax.swing.filechooser.FileNameExtensionFilter;
@@ -16,10 +17,8 @@ import java.awt.event.KeyEvent;
 import java.awt.event.MouseEvent;
 import java.awt.geom.Point2D;
 import java.io.*;
-import java.util.HashSet;
 import java.util.List;
-import java.util.Optional;
-import java.util.Set;
+import java.util.*;
 import java.util.stream.Collectors;
 
 public class LevelEditorView extends ViewBase {
@@ -31,7 +30,10 @@ public class LevelEditorView extends ViewBase {
         MoveItem,
         SetEntranceTile,
         SetExitTile,
-        SetFragileTile
+        SetFragileTile,
+        DeleteAnimal,
+        DeleteItem,
+        DeleteTile
     }
 
     private Level level;
@@ -46,10 +48,11 @@ public class LevelEditorView extends ViewBase {
 
     private float startX, startY;
 
-    private float addTileX = 0f;
-    private float addTileY = 0f;
+    private float addTileX = 500f;
+    private float addTileY = 300f;
 
     Set<String> visitedLevelEdges = new HashSet<> ();
+    private List<GameButton> buttons = new ArrayList<> ();
 
     public LevelEditorView (GamePanel gamePanel) {
         super (gamePanel);
@@ -60,6 +63,229 @@ public class LevelEditorView extends ViewBase {
 
         GameState.getInstance ().reset ();
         level = GameState.getInstance ().getLevel ();
+
+        int btnIndex = 0;
+        float btnY = 48f;
+
+        // Mode selection buttons //
+
+        // Button to select "Connect Tiles" mode
+        buttons.add (
+                GameButton.smallButton (
+                        "Connect Tiles",
+                        Colors.BlueButtonBackground,
+                        btnIndex++ * Sizes.SmallButtonWidth, btnY
+                ).onClick (() -> mode = Mode.ConnectTile)
+        );
+
+        // Button to select "Move Tile" mode
+        buttons.add (GameButton.smallButton (
+                "Move Tile",
+                Colors.BlueButtonBackground,
+                btnIndex++ * Sizes.SmallButtonWidth, btnY
+        ).onClick (() -> mode = Mode.MoveTile));
+
+        // Button to select "Move Animal" mode
+        buttons.add (
+                GameButton.smallButton (
+                        "Move Animal",
+                        Colors.BlueButtonBackground,
+                        btnIndex++ * Sizes.SmallButtonWidth, btnY
+                ).onClick (() -> mode = Mode.MoveAnimal)
+        );
+
+        // Button to select "Move Item" mode
+        buttons.add (
+                GameButton.smallButton (
+                        "Move Item",
+                        Colors.BlueButtonBackground,
+                        btnIndex++ * Sizes.SmallButtonWidth, btnY
+                ).onClick (() -> mode = Mode.MoveItem)
+        );
+
+        btnIndex = 0;
+        btnY += Sizes.SmallButtonHeight + Sizes.ButtonSpacing;
+
+        // Button to select "Set Entrance" mode
+        buttons.add (
+                GameButton.smallButton (
+                        "Set Entrance",
+                        Colors.BlueButtonBackground,
+                        btnIndex++ * Sizes.SmallButtonWidth, btnY
+                ).onClick (() -> mode = Mode.SetEntranceTile)
+        );
+
+        // Button to select "Set Exit" mode
+        buttons.add (
+                GameButton.smallButton (
+                        "Set Exit",
+                        Colors.BlueButtonBackground,
+                        btnIndex++ * Sizes.SmallButtonWidth, btnY
+                ).onClick (() -> mode = Mode.SetExitTile)
+        );
+
+        // Button to select "Set Fragile" mode
+        buttons.add (
+                GameButton.smallButton (
+                        "Set Fragile",
+                        Colors.BlueButtonBackground,
+                        btnIndex++ * Sizes.SmallButtonWidth, btnY
+                ).onClick (() -> mode = Mode.SetFragileTile)
+        );
+
+        btnIndex = 0;
+        btnY += Sizes.SmallButtonHeight + Sizes.ButtonSpacing;
+
+        // Button to select "Delete Tile" mode
+        buttons.add (
+                GameButton.smallButton (
+                        "Delete Tile",
+                        Colors.RedButtonBackground,
+                        btnIndex++ * Sizes.SmallButtonWidth, btnY
+                ).onClick (() -> mode = Mode.DeleteTile)
+        );
+
+        // Button to select "Delete Animal" mode
+        buttons.add (
+                GameButton.smallButton (
+                        "Delete Animal",
+                        Colors.RedButtonBackground,
+                        btnIndex++ * Sizes.SmallButtonWidth, btnY
+                ).onClick (() -> mode = Mode.DeleteAnimal)
+        );
+
+        // Button to select "Delete Item" mode
+        buttons.add (
+                GameButton.smallButton (
+                        "Delete Item",
+                        Colors.RedButtonBackground,
+                        btnIndex++ * Sizes.SmallButtonWidth, btnY
+                ).onClick (() -> mode = Mode.DeleteItem)
+        );
+
+        btnIndex = 0;
+        btnY += Sizes.SmallButtonHeight + Sizes.ButtonSpacing;
+
+        // Buttons for adding stuff //
+
+        // Button to add a coward panda
+        buttons.add (
+                GameButton.smallButton (
+                        "+Coward Panda",
+                        Colors.BlueButtonBackground,
+                        btnIndex++ * Sizes.SmallButtonWidth, btnY
+                ).onClick (this::addCowardPanda)
+        );
+
+        // Button to add a jumpy panda
+        buttons.add (
+                GameButton.smallButton (
+                        "+Jumpy Panda",
+                        Colors.BlueButtonBackground,
+                        btnIndex++ * Sizes.SmallButtonWidth, btnY
+                ).onClick (this::addJumpyPanda)
+        );
+
+        // Button to add a sleepy panda
+        buttons.add (
+                GameButton.smallButton (
+                        "+Sleepy Panda",
+                        Colors.BlueButtonBackground,
+                        btnIndex++ * Sizes.SmallButtonWidth, btnY
+                ).onClick (this::addSleepyPanda)
+        );
+
+        // Button to add an orangutan
+        buttons.add (
+                GameButton.smallButton (
+                        "+Orangutan",
+                        Colors.BlueButtonBackground,
+                        btnIndex++ * Sizes.SmallButtonWidth, btnY
+                ).onClick (this::addOrangutan)
+        );
+
+        btnIndex = 0;
+        btnY += Sizes.SmallButtonHeight + Sizes.ButtonSpacing;
+
+        // Button to add a game machine
+        buttons.add (
+                GameButton.smallButton (
+                        "+Game Machine",
+                        Colors.BlueButtonBackground,
+                        btnIndex++ * Sizes.SmallButtonWidth, btnY
+                ).onClick (this::addGameMachine)
+        );
+
+        // Button to add a couch
+        buttons.add (
+                GameButton.smallButton (
+                        "+Couch",
+                        Colors.BlueButtonBackground,
+                        btnIndex++ * Sizes.SmallButtonWidth, btnY
+                ).onClick (this::addCouch)
+        );
+
+        // Button to add a pair of wardrobes
+        buttons.add (
+                GameButton.smallButton (
+                        "+Wardrobes",
+                        Colors.BlueButtonBackground,
+                        btnIndex++ * Sizes.SmallButtonWidth, btnY
+                ).onClick (this::addWardrobes)
+        );
+
+        // Button to add a vending machine
+        buttons.add (
+                GameButton.smallButton (
+                        "+Vending Machine",
+                        Colors.BlueButtonBackground,
+                        btnIndex++ * Sizes.SmallButtonWidth, btnY
+                ).onClick (this::addVendingMachine)
+        );
+
+        btnIndex = 0;
+        btnY += Sizes.SmallButtonHeight + Sizes.ButtonSpacing;
+
+        // Button to add a tile
+        buttons.add (
+                GameButton.smallButton (
+                        "+Tile",
+                        Colors.BlueButtonBackground,
+                        btnIndex++ * Sizes.SmallButtonWidth, btnY
+                ).onClick (this::addTile)
+        );
+
+        btnIndex = 0;
+        btnY += Sizes.SmallButtonHeight + Sizes.ButtonSpacing;
+
+        // Buttons to save and load //
+
+        // Button to save
+        buttons.add (
+                GameButton.smallButton (
+                        "Save",
+                        Colors.BlueButtonBackground,
+                        btnIndex++ * Sizes.SmallButtonWidth, btnY
+                ).onClick (this::save)
+        );
+
+        // Button to load
+        buttons.add (
+                GameButton.smallButton (
+                        "Load",
+                        Colors.BlueButtonBackground,
+                        btnIndex++ * Sizes.SmallButtonWidth, btnY
+                ).onClick (this::load)
+        );
+
+        // Button to go back to the menu
+        buttons.add (
+                GameButton.smallButton (
+                        "Back",
+                        Colors.RedButtonBackground,
+                        btnIndex++ * Sizes.SmallButtonWidth, btnY
+                ).onClick (() -> getGamePanel ().switchView (Views.MAIN_MENU))
+        );
 
     }
 
@@ -77,6 +303,8 @@ public class LevelEditorView extends ViewBase {
 
         g.setColor (Colors.TextLight);
         g.drawString ("Mode: " + mode.name (), 0, 32);
+
+        buttons.forEach (b -> b.draw (g, delta));
 
     }
 
@@ -108,8 +336,8 @@ public class LevelEditorView extends ViewBase {
             g.drawRect (
                     (int) (selectedAnimal.getX () - 4f),
                     (int) (selectedAnimal.getY () - 4f),
-                    (int) (Sizes.OrangutanSize + 8f),
-                    (int) (Sizes.OrangutanSize + 8f)
+                    (int) (Sizes.AnimalSize + 8f),
+                    (int) (Sizes.AnimalSize + 8f)
             );
 
         }
@@ -163,6 +391,8 @@ public class LevelEditorView extends ViewBase {
                                 if (!tile.neighbours.contains (selectedTile)) {
                                     selectedTile.neighbours.add (tile);
                                     tile.neighbours.add (selectedTile);
+                                } else {
+                                    tile.neighbours.remove (selectedTile);
                                 }
                             }
                         }
@@ -248,7 +478,7 @@ public class LevelEditorView extends ViewBase {
                     break;
                 case SetEntranceTile:
 
-                    level.entranceTile = null;
+                    // level.entranceTile = null;
                     for (Tile tile : level.tiles) {
                         if (tile.select (p.x, p.y)) {
                             level.entranceTile = tile;
@@ -259,10 +489,9 @@ public class LevelEditorView extends ViewBase {
                     break;
                 case SetExitTile:
 
-                    level.exitTile = null;
-                    level.tiles.stream ().filter (t -> t.isExit).forEach (t -> t.isExit = false);
                     for (Tile tile : level.tiles) {
                         if (tile.select (p.x, p.y)) {
+                            level.tiles.stream ().filter (t -> t.isExit).forEach (t -> t.isExit = false);
                             tile.isExit = true;
                             level.exitTile = tile;
                             break;
@@ -280,6 +509,65 @@ public class LevelEditorView extends ViewBase {
                     }
 
                     break;
+
+                case DeleteAnimal:
+
+                    Animal animalToRemove = null;
+                    for (Animal animal : level.animals) {
+                        if (animal.getStandingOn ().select (p.x, p.y)) {
+                            animalToRemove = animal;
+                            break;
+                        }
+                    }
+
+                    if (animalToRemove != null) {
+                        animalToRemove.getStandingOn ().setCurrentAnimal (null);
+                        level.animals.remove (animalToRemove);
+                    }
+
+                    break;
+                case DeleteItem:
+
+                    Item itemToRemove = null;
+                    for (Tile tile : level.tiles) {
+                        if (tile.placedItem != null && tile.select (p.x, p.y)) {
+                            itemToRemove = tile.placedItem;
+                            break;
+                        }
+                    }
+
+                    if (itemToRemove != null) {
+                        itemToRemove.getPlacedOn ().placedItem = null;
+                    }
+
+                    break;
+                case DeleteTile:
+
+                    Tile tileToRemove = null;
+                    for (Tile tile : level.tiles) {
+                        if (tile.select (p.x, p.y)) {
+                            tileToRemove = tile;
+                        }
+                    }
+
+                    if (tileToRemove != null) {
+                        if (tileToRemove.getCurrentAnimal () != null) {
+                            tileToRemove.getCurrentAnimal ().setStandingOn (null);
+                            level.animals.remove (tileToRemove.getCurrentAnimal ());
+                        }
+                        if (tileToRemove.placedItem != null) {
+                            tileToRemove.placedItem = null;
+                        }
+                        if (tileToRemove.equals (level.exitTile)) {
+                            level.exitTile = null;
+                        }
+                        if (tileToRemove.equals (level.entranceTile)) {
+                            level.entranceTile = null;
+                        }
+                        level.tiles.remove (tileToRemove);
+                    }
+
+                    break;
             }
 
         } else {
@@ -294,6 +582,7 @@ public class LevelEditorView extends ViewBase {
     public void onMouseReleased (int button, float x, float y) {
 
         cameraController.handleMouseRelease (button, x, y);
+        buttons.forEach (b -> b.handleMouseRelease (x, y));
 
     }
 
@@ -486,60 +775,6 @@ public class LevelEditorView extends ViewBase {
     public void onKeyDown (int keyCode) {
 
         switch (keyCode) {
-            case KeyEvent.VK_Q:
-                addCowardPanda ();
-                break;
-            case KeyEvent.VK_W:
-                addJumpyPanda ();
-                break;
-            case KeyEvent.VK_E:
-                addSleepyPanda ();
-                break;
-            case KeyEvent.VK_R:
-                addOrangutan ();
-                break;
-            case KeyEvent.VK_T:
-                addGameMachine ();
-                break;
-            case KeyEvent.VK_Z:
-                addCouch ();
-                break;
-            case KeyEvent.VK_U:
-                addWardrobes ();
-                break;
-            case KeyEvent.VK_I:
-                addVendingMachine ();
-                break;
-            case KeyEvent.VK_O:
-                addTile ();
-                break;
-            case KeyEvent.VK_A:
-                mode = Mode.ConnectTile;
-                break;
-            case KeyEvent.VK_S:
-                mode = Mode.MoveTile;
-                break;
-            case KeyEvent.VK_D:
-                mode = Mode.MoveItem;
-                break;
-            case KeyEvent.VK_F:
-                mode = Mode.MoveAnimal;
-                break;
-            case KeyEvent.VK_G:
-                mode = Mode.SetEntranceTile;
-                break;
-            case KeyEvent.VK_H:
-                mode = Mode.SetExitTile;
-                break;
-            case KeyEvent.VK_J:
-                mode = Mode.SetFragileTile;
-                break;
-            case KeyEvent.VK_Y:
-                save ();
-                break;
-            case KeyEvent.VK_X:
-                load ();
-                break;
             case KeyEvent.VK_ESCAPE:
                 getGamePanel ().switchView (Views.MAIN_MENU);
                 break;

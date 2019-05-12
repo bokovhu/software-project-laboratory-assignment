@@ -119,7 +119,7 @@ public class Orangutan extends Animal {
         g.drawImage (
                 Resources.OrangutanTexture ().getImage (),
                 (int) getX (), (int) getY (),
-                (int) Sizes.OrangutanSize, (int) Sizes.OrangutanSize,
+                (int) Sizes.AnimalSize, (int) Sizes.AnimalSize,
                 null
         );
 
@@ -132,9 +132,9 @@ public class Orangutan extends Animal {
 
     @Override
     public boolean select (float x, float y) {
-        float dx = x - (getX () + Sizes.OrangutanSize / 2f);
-        float dy = y - (getY () + Sizes.OrangutanSize / 2f);
-        return (float) Math.abs (dx) + Math.abs (dy) < Sizes.OrangutanSize / 2f;
+        float dx = x - (getX () + Sizes.AnimalSize / 2f);
+        float dy = y - (getY () + Sizes.AnimalSize / 2f);
+        return (float) Math.abs (dx) + Math.abs (dy) < Sizes.AnimalSize / 2f;
     }
 
 }

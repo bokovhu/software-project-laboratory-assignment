@@ -34,14 +34,14 @@ public class PlayMenuView extends ViewBase {
     @Override
     public void onEnter () {
 
-        loadButton = new GameButton (
+        loadButton = GameButton.bigButton (
                 LOAD_BUTTON_TEXT,
                 Colors.BlueButtonBackground,
                 getWidth () / 2f - Sizes.ButtonWidth / 2f,
                 getHeight () / 2f - Sizes.ButtonHeight / 2f
         ).onClick (this::loadLevel);
 
-        editorButton = new GameButton (
+        editorButton = GameButton.bigButton (
                 EDITOR_BUTTON_TEXT,
                 Colors.BlueButtonBackground,
                 getWidth () / 2f - Sizes.ButtonWidth / 2f,

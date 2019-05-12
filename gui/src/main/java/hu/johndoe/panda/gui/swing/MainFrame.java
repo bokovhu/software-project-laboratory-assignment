@@ -29,9 +29,11 @@ public class MainFrame extends JFrame {
         gamePanel = new GamePanel ();
 
         addKeyListener (gamePanel);
+
+        /* addKeyListener (gamePanel);
         addMouseListener (gamePanel);
         addMouseMotionListener (gamePanel);
-        addMouseWheelListener (gamePanel);
+        addMouseWheelListener (gamePanel); */
 
     }
 
