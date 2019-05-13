@@ -1,6 +1,7 @@
 package hu.johndoe.panda.gui.swing.view;
 
 import hu.johndoe.panda.gui.constants.Colors;
+import hu.johndoe.panda.gui.constants.Resources;
 import hu.johndoe.panda.gui.constants.Sizes;
 import hu.johndoe.panda.gui.constants.Views;
 import hu.johndoe.panda.gui.model.Animal;
@@ -11,6 +12,7 @@ import hu.johndoe.panda.gui.swing.GamePanel;
 import hu.johndoe.panda.gui.swing.view.game.CameraController;
 import hu.johndoe.panda.gui.swing.view.game.GameEffects;
 import hu.johndoe.panda.gui.swing.view.game.LevelRenderer;
+import hu.johndoe.panda.gui.util.GraphicsUtil;
 import hu.johndoe.panda.gui.util.LogUtil;
 
 import java.awt.*;
@@ -77,6 +79,12 @@ public class GameView extends ViewBase {
     }
 
     private void drawUI (Graphics2D g, float delta) {
+
+        GraphicsUtil.textWithShadow (
+                String.format ("Score: %d", GameState.getInstance ().getNumPoints ()),
+                16f, 48f + (float) Math.sin (getScreenTime () * 2f) * 6f,
+                Resources.GameFont32 (), g
+        );
 
     }
 
