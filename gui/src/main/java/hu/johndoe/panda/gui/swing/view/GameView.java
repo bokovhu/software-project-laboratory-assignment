@@ -228,6 +228,13 @@ public class GameView extends ViewBase {
             case KeyEvent.VK_ESCAPE:
                 getGamePanel ().switchView (Views.MAIN_MENU);
                 break;
+            case KeyEvent.VK_SPACE:
+                if (selectedAnimal != null) {
+                    selectedAnimal.stopLeading ();
+                    selectedAnimal = null;
+                    inputState = InputState.Initial;
+                }
+                break;
 
         }
 
