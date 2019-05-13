@@ -564,6 +564,9 @@ public class LevelEditorView extends ViewBase {
                         if (tileToRemove.equals (level.entranceTile)) {
                             level.entranceTile = null;
                         }
+                        for (Tile neighbour : tileToRemove.neighbours) {
+                            neighbour.neighbours.remove (tileToRemove);
+                        }
                         level.tiles.remove (tileToRemove);
                     }
 

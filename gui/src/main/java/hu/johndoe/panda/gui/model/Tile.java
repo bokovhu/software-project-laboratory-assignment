@@ -12,6 +12,8 @@ import java.util.Objects;
 
 public class Tile extends BaseGameEntity implements Selectable {
 
+    private static final long serialVersionUID = 1L;
+
     public static final int DEFAULT_LIFE = 20;
 
     public int life = DEFAULT_LIFE;

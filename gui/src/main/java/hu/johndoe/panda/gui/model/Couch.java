@@ -7,15 +7,18 @@ import java.awt.*;
 
 public class Couch extends Item {
 
-    private boolean isTaken;
+    private static final long serialVersionUID = 1L;
+
+    private boolean isTaken = false;
 
     @Override
     public void use (Animal user) {
         super.use (user);
 
         if (!isTaken) {
-            user.goToSleep (getPlacedOn ());
-            isTaken = true;
+            if (user.goToSleep (getPlacedOn ())) {
+                isTaken = true;
+            }
         }
 
     }

@@ -8,6 +8,8 @@ import java.awt.*;
 
 public class CowardPanda extends Panda {
 
+    private static final long serialVersionUID = 1L;
+
     /**
      * Scares the panda, causing it to disrupts the currently lead chain, if one is present.
      */

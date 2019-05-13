@@ -2,6 +2,8 @@ package hu.johndoe.panda.gui.model;
 
 public abstract class Wave extends BaseEntity {
 
+    private static final long serialVersionUID = 1L;
+
     private Tile origin;
 
     public Wave () {

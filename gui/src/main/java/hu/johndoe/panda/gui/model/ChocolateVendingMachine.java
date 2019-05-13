@@ -9,6 +9,8 @@ import java.util.Random;
 
 public class ChocolateVendingMachine extends Item {
 
+    private static final long serialVersionUID = 1L;
+
     @Override
     public void draw (Graphics2D g, float delta) {
 

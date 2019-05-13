@@ -8,6 +8,8 @@ import java.awt.*;
 
 public class Orangutan extends Animal {
 
+    private static final long serialVersionUID = 1L;
+
     private int theftTimer;
 
     /**
@@ -92,7 +94,7 @@ public class Orangutan extends Animal {
 
 
     @Override
-    public void moveTo (Tile targetTile) {
+    public boolean moveTo (Tile targetTile) {
 
         GameEffects.getInstance ()
                 .addFlyingDisappearingText (
@@ -104,6 +106,8 @@ public class Orangutan extends Animal {
         if (targetTile.accept (this) && this.theftTimer > 0) {
             theftTimer--;
         }
+
+        return true;
 
     }
 

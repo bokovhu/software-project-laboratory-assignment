@@ -4,6 +4,8 @@ import hu.johndoe.panda.gui.swing.view.game.GameEffects;
 
 public abstract class Animal extends BaseGameEntity implements Selectable {
 
+    private static final long serialVersionUID = 1L;
+
     private Animal leaderAnimal;
     private Animal guidedAnimal;
     private Tile standingOn;
@@ -64,7 +66,7 @@ public abstract class Animal extends BaseGameEntity implements Selectable {
      *
      * @param targetTile the tile to move to
      */
-    public void moveTo (Tile targetTile) {
+    public boolean moveTo (Tile targetTile) {
 
         GameEffects.getInstance ()
                 .addFlyingDisappearingText (
@@ -74,8 +76,10 @@ public abstract class Animal extends BaseGameEntity implements Selectable {
                         2f
                 );
         if (!standingOn.equals (targetTile)) {
-            targetTile.accept (this);
+            return targetTile.accept (this);
         }
+
+        return false;
 
     }
 
@@ -130,8 +134,8 @@ public abstract class Animal extends BaseGameEntity implements Selectable {
      *
      * @param where the tile to go to in order to sleep
      */
-    public void goToSleep (Tile where) {
-
+    public boolean goToSleep (Tile where) {
+        return false;
     }
 
     /**

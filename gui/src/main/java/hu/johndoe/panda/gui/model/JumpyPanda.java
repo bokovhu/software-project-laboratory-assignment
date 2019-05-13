@@ -8,6 +8,8 @@ import java.awt.*;
 
 public class JumpyPanda extends Panda {
 
+    private static final long serialVersionUID = 1L;
+
     /**
      * Makes the panda jump
      */

@@ -9,16 +9,21 @@ import java.util.Objects;
 
 public class SleepyPanda extends Panda {
 
+    private static final long serialVersionUID = 1L;
+
     /**
      * Causes the sleepy panda to go to sleep into the couch that is found on the parameter tile.
      *
      * @param where the tile to go to in order to sleep
      */
     @Override
-    public void goToSleep (Tile where) {
+    public boolean goToSleep (Tile where) {
 
-        moveTo (where);
-        isSleeping = true;
+        if (moveTo (where)) {
+            isSleeping = true;
+            return true;
+        }
+        return false;
 
     }
 

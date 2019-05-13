@@ -7,8 +7,10 @@ import java.util.Random;
 
 public abstract class Panda extends Animal {
 
+    private static final long serialVersionUID = 1L;
+
     public boolean isSleeping = false;
-    private float zzzTimer = 0f;
+    private float zzzTimer = 2f;
 
     /**
      * Handles an outgoing (this animal moves INTO another one) collision with another animal
@@ -28,7 +30,7 @@ public abstract class Panda extends Animal {
     @Override
     public void collideWithOrangutan (Animal orangutan) {
 
-        if (orangutan.canGrab ()) {
+        if (orangutan.canGrab () && canBeGrabbed () /* Pandas can be ungrabbable too */) {
             startLeading (orangutan);
         }
 
@@ -80,7 +82,11 @@ public abstract class Panda extends Animal {
             if (random.nextFloat () < Probabilities.PandaMoveProbability) {
 
                 Tile target = getStandingOn ().neighbours.get (random.nextInt (getStandingOn ().neighbours.size ()));
-                moveTo (target);
+
+                // Panda should not be able to just walk out
+                if (!target.isExit) {
+                    moveTo (target);
+                }
 
             }
         }
@@ -95,6 +101,7 @@ public abstract class Panda extends Animal {
                                 0, -64f,
                                 2f
                         );
+                zzzTimer = 0;
             }
         }
 

@@ -5,6 +5,8 @@ import java.util.List;
 
 public class Level extends BaseEntity implements Updatable {
 
+    private static final long serialVersionUID = 1L;
+
     public List<Tile> tiles = new ArrayList<> ();
     public Tile entranceTile;
     public Tile exitTile;

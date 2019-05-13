@@ -4,6 +4,8 @@ import java.io.Serializable;
 
 public final class GameState implements Serializable {
 
+    private static final long serialVersionUID = 1L;
+
     private static final GameState INSTANCE = new GameState ();
 
     private Level level;
