@@ -3,12 +3,13 @@ package hu.johndoe.panda.gui.model;
 import hu.johndoe.panda.gui.constants.Colors;
 import hu.johndoe.panda.gui.constants.Resources;
 import hu.johndoe.panda.gui.constants.Sizes;
+import hu.johndoe.panda.gui.constants.Strokes;
 import hu.johndoe.panda.gui.swing.view.game.GameEffects;
+import hu.johndoe.panda.gui.util.GraphicsUtil;
 
 import java.awt.*;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Objects;
 
 public class Tile extends BaseGameEntity implements Selectable {
 
@@ -16,7 +17,7 @@ public class Tile extends BaseGameEntity implements Selectable {
 
     public static final int DEFAULT_LIFE = 20;
 
-    public int life = DEFAULT_LIFE;
+    public int life = 0;
 
     public boolean isFragile;
     public boolean isExit;
@@ -24,7 +25,34 @@ public class Tile extends BaseGameEntity implements Selectable {
     public Animal currentAnimal;
     public Item placedItem;
 
-    public List <Tile> neighbours = new ArrayList<> ();
+    public List<Tile> neighbours = new ArrayList<> ();
+
+    private void drawCracks (Graphics2D g, float delta) {
+
+        if (life > 0) {
+            g.setStroke (Strokes.DefaultStroke);
+            g.setColor (Colors.TileCrack);
+        } else {
+            g.setStroke (Strokes.TileBreakStroke);
+            g.setColor (Colors.Background);
+        }
+        g.drawLine (
+                (int) getX (), (int) (getY () + Sizes.TileRadius),
+                (int) (getX () + Sizes.TileRadius / 2f), (int) (getY () + Sizes.TileRadius - Sizes.TileRadius / 3f)
+        );
+        g.drawLine (
+                (int) (getX () + Sizes.TileRadius / 2f), (int) (getY () + Sizes.TileRadius - Sizes.TileRadius / 3f),
+                (int) (getX () + Sizes.TileRadius), (int) (getY () + Sizes.TileRadius + Sizes.TileRadius / 4f)
+        );
+        g.drawLine (
+                (int) (getX () + Sizes.TileRadius), (int) (getY () + Sizes.TileRadius + Sizes.TileRadius / 4f),
+                (int) (getX () + Sizes.TileRadius * 1.5f), (int) (getY () + Sizes.TileRadius + Sizes.TileRadius / 3f)
+        );
+        g.drawLine (
+                (int) (getX () + Sizes.TileRadius * 1.5f), (int) (getY () + Sizes.TileRadius + Sizes.TileRadius / 3f),
+                (int) (getX () + Sizes.TileRadius * 2f), (int) (getY () + Sizes.TileRadius)
+        );
+    }
 
     @Override
     public void draw (Graphics2D g, float delta) {
@@ -43,9 +71,13 @@ public class Tile extends BaseGameEntity implements Selectable {
         );
 
         if (isFragile) {
-            g.setColor (Colors.TextLight);
-            g.setFont (Resources.GameFont12 ());
-            g.drawString ("Fragile", getX (), getY () + Sizes.TileRadius);
+            drawCracks (g, delta);
+            GraphicsUtil.textWithShadow (
+                    life + " / 20",
+                    getX (), getY () - 8f,
+                    Resources.GameFont18 (),
+                    g
+            );
         }
 
         if (placedItem != null) {
@@ -67,6 +99,7 @@ public class Tile extends BaseGameEntity implements Selectable {
 
     /**
      * Tries to accept an animal. When successful, the animal is moved to this tile.
+     *
      * @param animal the animal that's trying to move here
      * @return true, if the movement is successful, false otherwise
      */
@@ -77,9 +110,9 @@ public class Tile extends BaseGameEntity implements Selectable {
             return false;
         }
 
-        if(isFragile){
+        if (isFragile) {
 
-            life --;
+            life--;
 
             if (life == 0) {
                 animal.kill ();
@@ -113,12 +146,15 @@ public class Tile extends BaseGameEntity implements Selectable {
             }
         }
 
-        if (isFragile && life <= 0 && currentAnimal != null) currentAnimal.kill ();
+        if (isFragile && life <= 0 && currentAnimal != null) {
+            currentAnimal.kill ();
+        }
 
     }
 
     /**
      * Spawns a perceivable wave on this tile. The spawned tile is propagated to the tile's neighbours too.
+     *
      * @param wave the wave to spawn
      */
     public void spawnWave (Wave wave) {
@@ -137,6 +173,7 @@ public class Tile extends BaseGameEntity implements Selectable {
 
     /**
      * Pushes a wave onto this tile. If an animal is currently present on this tile, the wave hits it.
+     *
      * @param wave the wave to push onto this tile
      */
     public void pushWave (Wave wave) {
@@ -156,6 +193,7 @@ public class Tile extends BaseGameEntity implements Selectable {
         }
 
     }
+
     public Animal getCurrentAnimal () {
         return currentAnimal;
     }

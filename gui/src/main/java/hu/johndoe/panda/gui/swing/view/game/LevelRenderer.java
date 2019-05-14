@@ -2,6 +2,7 @@ package hu.johndoe.panda.gui.swing.view.game;
 
 import hu.johndoe.panda.gui.constants.Colors;
 import hu.johndoe.panda.gui.constants.Sizes;
+import hu.johndoe.panda.gui.constants.Strokes;
 import hu.johndoe.panda.gui.model.Animal;
 import hu.johndoe.panda.gui.model.Level;
 import hu.johndoe.panda.gui.model.Tile;
@@ -11,19 +12,6 @@ import java.util.HashSet;
 import java.util.Set;
 
 public final class LevelRenderer {
-
-    final Stroke levelEdgeStroke = new BasicStroke (
-            1f,
-            BasicStroke.CAP_BUTT, BasicStroke.JOIN_BEVEL,
-            0f,
-            new float[] {16f},
-            0f
-    );
-    final Stroke animalEdgeStroke = new BasicStroke (
-            4f,
-            BasicStroke.CAP_ROUND, BasicStroke.JOIN_ROUND
-    );
-    final Stroke defaultStroke = new BasicStroke ();
 
     Set<String> visitedLevelEdges = new HashSet<> ();
 
@@ -36,7 +24,7 @@ public final class LevelRenderer {
         g.setColor (Colors.Tile);
         visitedLevelEdges.clear ();
 
-        g.setStroke (levelEdgeStroke);
+        g.setStroke (Strokes.LevelEdgeStroke);
 
         for (Tile tile : level.tiles) {
             for (Tile neighbour : tile.neighbours) {
@@ -59,7 +47,7 @@ public final class LevelRenderer {
             }
         }
 
-        g.setStroke (animalEdgeStroke);
+        g.setStroke (Strokes.AnimalEdgeStroke);
 
         for (Animal animal : level.animals) {
 
@@ -81,7 +69,7 @@ public final class LevelRenderer {
 
         }
 
-        g.setStroke (defaultStroke);
+        g.setStroke (Strokes.DefaultStroke);
 
     }
 

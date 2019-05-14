@@ -127,6 +127,19 @@ public class GameView extends ViewBase {
             getGamePanel ().switchView (Views.GAME_OVER);
         }
 
+        // Check for inconsistencies
+        for (Animal animal : GameState.getInstance ().getLevel ().animals) {
+            if (animal.getStandingOn () != null && !animal.equals (animal.getStandingOn ().getCurrentAnimal ())) {
+                LogUtil.log (LOGTAG, "Inconsistency: Animal's tile contains another animal!");
+            }
+        }
+
+        for (Tile tile : GameState.getInstance ().getLevel ().tiles) {
+            if (tile.getCurrentAnimal () != null && !tile.equals (tile.getCurrentAnimal ().getStandingOn ())) {
+                LogUtil.log (LOGTAG, "Inconsistency: Tile's animal is standing on another tile!");
+            }
+        }
+
     }
 
     @Override

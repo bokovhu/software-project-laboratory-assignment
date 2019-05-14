@@ -15,6 +15,7 @@ public final class Colors {
     public static final Color Tile = ColorUtil.hex ("000000");
     public static final Color TileEntrance = ColorUtil.hex ("1a5c00");
     public static final Color TileExit = ColorUtil.hex ("840000");
+    public static final Color TileCrack = ColorUtil.hex ("343434");
 
     private Colors () {
         throw new UnsupportedOperationException (Errors.PandaGui_IllegalInstantiation ());
