@@ -9,6 +9,7 @@ import hu.johndoe.panda.gui.swing.GamePanel;
 import hu.johndoe.panda.gui.swing.view.game.CameraController;
 import hu.johndoe.panda.gui.swing.view.game.LevelRenderer;
 import hu.johndoe.panda.gui.swing.view.menu.GameButton;
+import hu.johndoe.panda.gui.util.LevelUtil;
 
 import javax.swing.*;
 import javax.swing.filechooser.FileNameExtensionFilter;
@@ -714,8 +715,6 @@ public class LevelEditorView extends ViewBase {
         tile.setX (addTileX);
         tile.setY (addTileY);
 
-        addTileX += Sizes.TileRadius * 2.2f;
-
         level.tiles.add (tile);
 
     }
@@ -763,6 +762,9 @@ public class LevelEditorView extends ViewBase {
             ) {
 
                 Level loadedLevel = (Level) ois.readObject ();
+
+                LevelUtil.fixLevel (loadedLevel);
+
                 GameState.getInstance ().setLevel (loadedLevel);
                 level = loadedLevel;
 

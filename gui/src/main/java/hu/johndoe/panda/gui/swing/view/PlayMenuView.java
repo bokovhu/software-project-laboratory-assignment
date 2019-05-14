@@ -8,6 +8,7 @@ import hu.johndoe.panda.gui.model.Level;
 import hu.johndoe.panda.gui.swing.GamePanel;
 import hu.johndoe.panda.gui.swing.view.menu.GameButton;
 import hu.johndoe.panda.gui.swing.view.menu.TitleRenderer;
+import hu.johndoe.panda.gui.util.LevelUtil;
 
 import javax.swing.*;
 import javax.swing.filechooser.FileNameExtensionFilter;
@@ -105,6 +106,7 @@ public class PlayMenuView extends ViewBase {
 
                 GameState.getInstance ().reset ();
                 Level loadedLevel = (Level) ois.readObject ();
+                LevelUtil.fixLevel (loadedLevel);
                 GameState.getInstance ().setLevel (loadedLevel);
                 getGamePanel ().switchView (Views.GAME);
 

@@ -49,7 +49,7 @@ public final class CameraController {
 
     public void handleMousePress (int button, float x, float y) {
 
-        if (button == MouseEvent.BUTTON2) {
+        if (button == MouseEvent.BUTTON2 || button == MouseEvent.BUTTON3) {
             panning = true;
             panStartX = x;
             panStartY = y;
